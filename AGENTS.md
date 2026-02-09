@@ -38,7 +38,7 @@ This is a deliberate constraint. The interactive surface (cart drawer, quantity 
 | Product catalog pages  | SSG       | Small, slowly-changing catalog. Rebuild on push.  |
 | Static pages (about, etc.) | SSG  | No dynamic content.                               |
 | Cart mutations         | SSR       | Astro Actions. Server-side, no client JS needed.  |
-| Checkout sessions      | SSR       | Astro Actions. Communicates with payment provider. |
+| Pre-order submission   | SSR       | Astro Actions. Validates and sends email notification. |
 
 ### Deployment Model
 
@@ -115,19 +115,22 @@ Do **not** invent proprietary abstractions. If there is a standard commerce term
 
 The commerce layer is intentionally minimal:
 
-1. **Cart** — Client-side state (localStorage or cookie). No server-side cart persistence for v1.
-2. **Checkout** — An Astro Action creates a checkout session with the payment provider, passing line items and amounts.
-3. **Payment** — Handled entirely by the third-party provider's hosted checkout. We do not handle card details.
-4. **Order confirmation** — Webhook or redirect callback from the payment provider.
+1. **Cart** — Client-side state (localStorage). No server-side cart persistence for v1.
+2. **Pre-Order Submission** — An Astro Action receives the cart contents and customer details, validates them, and sends an email notification to the shop owner.
+3. **Email Notification** — The order details are sent via an email provider (e.g., Resend). No payment is collected at submission time.
+4. **Order Confirmation** — The customer sees a confirmation page after successful submission. The shop owner follows up manually to arrange payment and fulfillment.
+
+This is a **pre-order model**: customers express intent to purchase, and the shop owner handles payment and logistics offline. This fits the small-batch, seasonal nature of the business.
 
 ### Vendor-Agnostic Design
 
-Business logic must be **decoupled from the payment provider**. Concretely:
+Business logic must be **decoupled from external service providers**. Concretely:
 
-- Define a `PaymentProvider` interface (TypeScript) for operations like `createCheckoutSession`, `verifyWebhookSignature`, etc.
-- The initial implementation targets a specific provider (e.g., Stripe), but the interface boundary allows future migration.
-- Payment provider details (API keys, webhook secrets) live in environment variables, never in source code.
-- No payment provider SDK types should leak into domain types. Map to/from domain types at the adapter boundary.
+- Define an `EmailProvider` interface (TypeScript) for sending order notification emails.
+- The initial implementation targets Resend (simple fetch-based, no SDK), but the interface boundary allows future migration.
+- A `PaymentProvider` interface is defined for future use when online payment is needed. It is not active in v1.
+- Provider details (API keys, secrets) live in environment variables, never in source code.
+- No provider SDK types should leak into domain types. Map to/from domain types at the adapter boundary.
 
 ---
 
@@ -183,7 +186,8 @@ src/
   layouts/          # Page layouts
   lib/              # Shared utilities, types, commerce logic
     commerce/       # Cart, line item, pricing logic
-    payment/        # Payment provider interface + adapter
+    email/          # Email provider interface + adapter (order notifications)
+    payment/        # Payment provider interface + adapter (future use)
   pages/            # Astro pages (file-based routing)
   styles/           # Global styles, Tailwind config
 public/
@@ -217,6 +221,7 @@ public/
 
 The following are explicitly deferred:
 
+- **Online payment processing** — The `PaymentProvider` interface exists for future use, but v1 uses email-based pre-orders with offline payment.
 - **Blog / content marketing** — Not needed for initial launch.
 - **User accounts / authentication** — Checkout is guest-only.
 - **Server-side cart persistence** — Cart lives client-side.

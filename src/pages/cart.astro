@@ -1,0 +1,168 @@
+---
+import BaseLayout from "../layouts/base-layout.astro";
+---
+
+<BaseLayout title="Cart" description="Review your dahlia tuber selections before checkout.">
+  <section class="px-6 py-12 max-w-3xl">
+    <h1 class="mb-8">Your Cart</h1>
+
+    <div id="cart-empty" class="py-16 text-center" hidden>
+      <p class="text-neutral-500 text-lg mb-6">Your cart is empty.</p>
+      <a
+        href="/varieties"
+        class="inline-block border border-black px-6 py-3 text-sm uppercase tracking-widest no-underline hover:bg-black hover:text-white transition-colors"
+      >
+        Browse Varieties
+      </a>
+    </div>
+
+    <div id="cart-contents" hidden>
+      <table class="w-full text-left">
+        <thead>
+          <tr class="border-b-2 border-black text-xs uppercase tracking-widest">
+            <th class="pb-3">Variety</th>
+            <th class="pb-3 text-center">Qty</th>
+            <th class="pb-3 text-right">Price</th>
+            <th class="pb-3 text-right">Subtotal</th>
+            <th class="pb-3 w-10"><span class="sr-only">Remove</span></th>
+          </tr>
+        </thead>
+        <tbody id="cart-items"></tbody>
+      </table>
+
+      <div class="border-t-2 border-black mt-6 pt-6 flex items-center justify-between">
+        <span class="text-sm uppercase tracking-widest">Total</span>
+        <span id="cart-total" class="text-2xl font-bold"></span>
+      </div>
+
+      <div class="mt-8 flex flex-col sm:flex-row gap-4">
+        <a
+          href="/varieties"
+          class="border border-black px-6 py-4 text-sm uppercase tracking-widest text-center no-underline hover:bg-black hover:text-white transition-colors"
+        >
+          Continue Shopping
+        </a>
+        <a
+          id="checkout-link"
+          href="/checkout"
+          class="flex-1 border border-black bg-black text-white px-6 py-4 text-sm uppercase tracking-widest text-center no-underline hover:bg-neutral-800 transition-colors"
+        >
+          Proceed to Checkout
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import {
+    loadCart,
+    saveCart,
+    updateQuantity,
+    removeItem,
+    getCartSubtotal,
+    getCartItemCount,
+  } from "../lib/commerce/cart";
+  import { formatPrice } from "../lib/commerce/pricing";
+
+  function renderCart() {
+    const cart = loadCart();
+    const emptyEl = document.getElementById("cart-empty")!;
+    const contentsEl = document.getElementById("cart-contents")!;
+    const itemsEl = document.getElementById("cart-items")!;
+    const totalEl = document.getElementById("cart-total")!;
+    const cartCountEl = document.getElementById("cart-count");
+
+    if (cart.items.length === 0) {
+      emptyEl.hidden = false;
+      contentsEl.hidden = true;
+      if (cartCountEl) cartCountEl.hidden = true;
+      return;
+    }
+
+    emptyEl.hidden = true;
+    contentsEl.hidden = false;
+
+    itemsEl.innerHTML = cart.items
+      .map(
+        (item) => `
+        <tr class="border-b border-neutral-200">
+          <td class="py-4">
+            <span class="font-semibold">${item.name}</span>
+            <br />
+            <span class="text-xs text-neutral-500">${item.sku}</span>
+          </td>
+          <td class="py-4 text-center">
+            <div class="inline-flex items-center border border-black">
+              <button
+                type="button"
+                class="qty-btn px-3 py-1 text-sm hover:bg-black hover:text-white transition-colors"
+                data-sku="${item.sku}"
+                data-action="decrement"
+                aria-label="Decrease quantity of ${item.name}"
+              >−</button>
+              <span class="px-3 py-1 text-sm min-w-[2rem] text-center">${item.quantity}</span>
+              <button
+                type="button"
+                class="qty-btn px-3 py-1 text-sm hover:bg-black hover:text-white transition-colors"
+                data-sku="${item.sku}"
+                data-action="increment"
+                aria-label="Increase quantity of ${item.name}"
+              >+</button>
+            </div>
+          </td>
+          <td class="py-4 text-right text-sm">${formatPrice(item.price)}</td>
+          <td class="py-4 text-right font-semibold">${formatPrice(item.price * item.quantity)}</td>
+          <td class="py-4 text-right">
+            <button
+              type="button"
+              class="remove-btn text-neutral-400 hover:text-black transition-colors"
+              data-sku="${item.sku}"
+              aria-label="Remove ${item.name} from cart"
+            >✕</button>
+          </td>
+        </tr>
+      `,
+      )
+      .join("");
+
+    totalEl.textContent = formatPrice(getCartSubtotal(cart));
+
+    // Update cart count badge
+    if (cartCountEl) {
+      const count = getCartItemCount(cart);
+      cartCountEl.textContent = String(count);
+      cartCountEl.hidden = count === 0;
+    }
+
+    // Bind quantity buttons
+    itemsEl.querySelectorAll<HTMLButtonElement>(".qty-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        let current = loadCart();
+        const sku = btn.dataset.sku!;
+        const lineItem = current.items.find((i) => i.sku === sku);
+        if (!lineItem) return;
+
+        const newQty =
+          btn.dataset.action === "increment"
+            ? lineItem.quantity + 1
+            : lineItem.quantity - 1;
+        current = updateQuantity(current, sku, newQty);
+        saveCart(current);
+        renderCart();
+      });
+    });
+
+    // Bind remove buttons
+    itemsEl.querySelectorAll<HTMLButtonElement>(".remove-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        let current = loadCart();
+        current = removeItem(current, btn.dataset.sku!);
+        saveCart(current);
+        renderCart();
+      });
+    });
+  }
+
+  renderCart();
+</script>

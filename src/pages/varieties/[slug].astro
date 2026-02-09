@@ -1,0 +1,117 @@
+---
+import BaseLayout from "../../layouts/base-layout.astro";
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+import { formatPrice } from "../../lib/commerce/pricing";
+
+export async function getStaticPaths() {
+  const varieties = await getCollection("varieties");
+  return varieties.map((variety) => ({
+    params: { slug: variety.id.replace(/\.md$/, "") },
+    props: { variety },
+  }));
+}
+
+const { variety } = Astro.props;
+const { name, price, stock, category, color, bloomSize, height, image } =
+  variety.data;
+const { Content } = await variety.render();
+
+const stockLabel: Record<string, string> = {
+  available: "In Stock",
+  low: "Low Stock — order soon",
+  "sold-out": "Sold Out",
+};
+
+const canAddToCart = stock !== "sold-out";
+---
+
+<BaseLayout title={name} description={`${name} dahlia tubers — ${formatPrice(price)}`}>
+  <article class="px-6 py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl">
+      <div class="border border-black">
+        <Image
+          src={image}
+          alt={`${name} dahlia bloom`}
+          width={800}
+          height={600}
+          class="w-full h-auto"
+        />
+      </div>
+
+      <div>
+        <p class="text-xs uppercase tracking-widest text-neutral-500 mb-2">
+          {category}
+        </p>
+        <h1 class="mb-4">{name}</h1>
+        <p class="text-3xl font-bold mb-6">{formatPrice(price)}</p>
+
+        <dl class="grid grid-cols-2 gap-y-3 text-sm mb-8 border-t border-black pt-6">
+          <dt class="font-semibold">Bloom Size</dt>
+          <dd>{bloomSize}</dd>
+          <dt class="font-semibold">Height</dt>
+          <dd>{height}</dd>
+          <dt class="font-semibold">Colors</dt>
+          <dd>{color.join(", ")}</dd>
+          <dt class="font-semibold">Availability</dt>
+          <dd>{stockLabel[stock]}</dd>
+        </dl>
+
+        {canAddToCart ? (
+          <button
+            id="add-to-cart"
+            type="button"
+            class="w-full border border-black px-6 py-4 text-sm uppercase tracking-widest hover:bg-black hover:text-white transition-colors"
+            data-sku={variety.data.sku}
+            data-name={name}
+            data-price={price}
+          >
+            Add to Cart
+          </button>
+        ) : (
+          <p class="w-full border border-neutral-300 px-6 py-4 text-sm uppercase tracking-widest text-center text-neutral-400">
+            Sold Out
+          </p>
+        )}
+
+        <div class="prose mt-10 border-t border-black pt-8">
+          <Content />
+        </div>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<script>
+  import { loadCart, saveCart, addItem, getCartItemCount } from "../../lib/commerce/cart";
+
+  const button = document.getElementById("add-to-cart") as HTMLButtonElement | null;
+  if (button) {
+    button.addEventListener("click", () => {
+      const sku = button.dataset.sku!;
+      const name = button.dataset.name!;
+      const price = Number(button.dataset.price!);
+
+      let cart = loadCart();
+      cart = addItem(cart, { sku, name, price });
+      saveCart(cart);
+
+      // Update cart count in header
+      const cartCount = document.getElementById("cart-count");
+      if (cartCount) {
+        const count = getCartItemCount(cart);
+        cartCount.textContent = String(count);
+        cartCount.hidden = false;
+      }
+
+      // Brief feedback on the button
+      const original = button.textContent;
+      button.textContent = "Added!";
+      button.disabled = true;
+      setTimeout(() => {
+        button.textContent = original;
+        button.disabled = false;
+      }, 1200);
+    });
+  }
+</script>

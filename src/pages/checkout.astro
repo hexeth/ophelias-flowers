@@ -1,0 +1,185 @@
+---
+import BaseLayout from "../layouts/base-layout.astro";
+---
+
+<BaseLayout title="Checkout" description="Submit your dahlia tuber pre-order.">
+  <section class="px-6 py-12 max-w-2xl">
+    <h1 class="mb-2">Pre-Order Checkout</h1>
+    <p class="text-neutral-500 mb-10">
+      Submit your order and we'll follow up to arrange payment and delivery.
+    </p>
+
+    <div id="checkout-empty" class="py-16 text-center" hidden>
+      <p class="text-neutral-500 text-lg mb-6">Your cart is empty.</p>
+      <a
+        href="/varieties"
+        class="inline-block border border-black px-6 py-3 text-sm uppercase tracking-widest no-underline hover:bg-black hover:text-white transition-colors"
+      >
+        Browse Varieties
+      </a>
+    </div>
+
+    <div id="checkout-form-wrapper" hidden>
+      <!-- Order summary -->
+      <div class="border border-black p-6 mb-8">
+        <h2 class="text-lg font-bold mb-4 uppercase tracking-widest">Order Summary</h2>
+        <div id="order-summary"></div>
+        <div class="border-t border-black mt-4 pt-4 flex justify-between items-center">
+          <span class="font-semibold">Total</span>
+          <span id="order-total" class="text-xl font-bold"></span>
+        </div>
+      </div>
+
+      <!-- Customer form -->
+      <form id="preorder-form" method="POST">
+        <input type="hidden" name="items" id="items-input" value="[]" />
+
+        <fieldset class="border border-black p-6">
+          <legend class="text-xs uppercase tracking-widest font-bold px-2">Your Details</legend>
+
+          <div class="space-y-6 mt-4">
+            <div>
+              <label for="customerName" class="block text-sm font-semibold mb-1">
+                Full Name <span class="text-dahlia-wine">*</span>
+              </label>
+              <input
+                type="text"
+                id="customerName"
+                name="customerName"
+                required
+                autocomplete="name"
+                class="w-full border border-black px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-black"
+              />
+            </div>
+
+            <div>
+              <label for="customerEmail" class="block text-sm font-semibold mb-1">
+                Email <span class="text-dahlia-wine">*</span>
+              </label>
+              <input
+                type="email"
+                id="customerEmail"
+                name="customerEmail"
+                required
+                autocomplete="email"
+                class="w-full border border-black px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-black"
+              />
+            </div>
+
+            <div>
+              <label for="customerPhone" class="block text-sm font-semibold mb-1">
+                Phone <span class="text-dahlia-wine">*</span>
+              </label>
+              <input
+                type="tel"
+                id="customerPhone"
+                name="customerPhone"
+                required
+                autocomplete="tel"
+                class="w-full border border-black px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-black"
+              />
+            </div>
+
+            <div>
+              <label for="customerNotes" class="block text-sm font-semibold mb-1">
+                Notes <span class="text-neutral-400">(optional)</span>
+              </label>
+              <textarea
+                id="customerNotes"
+                name="customerNotes"
+                rows="3"
+                class="w-full border border-black px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-black resize-vertical"
+                placeholder="Questions, delivery preferences, etc."
+              ></textarea>
+            </div>
+          </div>
+        </fieldset>
+
+        <div id="form-error" class="mt-4 border border-dahlia-wine text-dahlia-wine px-4 py-3 text-sm" hidden></div>
+
+        <button
+          type="submit"
+          id="submit-btn"
+          class="w-full mt-8 border border-black bg-black text-white px-6 py-4 text-sm uppercase tracking-widest hover:bg-neutral-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Submit Pre-Order
+        </button>
+
+        <p class="mt-4 text-xs text-neutral-500 text-center">
+          No payment is collected now. We'll contact you to arrange payment and delivery details.
+        </p>
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { actions } from "astro:actions";
+  import { loadCart, saveCart, createEmptyCart, getCartSubtotal } from "../lib/commerce/cart";
+  import { formatPrice } from "../lib/commerce/pricing";
+
+  const cart = loadCart();
+  const emptyEl = document.getElementById("checkout-empty")!;
+  const formWrapper = document.getElementById("checkout-form-wrapper")!;
+
+  if (cart.items.length === 0) {
+    emptyEl.hidden = false;
+    formWrapper.hidden = true;
+  } else {
+    emptyEl.hidden = true;
+    formWrapper.hidden = false;
+
+    // Render order summary
+    const summaryEl = document.getElementById("order-summary")!;
+    summaryEl.innerHTML = cart.items
+      .map(
+        (item) => `
+        <div class="flex justify-between py-2 text-sm">
+          <span>${item.name} <span class="text-neutral-500">× ${item.quantity}</span></span>
+          <span>${formatPrice(item.price * item.quantity)}</span>
+        </div>
+      `,
+      )
+      .join("");
+
+    document.getElementById("order-total")!.textContent = formatPrice(
+      getCartSubtotal(cart),
+    );
+
+    // Set hidden items input
+    (document.getElementById("items-input") as HTMLInputElement).value =
+      JSON.stringify(cart.items);
+  }
+
+  // Handle form submission
+  const form = document.getElementById("preorder-form") as HTMLFormElement;
+  const submitBtn = document.getElementById("submit-btn") as HTMLButtonElement;
+  const errorEl = document.getElementById("form-error")!;
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting…";
+    errorEl.hidden = true;
+
+    const formData = new FormData(form);
+    const { data, error } = await actions.submitPreOrder(formData);
+
+    if (error) {
+      errorEl.textContent = error.message || "Something went wrong. Please try again.";
+      errorEl.hidden = false;
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit Pre-Order";
+      return;
+    }
+
+    // Clear cart and redirect to confirmation
+    saveCart(createEmptyCart());
+    const params = new URLSearchParams({
+      name: data.customerName,
+      total: data.total,
+      count: String(data.itemCount),
+    });
+    window.location.href = `/order-confirmed?${params.toString()}`;
+  });
+</script>

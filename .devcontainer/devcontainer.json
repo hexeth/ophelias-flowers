@@ -18,7 +18,7 @@
       "extensions": [
         "astro-build.astro-vscode",
         "bradlc.vscode-tailwindcss",
-        "dbaeumer.vscode-eslint",
+        "oxc.oxc-vscode",
         "esbenp.prettier-vscode",
         "ms-playwright.playwright"
       ],

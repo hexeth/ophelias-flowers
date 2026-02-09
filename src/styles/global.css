@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply text-black bg-white antialiased;
+  }
+
+  body {
+    @apply min-h-screen flex flex-col;
+  }
+
+  h1 {
+    @apply text-5xl font-bold tracking-tight leading-tight;
+  }
+
+  h2 {
+    @apply text-3xl font-bold tracking-tight;
+  }
+
+  h3 {
+    @apply text-xl font-semibold;
+  }
+
+  a {
+    @apply underline underline-offset-2;
+  }
+}

@@ -1,0 +1,54 @@
+---
+import BaseLayout from "../layouts/base-layout.astro";
+---
+
+<BaseLayout title="Order Confirmed" description="Your pre-order has been submitted successfully.">
+  <section class="px-6 py-16 max-w-2xl">
+    <h1 class="mb-6">Order Confirmed</h1>
+
+    <div id="confirmation-details" class="space-y-4 text-neutral-600 leading-relaxed">
+      <p class="text-lg">
+        Thank you, <span id="customer-name" class="font-semibold text-black"></span>!
+        Your pre-order has been submitted.
+      </p>
+
+      <div class="border border-black p-6 my-8">
+        <dl class="grid grid-cols-2 gap-y-3 text-sm">
+          <dt class="font-semibold">Items</dt>
+          <dd id="item-count"></dd>
+          <dt class="font-semibold">Estimated Total</dt>
+          <dd id="order-total" class="font-bold"></dd>
+        </dl>
+      </div>
+
+      <h2 class="text-xl font-bold mt-8">What happens next?</h2>
+      <ol class="list-decimal list-inside space-y-2 text-sm">
+        <li>We'll review your order and confirm availability.</li>
+        <li>We'll reach out via email to arrange payment.</li>
+        <li>Your tubers will ship in spring, timed for planting after last frost.</li>
+      </ol>
+
+      <p class="mt-8">
+        Questions? Reply to the confirmation email or reach out directly.
+      </p>
+
+      <a
+        href="/varieties"
+        class="inline-block mt-6 border border-black px-6 py-3 text-sm uppercase tracking-widest no-underline hover:bg-black hover:text-white transition-colors"
+      >
+        Continue Browsing
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const nameEl = document.getElementById("customer-name");
+  const countEl = document.getElementById("item-count");
+  const totalEl = document.getElementById("order-total");
+
+  if (nameEl) nameEl.textContent = params.get("name") || "there";
+  if (countEl) countEl.textContent = `${params.get("count") || "0"} tuber(s)`;
+  if (totalEl) totalEl.textContent = params.get("total") || "$0.00";
+</script>

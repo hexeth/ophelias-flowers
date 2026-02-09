@@ -1,0 +1,50 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+
+interface Props {
+  variety: CollectionEntry<"varieties">;
+}
+
+const { variety } = Astro.props;
+const { name, price, stock, category, image } = variety.data;
+const slug = variety.id.replace(/\.md$/, "");
+
+const stockLabel: Record<string, string> = {
+  available: "In Stock",
+  low: "Low Stock",
+  "sold-out": "Sold Out",
+};
+
+const stockClass: Record<string, string> = {
+  available: "text-black",
+  low: "text-dahlia-wine",
+  "sold-out": "text-neutral-400 line-through",
+};
+---
+
+<article class="border border-black">
+  <a href={`/varieties/${slug}`} class="block no-underline">
+    <div class="aspect-[4/3] overflow-hidden">
+      <Image
+        src={image}
+        alt={`${name} dahlia bloom`}
+        width={600}
+        height={450}
+        class="w-full h-full object-cover"
+      />
+    </div>
+    <div class="p-4 border-t border-black">
+      <p class="text-xs uppercase tracking-widest text-neutral-500 mb-1">
+        {category}
+      </p>
+      <h3 class="text-lg font-semibold">{name}</h3>
+      <div class="flex items-center justify-between mt-2">
+        <span class="text-lg font-bold">${price.toFixed(2)}</span>
+        <span class={`text-xs uppercase tracking-wider ${stockClass[stock]}`}>
+          {stockLabel[stock]}
+        </span>
+      </div>
+    </div>
+  </a>
+</article>
