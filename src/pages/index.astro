@@ -1,11 +1,13 @@
 ---
+import { Image } from "astro:assets";
+import heroImage from "../assets/hero.jpg";
+import logo from "../assets/logo.png";
 import BaseLayout from "../layouts/base-layout.astro";
 import VarietyCard from "../components/variety-card.astro";
 import { getCollection } from "astro:content";
 
 const varieties = await getCollection("varieties");
 const featured = varieties.slice(0, 3);
-const heroImage = "/images/hero.jpg";
 ---
 
 <BaseLayout title="Home">
@@ -13,11 +15,12 @@ const heroImage = "/images/hero.jpg";
   <section class="relative w-full overflow-hidden">
     {
       heroImage && (
-        <img
+        <Image
           src={heroImage}
           alt=""
           loading="eager"
           decoding="async"
+          sizes="100vw"
           class="w-full h-[70vh] sm:h-[80vh] object-cover"
         />
       )
@@ -29,6 +32,16 @@ const heroImage = "/images/hero.jpg";
     <div
       class="absolute bottom-0 left-0 right-0 px-4 sm:px-8 lg:px-12 pb-10 sm:pb-14 lg:pb-20"
     >
+      <div class="inline-block bg-cream/90 p-3 sm:p-4 mb-6">
+        <Image
+          src={logo}
+          alt="Ophelia's Flowers logo"
+          width={160}
+          height={160}
+          loading="eager"
+          class="w-20 h-20 sm:w-28 sm:h-28 lg:w-36 lg:h-36"
+        />
+      </div>
       <h1
         class="font-serif text-6xl sm:text-7xl lg:text-8xl tracking-tighter text-cream mb-6"
       >
