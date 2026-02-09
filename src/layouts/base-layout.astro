@@ -1,4 +1,6 @@
 ---
+import Breadcrumbs from "../components/breadcrumbs.astro";
+
 interface Props {
   title: string;
   description?: string;
@@ -126,6 +128,8 @@ const {
         </nav>
       </header>
     </slot>
+
+    <Breadcrumbs />
 
     <main class="flex-1">
       <slot />

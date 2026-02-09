@@ -1,0 +1,74 @@
+---
+/**
+ * Auto-generates breadcrumb trail from the current URL path.
+ * Hidden on the homepage (/ → no breadcrumbs).
+ */
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+
+interface Crumb {
+  label: string;
+  href: string;
+}
+
+const labelMap: Record<string, string> = {
+  varieties: "Shop",
+  about: "About",
+  cart: "Cart",
+  checkout: "Checkout",
+  "order-confirmed": "Order Confirmed",
+};
+
+function buildCrumbs(pathname: string): Crumb[] {
+  if (pathname === "/") return [];
+
+  const segments = pathname.split("/").filter(Boolean);
+  const crumbs: Crumb[] = [{ label: "Home", href: "/" }];
+
+  let accumulated = "";
+  for (const segment of segments) {
+    accumulated += `/${segment}`;
+    const label = labelMap[segment] ?? segment.replace(/-/g, " ");
+    crumbs.push({ label, href: accumulated });
+  }
+
+  return crumbs;
+}
+
+const crumbs = buildCrumbs(path);
+---
+
+{
+  crumbs.length > 0 && (
+    <nav
+      aria-label="Breadcrumb"
+      class="px-4 sm:px-8 lg:px-12 py-4"
+    >
+      <ol class="flex flex-wrap items-center gap-1 text-xs uppercase tracking-widest text-stone-500">
+        {crumbs.map((crumb, i) => {
+          const isLast = i === crumbs.length - 1;
+          return (
+            <li class="flex items-center gap-1">
+              {i > 0 && (
+                <span class="select-none" aria-hidden="true">
+                  /
+                </span>
+              )}
+              {isLast ? (
+                <span class="text-ink font-semibold" aria-current="page">
+                  {crumb.label}
+                </span>
+              ) : (
+                <a
+                  href={crumb.href}
+                  class="no-underline hover:text-ink transition-colors"
+                >
+                  {crumb.label}
+                </a>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+  )
+}
