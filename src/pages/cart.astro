@@ -2,7 +2,10 @@
 import BaseLayout from "../layouts/base-layout.astro";
 ---
 
-<BaseLayout title="Cart" description="Review your dahlia tuber selections before checkout.">
+<BaseLayout
+  title="Cart"
+  description="Review your dahlia tuber selections before checkout."
+>
   <section class="px-4 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-20">
     <div class="max-w-3xl">
       <h1 class="mb-8 lg:mb-12">Your Cart</h1>
@@ -31,7 +34,9 @@ import BaseLayout from "../layouts/base-layout.astro";
           <tbody id="cart-items"></tbody>
         </table>
 
-        <div class="border-t-2 border-ink mt-6 pt-6 flex items-center justify-between">
+        <div
+          class="border-t-2 border-ink mt-6 pt-6 flex items-center justify-between"
+        >
           <span class="text-xs uppercase tracking-widest">Total</span>
           <span id="cart-total" class="font-serif text-2xl"></span>
         </div>
@@ -156,14 +161,16 @@ import BaseLayout from "../layouts/base-layout.astro";
     });
 
     // Bind remove buttons
-    itemsEl.querySelectorAll<HTMLButtonElement>(".remove-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        let current = loadCart();
-        current = removeItem(current, btn.dataset.sku!);
-        saveCart(current);
-        renderCart();
+    itemsEl
+      .querySelectorAll<HTMLButtonElement>(".remove-btn")
+      .forEach((btn) => {
+        btn.addEventListener("click", () => {
+          let current = loadCart();
+          current = removeItem(current, btn.dataset.sku!);
+          saveCart(current);
+          renderCart();
+        });
       });
-    });
   }
 
   renderCart();

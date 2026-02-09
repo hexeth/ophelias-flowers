@@ -12,15 +12,15 @@ The goal is a **high-performance, lightweight** storefront — fast to load, sim
 
 ### Tech Stack
 
-| Layer        | Technology                              |
-| ------------ | --------------------------------------- |
-| Framework    | Astro (SSG + SSR)                       |
-| Language     | TypeScript (strict mode)                |
-| Styling      | Tailwind CSS                            |
-| Typography   | Playfair Display (Google Fonts, headings only) |
-| Deployment   | Cloudflare Pages (with CI/CD pipeline)  |
-| Testing      | Vitest (unit), Playwright (e2e)         |
-| Images       | Astro `<Image>` / `<Picture>` + sharp   |
+| Layer      | Technology                                     |
+| ---------- | ---------------------------------------------- |
+| Framework  | Astro (SSG + SSR)                              |
+| Language   | TypeScript (strict mode)                       |
+| Styling    | Tailwind CSS                                   |
+| Typography | Playfair Display (Google Fonts, headings only) |
+| Deployment | Cloudflare Pages (with CI/CD pipeline)         |
+| Testing    | Vitest (unit), Playwright (e2e)                |
+| Images     | Astro `<Image>` / `<Picture>` + sharp          |
 
 ### No Client Framework
 
@@ -34,12 +34,12 @@ This is a deliberate constraint. The interactive surface (cart drawer, quantity 
 
 ### SSG / SSR Split
 
-| Concern               | Rendering | Why                                              |
-| ---------------------- | --------- | ------------------------------------------------ |
-| Product catalog pages  | SSG       | Small, slowly-changing catalog. Rebuild on push.  |
-| Static pages (about, etc.) | SSG  | No dynamic content.                               |
-| Cart mutations         | SSR       | Astro Actions. Server-side, no client JS needed.  |
-| Pre-order submission   | SSR       | Astro Actions. Validates and sends email notification. |
+| Concern                    | Rendering | Why                                                    |
+| -------------------------- | --------- | ------------------------------------------------------ |
+| Product catalog pages      | SSG       | Small, slowly-changing catalog. Rebuild on push.       |
+| Static pages (about, etc.) | SSG       | No dynamic content.                                    |
+| Cart mutations             | SSR       | Astro Actions. Server-side, no client JS needed.       |
+| Pre-order submission       | SSR       | Astro Actions. Validates and sends email notification. |
 
 ### Deployment Model
 
@@ -62,7 +62,7 @@ Cloudflare Pages with CI/CD. A push to the main branch triggers a rebuild and de
 
 Typography is the primary design lever — it carries the entire aesthetic when photography isn't present.
 
-- **Heading typeface:** Load a single refined serif — **Playfair Display** (Google Fonts). Used for `h1`, `h2`, and display text. The contrast of a high-stroke-contrast serif against the raw grid *is* the brutalist tension.
+- **Heading typeface:** Load a single refined serif — **Playfair Display** (Google Fonts). Used for `h1`, `h2`, and display text. The contrast of a high-stroke-contrast serif against the raw grid _is_ the brutalist tension.
 - **Body typeface:** System font stack (`system-ui`, `-apple-system`, `BlinkMacSystemFont`, `Segoe UI`, `Roboto`, `sans-serif`). Clean, invisible, fast.
 - **Scale:** Use an extreme contrast ratio between heading and body sizes:
   - `h1`: `text-6xl` on mobile, `text-7xl` on `sm`, `text-8xl` on `lg`. Negative letter-spacing (`tracking-tighter`).
@@ -75,16 +75,16 @@ Typography is the primary design lever — it carries the entire aesthetic when 
 
 A warm, restrained palette. The flowers provide color; the UI provides a quiet stage.
 
-| Token              | Value       | Usage                                                    |
-| ------------------ | ----------- | -------------------------------------------------------- |
-| `cream`            | `#faf8f5`   | Page background. Warm, not clinical white.               |
-| `ink`              | `#1a1a1a`   | Primary text, borders, buttons. Softer than pure black.  |
-| `stone-500`        | `#78716c`   | Secondary text, captions, muted UI.                      |
-| `stone-300`        | `#d6d3d1`   | Dividers, disabled states, table borders.                |
-| `dahlia-wine`      | `#722f37`   | Primary accent. Low-stock warnings, required field markers, error states. |
-| `dahlia-blush`     | `#d4a0a0`   | Soft accent. Hover tints, subtle highlights.             |
-| `botanical`        | `#4a6741`   | "In Stock" and success states. Grounded, natural green.  |
-| `white`            | `#ffffff`   | Card insets, input backgrounds, inverted button text.    |
+| Token          | Value     | Usage                                                                     |
+| -------------- | --------- | ------------------------------------------------------------------------- |
+| `cream`        | `#faf8f5` | Page background. Warm, not clinical white.                                |
+| `ink`          | `#1a1a1a` | Primary text, borders, buttons. Softer than pure black.                   |
+| `stone-500`    | `#78716c` | Secondary text, captions, muted UI.                                       |
+| `stone-300`    | `#d6d3d1` | Dividers, disabled states, table borders.                                 |
+| `dahlia-wine`  | `#722f37` | Primary accent. Low-stock warnings, required field markers, error states. |
+| `dahlia-blush` | `#d4a0a0` | Soft accent. Hover tints, subtle highlights.                              |
+| `botanical`    | `#4a6741` | "In Stock" and success states. Grounded, natural green.                   |
+| `white`        | `#ffffff` | Card insets, input backgrounds, inverted button text.                     |
 
 All color combinations must meet WCAG AA contrast ratios. Test `ink` on `cream`, `stone-500` on `cream`, `dahlia-wine` on `cream`, and `botanical` on `cream` before use.
 
@@ -94,11 +94,11 @@ All color combinations must meet WCAG AA contrast ratios. Test `ink` on `cream`,
 
 Padding and margins shift across breakpoints to respect screen real estate:
 
-| Context              | Mobile (`< sm`) | Tablet (`sm`–`lg`) | Desktop (`lg`+)   |
-| -------------------- | --------------- | ------------------- | ------------------ |
-| Page horizontal pad  | `px-4`          | `px-8`              | `px-12` or `px-16` |
-| Section vertical pad | `py-10`         | `py-14`             | `py-20`            |
-| Component gaps       | `gap-4`         | `gap-6`             | `gap-8`            |
+| Context              | Mobile (`< sm`) | Tablet (`sm`–`lg`) | Desktop (`lg`+)    |
+| -------------------- | --------------- | ------------------ | ------------------ |
+| Page horizontal pad  | `px-4`          | `px-8`             | `px-12` or `px-16` |
+| Section vertical pad | `py-10`         | `py-14`            | `py-20`            |
+| Component gaps       | `gap-4`         | `gap-6`            | `gap-8`            |
 
 Do **not** use a single fixed padding value (e.g., `px-6 py-12`) across all viewports.
 
@@ -132,17 +132,17 @@ The homepage is **editorial, not transactional**. It should feel like the cover 
 
 ### Component Design Tokens
 
-| Element            | Specification                                                                 |
-| ------------------ | ----------------------------------------------------------------------------- |
-| **Buttons (primary)**   | `bg-ink text-white border border-ink`, uppercase, `tracking-widest`, `text-sm` |
-| **Buttons (secondary)** | `bg-transparent text-ink border border-ink`, same type treatment              |
-| **Buttons (disabled)**  | `border-stone-300 text-stone-300`, `cursor-not-allowed`                       |
-| **Input fields**        | `border border-ink bg-white`, `px-4 py-3`, `focus:ring-2 focus:ring-ink`     |
-| **Cards**               | `border border-ink`, no rounding, no shadow. Image top, content bottom.       |
+| Element                 | Specification                                                                    |
+| ----------------------- | -------------------------------------------------------------------------------- |
+| **Buttons (primary)**   | `bg-ink text-white border border-ink`, uppercase, `tracking-widest`, `text-sm`   |
+| **Buttons (secondary)** | `bg-transparent text-ink border border-ink`, same type treatment                 |
+| **Buttons (disabled)**  | `border-stone-300 text-stone-300`, `cursor-not-allowed`                          |
+| **Input fields**        | `border border-ink bg-white`, `px-4 py-3`, `focus:ring-2 focus:ring-ink`         |
+| **Cards**               | `border border-ink`, no rounding, no shadow. Image top, content bottom.          |
 | **Dividers**            | `border-t border-ink` for major sections. `border-t border-stone-300` for minor. |
-| **Stock: available**    | `text-botanical`, uppercase, `text-xs tracking-wider`                         |
-| **Stock: low**          | `text-dahlia-wine`, uppercase, `text-xs tracking-wider`                       |
-| **Stock: sold-out**     | `text-stone-300 line-through`, uppercase, `text-xs tracking-wider`            |
+| **Stock: available**    | `text-botanical`, uppercase, `text-xs tracking-wider`                            |
+| **Stock: low**          | `text-dahlia-wine`, uppercase, `text-xs tracking-wider`                          |
+| **Stock: sold-out**     | `text-stone-300 line-through`, uppercase, `text-xs tracking-wider`               |
 
 ### Interaction & Motion
 
@@ -175,14 +175,13 @@ name: "Café au Lait"
 slug: "cafe-au-lait"
 sku: "DAH-CAL-001"
 price: 8.50
-stock: "available"        # available | low | sold-out
-category: "dinnerplate"    # dinnerplate | ball | pompon | cactus | etc.
+stock: "available" # available | low | sold-out
+category: "dinnerplate" # dinnerplate | ball | pompon | cactus | etc.
 color: ["blush", "cream"]
 bloomSize: "8-10 inches"
 height: "3-4 feet"
 image: "./cafe-au-lait.jpg"
 ---
-
 A classic dinnerplate dahlia with enormous creamy blush blooms...
 ```
 
@@ -195,15 +194,15 @@ A classic dinnerplate dahlia with enormous creamy blush blooms...
 
 Use **industry-standard terminology** throughout the codebase:
 
-| Term          | Meaning                                                    |
-| ------------- | ---------------------------------------------------------- |
-| **Variety**   | A dahlia variety (the product). Corresponds to a Markdown file. |
-| **SKU**       | Stock Keeping Unit. Unique identifier for a purchasable item. |
-| **Line Item** | A SKU + quantity in a cart or order.                        |
-| **Cart**      | A collection of Line Items before checkout.                |
-| **Order**     | A finalized cart with payment and fulfillment details.     |
-| **Stock-out** | A variety with `stock: "sold-out"`. Cannot be added to cart. |
-| **Fulfillment** | The shipping/delivery of an order.                       |
+| Term            | Meaning                                                         |
+| --------------- | --------------------------------------------------------------- |
+| **Variety**     | A dahlia variety (the product). Corresponds to a Markdown file. |
+| **SKU**         | Stock Keeping Unit. Unique identifier for a purchasable item.   |
+| **Line Item**   | A SKU + quantity in a cart or order.                            |
+| **Cart**        | A collection of Line Items before checkout.                     |
+| **Order**       | A finalized cart with payment and fulfillment details.          |
+| **Stock-out**   | A variety with `stock: "sold-out"`. Cannot be added to cart.    |
+| **Fulfillment** | The shipping/delivery of an order.                              |
 
 Do **not** invent proprietary abstractions. If there is a standard commerce term for it, use it.
 
@@ -248,11 +247,11 @@ Dahlia photography is the primary visual asset and the sole source of color and 
 
 ### Aspect Ratios & Framing
 
-| Context              | Aspect Ratio | Rationale                                                   |
-| -------------------- | ------------ | ----------------------------------------------------------- |
-| Variety card (grid)  | `3/4`        | Portrait orientation. Dahlia blooms are roughly circular — vertical framing gives breathing room above and below the bloom and feels more editorial. |
-| Product detail page   | `3/4`        | Consistent with cards. Large, generous, fills its column.   |
-| Homepage hero         | `16/9`       | Landscape, full-bleed. Cinematic framing for a single hero bloom. |
+| Context             | Aspect Ratio | Rationale                                                                                                                                            |
+| ------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Variety card (grid) | `3/4`        | Portrait orientation. Dahlia blooms are roughly circular — vertical framing gives breathing room above and below the bloom and feels more editorial. |
+| Product detail page | `3/4`        | Consistent with cards. Large, generous, fills its column.                                                                                            |
+| Homepage hero       | `16/9`       | Landscape, full-bleed. Cinematic framing for a single hero bloom.                                                                                    |
 
 ### Alt Text
 
@@ -277,11 +276,11 @@ No component library is used. Accessibility is achieved through correct HTML and
 
 ### Testing
 
-| Type       | Tool        | Scope                                              |
-| ---------- | ----------- | -------------------------------------------------- |
-| Unit       | Vitest      | Commerce logic, cart calculations, price formatting, payment adapter mapping. |
-| E2E        | Playwright  | Checkout flow smoke tests, add-to-cart, stock-out states. |
-| A11y       | Playwright + axe-core | Automated accessibility checks in CI.  |
+| Type | Tool                  | Scope                                                                         |
+| ---- | --------------------- | ----------------------------------------------------------------------------- |
+| Unit | Vitest                | Commerce logic, cart calculations, price formatting, payment adapter mapping. |
+| E2E  | Playwright            | Checkout flow smoke tests, add-to-cart, stock-out states.                     |
+| A11y | Playwright + axe-core | Automated accessibility checks in CI.                                         |
 
 Tests run in CI on every pull request. The main branch must always be green.
 

@@ -76,7 +76,9 @@ export const server = {
       } else {
         // Development fallback: log the order
         console.log("=== PRE-ORDER RECEIVED ===");
-        console.log(`Customer: ${order.customer.name} (${order.customer.email})`);
+        console.log(
+          `Customer: ${order.customer.name} (${order.customer.email})`,
+        );
         console.log(`Phone: ${order.customer.phone}`);
         console.log(`Items: ${order.items.length}`);
         console.log(`Total: ${formatPrice(order.total)}`);

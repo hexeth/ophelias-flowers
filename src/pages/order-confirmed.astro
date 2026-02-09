@@ -2,16 +2,24 @@
 import BaseLayout from "../layouts/base-layout.astro";
 ---
 
-<BaseLayout title="Order Confirmed" description="Your pre-order has been submitted successfully.">
+<BaseLayout
+  title="Order Confirmed"
+  description="Your pre-order has been submitted successfully."
+>
   <section class="px-4 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-20">
     <div class="max-w-2xl">
-      <p class="text-xs uppercase tracking-widest text-botanical mb-4">Confirmed</p>
+      <p class="text-xs uppercase tracking-widest text-botanical mb-4">
+        Confirmed
+      </p>
       <h1 class="mb-6">Thank You</h1>
 
-      <div id="confirmation-details" class="space-y-4 text-stone-500 leading-relaxed">
+      <div
+        id="confirmation-details"
+        class="space-y-4 text-stone-500 leading-relaxed"
+      >
         <p class="text-lg">
-          <span id="customer-name" class="font-semibold text-ink"></span>,
-          your pre-order has been submitted.
+          <span id="customer-name" class="font-semibold text-ink"></span>, your
+          pre-order has been submitted.
         </p>
 
         <div class="border border-ink p-6 my-8">
@@ -27,12 +35,17 @@ import BaseLayout from "../layouts/base-layout.astro";
         <ol class="list-decimal list-inside space-y-3 text-sm mt-4">
           <li>We'll review your order and confirm availability.</li>
           <li>We'll reach out via email to arrange payment.</li>
-          <li>Your tubers will ship in spring, timed for planting after last frost.</li>
+          <li>
+            Your tubers will ship in spring, timed for planting after last
+            frost.
+          </li>
         </ol>
 
         <p class="mt-8">
           Questions? Reply to the confirmation email or reach out at
-          <a href="mailto:hello@opheliasflowers.com" class="text-ink">hello@opheliasflowers.com</a>.
+          <a href="mailto:hello@opheliasflowers.com" class="text-ink"
+            >hello@opheliasflowers.com</a
+          >.
         </p>
 
         <a

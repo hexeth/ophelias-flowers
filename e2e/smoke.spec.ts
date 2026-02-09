@@ -24,7 +24,9 @@ test.describe("variety detail", () => {
   test("shows add to cart button for available variety", async ({ page }) => {
     await page.goto("/varieties/bracken-rose");
     await expect(page.locator("button#add-to-cart")).toBeVisible();
-    await expect(page.locator("button#add-to-cart")).toContainText("Add to Cart");
+    await expect(page.locator("button#add-to-cart")).toContainText(
+      "Add to Cart",
+    );
   });
 });
 

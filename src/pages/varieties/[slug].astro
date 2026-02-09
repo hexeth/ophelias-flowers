@@ -32,7 +32,10 @@ const stockClass: Record<string, string> = {
 const canAddToCart = stock !== "sold-out";
 ---
 
-<BaseLayout title={name} description={`${name} dahlia tubers — ${formatPrice(price)}`}>
+<BaseLayout
+  title={name}
+  description={`${name} dahlia tubers — ${formatPrice(price)}`}
+>
   <article class="px-4 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-20">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl">
       <div class="border border-ink">
@@ -55,7 +58,9 @@ const canAddToCart = stock !== "sold-out";
         <h1 class="text-5xl sm:text-6xl lg:text-7xl mb-4">{name}</h1>
         <p class="font-serif text-3xl mb-6">{formatPrice(price)}</p>
 
-        <dl class="grid grid-cols-2 gap-y-3 text-sm mb-8 border-t border-ink pt-6">
+        <dl
+          class="grid grid-cols-2 gap-y-3 text-sm mb-8 border-t border-ink pt-6"
+        >
           <dt class="font-semibold">Bloom Size</dt>
           <dd class="text-stone-500">{bloomSize}</dd>
           <dt class="font-semibold">Height</dt>
@@ -63,27 +68,33 @@ const canAddToCart = stock !== "sold-out";
           <dt class="font-semibold">Colors</dt>
           <dd class="text-stone-500">{color.join(", ")}</dd>
           <dt class="font-semibold">Availability</dt>
-          <dd class={`text-xs uppercase tracking-wider ${stockClass[stock]}`}>{stockLabel[stock]}</dd>
+          <dd class={`text-xs uppercase tracking-wider ${stockClass[stock]}`}>
+            {stockLabel[stock]}
+          </dd>
         </dl>
 
-        {canAddToCart ? (
-          <button
-            id="add-to-cart"
-            type="button"
-            class="w-full bg-ink text-white border border-ink px-6 py-4 text-xs uppercase tracking-widest hover:bg-transparent hover:text-ink transition-colors focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
-            data-sku={variety.data.sku}
-            data-name={name}
-            data-price={price}
-          >
-            Add to Cart
-          </button>
-        ) : (
-          <p class="w-full border border-stone-300 px-6 py-4 text-xs uppercase tracking-widest text-center text-stone-300 cursor-not-allowed">
-            Sold Out
-          </p>
-        )}
+        {
+          canAddToCart ? (
+            <button
+              id="add-to-cart"
+              type="button"
+              class="w-full bg-ink text-white border border-ink px-6 py-4 text-xs uppercase tracking-widest hover:bg-transparent hover:text-ink transition-colors focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
+              data-sku={variety.data.sku}
+              data-name={name}
+              data-price={price}
+            >
+              Add to Cart
+            </button>
+          ) : (
+            <p class="w-full border border-stone-300 px-6 py-4 text-xs uppercase tracking-widest text-center text-stone-300 cursor-not-allowed">
+              Sold Out
+            </p>
+          )
+        }
 
-        <div class="prose mt-10 border-t border-stone-300 pt-8 text-stone-500 leading-relaxed">
+        <div
+          class="prose mt-10 border-t border-stone-300 pt-8 text-stone-500 leading-relaxed"
+        >
           <Content />
         </div>
       </div>
@@ -92,9 +103,16 @@ const canAddToCart = stock !== "sold-out";
 </BaseLayout>
 
 <script>
-  import { loadCart, saveCart, addItem, getCartItemCount } from "../../lib/commerce/cart";
+  import {
+    loadCart,
+    saveCart,
+    addItem,
+    getCartItemCount,
+  } from "../../lib/commerce/cart";
 
-  const button = document.getElementById("add-to-cart") as HTMLButtonElement | null;
+  const button = document.getElementById(
+    "add-to-cart",
+  ) as HTMLButtonElement | null;
   if (button) {
     button.addEventListener("click", () => {
       const sku = button.dataset.sku!;

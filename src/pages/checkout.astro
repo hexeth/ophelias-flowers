@@ -5,7 +5,9 @@ import BaseLayout from "../layouts/base-layout.astro";
 <BaseLayout title="Checkout" description="Submit your dahlia tuber pre-order.">
   <section class="px-4 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-20">
     <div class="max-w-2xl">
-      <p class="text-xs uppercase tracking-widest text-stone-500 mb-4">Checkout</p>
+      <p class="text-xs uppercase tracking-widest text-stone-500 mb-4">
+        Checkout
+      </p>
       <h1 class="mb-3">Pre-Order</h1>
       <p class="text-stone-500 mb-10 lg:mb-14">
         Submit your order and we'll follow up to arrange payment and delivery.
@@ -24,10 +26,18 @@ import BaseLayout from "../layouts/base-layout.astro";
       <div id="checkout-form-wrapper" hidden>
         <!-- Order summary -->
         <div class="border border-ink p-6 mb-10">
-          <h2 class="text-xs font-sans font-bold uppercase tracking-widest mb-4">Order Summary</h2>
+          <h2
+            class="text-xs font-sans font-bold uppercase tracking-widest mb-4"
+          >
+            Order Summary
+          </h2>
           <div id="order-summary"></div>
-          <div class="border-t border-ink mt-4 pt-4 flex justify-between items-center">
-            <span class="text-xs uppercase tracking-widest font-semibold">Total</span>
+          <div
+            class="border-t border-ink mt-4 pt-4 flex justify-between items-center"
+          >
+            <span class="text-xs uppercase tracking-widest font-semibold"
+              >Total</span
+            >
             <span id="order-total" class="font-serif text-xl"></span>
           </div>
         </div>
@@ -37,11 +47,16 @@ import BaseLayout from "../layouts/base-layout.astro";
           <input type="hidden" name="items" id="items-input" value="[]" />
 
           <fieldset class="border border-ink p-6">
-            <legend class="text-xs uppercase tracking-widest font-bold px-2">Your Details</legend>
+            <legend class="text-xs uppercase tracking-widest font-bold px-2"
+              >Your Details</legend
+            >
 
             <div class="space-y-6 mt-4">
               <div>
-                <label for="customerName" class="block text-sm font-semibold mb-1">
+                <label
+                  for="customerName"
+                  class="block text-sm font-semibold mb-1"
+                >
                   Full Name <span class="text-dahlia-wine">*</span>
                 </label>
                 <input
@@ -55,7 +70,10 @@ import BaseLayout from "../layouts/base-layout.astro";
               </div>
 
               <div>
-                <label for="customerEmail" class="block text-sm font-semibold mb-1">
+                <label
+                  for="customerEmail"
+                  class="block text-sm font-semibold mb-1"
+                >
                   Email <span class="text-dahlia-wine">*</span>
                 </label>
                 <input
@@ -69,7 +87,10 @@ import BaseLayout from "../layouts/base-layout.astro";
               </div>
 
               <div>
-                <label for="customerPhone" class="block text-sm font-semibold mb-1">
+                <label
+                  for="customerPhone"
+                  class="block text-sm font-semibold mb-1"
+                >
                   Phone <span class="text-dahlia-wine">*</span>
                 </label>
                 <input
@@ -83,7 +104,10 @@ import BaseLayout from "../layouts/base-layout.astro";
               </div>
 
               <div>
-                <label for="customerNotes" class="block text-sm font-semibold mb-1">
+                <label
+                  for="customerNotes"
+                  class="block text-sm font-semibold mb-1"
+                >
                   Notes <span class="text-stone-500">(optional)</span>
                 </label>
                 <textarea
@@ -97,7 +121,12 @@ import BaseLayout from "../layouts/base-layout.astro";
             </div>
           </fieldset>
 
-          <div id="form-error" class="mt-4 border border-dahlia-wine text-dahlia-wine px-4 py-3 text-sm" hidden></div>
+          <div
+            id="form-error"
+            class="mt-4 border border-dahlia-wine text-dahlia-wine px-4 py-3 text-sm"
+            hidden
+          >
+          </div>
 
           <button
             type="submit"
@@ -108,7 +137,8 @@ import BaseLayout from "../layouts/base-layout.astro";
           </button>
 
           <p class="mt-4 text-xs text-stone-500 text-center">
-            No payment is collected now. We'll contact you to arrange payment and delivery details.
+            No payment is collected now. We'll contact you to arrange payment
+            and delivery details.
           </p>
         </form>
       </div>
@@ -118,7 +148,12 @@ import BaseLayout from "../layouts/base-layout.astro";
 
 <script>
   import { actions } from "astro:actions";
-  import { loadCart, saveCart, createEmptyCart, getCartSubtotal } from "../lib/commerce/cart";
+  import {
+    loadCart,
+    saveCart,
+    createEmptyCart,
+    getCartSubtotal,
+  } from "../lib/commerce/cart";
   import { formatPrice } from "../lib/commerce/pricing";
 
   const cart = loadCart();
@@ -169,7 +204,8 @@ import BaseLayout from "../layouts/base-layout.astro";
     const { data, error } = await actions.submitPreOrder(formData);
 
     if (error) {
-      errorEl.textContent = error.message || "Something went wrong. Please try again.";
+      errorEl.textContent =
+        error.message || "Something went wrong. Please try again.";
       errorEl.hidden = false;
       submitBtn.disabled = false;
       submitBtn.textContent = "Submit Pre-Order";

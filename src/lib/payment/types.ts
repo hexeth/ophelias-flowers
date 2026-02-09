@@ -6,7 +6,9 @@ export interface PaymentProvider {
    * Create a checkout session with the payment provider.
    * Returns a URL to redirect the customer to the hosted checkout page.
    */
-  createCheckoutSession(params: CheckoutSessionParams): Promise<CheckoutSessionResult>;
+  createCheckoutSession(
+    params: CheckoutSessionParams,
+  ): Promise<CheckoutSessionResult>;
 
   /**
    * Verify a webhook signature from the payment provider.

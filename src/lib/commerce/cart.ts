@@ -47,10 +47,7 @@ export function getCartItemCount(cart: Cart): number {
 }
 
 export function getCartSubtotal(cart: Cart): number {
-  return cart.items.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0,
-  );
+  return cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 }
 
 export function loadCart(): Cart {

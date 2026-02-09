@@ -26,7 +26,9 @@ const stockClass: Record<string, string> = {
 
 <article class="border border-ink group">
   <a href={`/varieties/${slug}`} class="block no-underline">
-    <div class={`overflow-hidden ${featured ? 'aspect-[3/4] sm:aspect-[4/3] lg:aspect-[3/4]' : 'aspect-[3/4]'}`}>
+    <div
+      class={`overflow-hidden ${featured ? "aspect-[3/4] sm:aspect-[4/3] lg:aspect-[3/4]" : "aspect-[3/4]"}`}
+    >
       <Picture
         src={image}
         alt={`${name} dahlia bloom`}

@@ -13,21 +13,29 @@ const heroImage = heroVariety?.data.image;
 <BaseLayout title="Home">
   <!-- Hero Section -->
   <section class="relative w-full overflow-hidden">
-    {heroImage && (
-      <Picture
-        src={heroImage}
-        alt=""
-        widths={[600, 800, 1200, 1600]}
-        formats={["avif", "webp", "jpeg"]}
-        loading="eager"
-        class="w-full h-[70vh] sm:h-[80vh] object-cover"
-      />
-    )}
-    <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/30 to-transparent"></div>
-    <div class="absolute bottom-0 left-0 right-0 px-4 sm:px-8 lg:px-12 pb-10 sm:pb-14 lg:pb-20">
+    {
+      heroImage && (
+        <Picture
+          src={heroImage}
+          alt=""
+          widths={[600, 800, 1200, 1600]}
+          formats={["avif", "webp", "jpeg"]}
+          loading="eager"
+          class="w-full h-[70vh] sm:h-[80vh] object-cover"
+        />
+      )
+    }
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/30 to-transparent"
+    >
+    </div>
+    <div
+      class="absolute bottom-0 left-0 right-0 px-4 sm:px-8 lg:px-12 pb-10 sm:pb-14 lg:pb-20"
+    >
       <h1 class="text-cream mb-4">Dahlia Tubers</h1>
       <p class="text-cream/80 text-lg sm:text-xl max-w-xl leading-relaxed">
-        Small-batch dahlias grown with care. Pre-orders open for spring 2026 planting.
+        Small-batch dahlias grown with care. Pre-orders open for spring 2026
+        planting.
       </p>
       <a
         href="/varieties"
@@ -39,11 +47,16 @@ const heroImage = heroVariety?.data.image;
   </section>
 
   <!-- Seasonal Message -->
-  <section class="px-4 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-20 border-b border-stone-300">
+  <section
+    class="px-4 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-20 border-b border-stone-300"
+  >
     <div class="max-w-2xl">
-      <p class="text-xs uppercase tracking-widest text-stone-500 mb-4">Spring 2026 Season</p>
+      <p class="text-xs uppercase tracking-widest text-stone-500 mb-4">
+        Spring 2026 Season
+      </p>
       <p class="text-lg sm:text-xl leading-relaxed text-stone-500">
-        Order now for spring planting. Tubers ship after your last frost date, ready to grow into midsummer through fall blooms.
+        Order now for spring planting. Tubers ship after your last frost date,
+        ready to grow into midsummer through fall blooms.
       </p>
     </div>
   </section>
@@ -52,24 +65,36 @@ const heroImage = heroVariety?.data.image;
   <section class="px-4 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-20">
     <div class="flex items-baseline justify-between mb-8 lg:mb-12 max-w-6xl">
       <h2>Featured Varieties</h2>
-      <a href="/varieties" class="text-xs uppercase tracking-widest text-stone-500 no-underline hover:text-ink transition-colors">View All</a>
+      <a
+        href="/varieties"
+        class="text-xs uppercase tracking-widest text-stone-500 no-underline hover:text-ink transition-colors"
+        >View All</a
+      >
     </div>
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-6xl">
-      {featured[0] && (
-        <div class="lg:col-span-2 lg:row-span-2">
-          <VarietyCard variety={featured[0]} featured />
-        </div>
-      )}
-      {featured[1] && (
-        <div>
-          <VarietyCard variety={featured[1]} />
-        </div>
-      )}
-      {featured[2] && (
-        <div>
-          <VarietyCard variety={featured[2]} />
-        </div>
-      )}
+    <div
+      class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-6xl"
+    >
+      {
+        featured[0] && (
+          <div class="lg:col-span-2 lg:row-span-2">
+            <VarietyCard variety={featured[0]} featured />
+          </div>
+        )
+      }
+      {
+        featured[1] && (
+          <div>
+            <VarietyCard variety={featured[1]} />
+          </div>
+        )
+      }
+      {
+        featured[2] && (
+          <div>
+            <VarietyCard variety={featured[2]} />
+          </div>
+        )
+      }
     </div>
   </section>
 </BaseLayout>
