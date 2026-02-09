@@ -3,8 +3,6 @@ import cloudflare from "@astrojs/cloudflare";
 import tailwind from "@astrojs/tailwind";
 
 export default defineConfig({
-  adapter: cloudflare({
-    imageService: "compile",
-  }),
+  adapter: cloudflare(),
   integrations: [tailwind()],
 });

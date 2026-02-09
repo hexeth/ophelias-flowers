@@ -2,7 +2,6 @@
 import BaseLayout from "../layouts/base-layout.astro";
 import VarietyCard from "../components/variety-card.astro";
 import { getCollection } from "astro:content";
-import { Picture } from "astro:assets";
 
 const varieties = await getCollection("varieties");
 const featured = varieties.slice(0, 3);
@@ -15,12 +14,11 @@ const heroImage = heroVariety?.data.image;
   <section class="relative w-full overflow-hidden">
     {
       heroImage && (
-        <Picture
+        <img
           src={heroImage}
           alt=""
-          widths={[600, 800, 1200, 1600]}
-          formats={["avif", "webp", "jpeg"]}
           loading="eager"
+          decoding="async"
           class="w-full h-[70vh] sm:h-[80vh] object-cover"
         />
       )

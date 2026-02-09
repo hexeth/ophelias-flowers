@@ -29,24 +29,26 @@ const { id, label, options, allLabel = "All" } = Astro.props;
       viewBox="0 0 24 24"
       aria-hidden="true"
     >
-      <path stroke-linecap="square" d="M6 9l6 6 6-6" />
+      <path stroke-linecap="square" d="M6 9l6 6 6-6"></path>
     </svg>
   </summary>
   <div
     class="absolute z-20 left-0 top-full mt-px w-full min-w-[12rem] border border-ink border-t-0 bg-white max-h-64 overflow-y-auto"
   >
-    {options.map((opt) => (
-      <label class="flex items-center gap-3 px-4 py-2.5 cursor-pointer hover:bg-cream transition-colors text-xs uppercase tracking-widest">
-        <input
-          type="checkbox"
-          name={id}
-          value={opt.value}
-          class="accent-ink w-3.5 h-3.5 cursor-pointer shrink-0"
-        />
-        <span class="truncate">{opt.label}</span>
-        <span class="ml-auto text-stone-500 tabular-nums">{opt.count}</span>
-      </label>
-    ))}
+    {
+      options.map((opt) => (
+        <label class="flex items-center gap-3 px-4 py-2.5 cursor-pointer hover:bg-cream transition-colors text-xs uppercase tracking-widest">
+          <input
+            type="checkbox"
+            name={id}
+            value={opt.value}
+            class="accent-ink w-3.5 h-3.5 cursor-pointer shrink-0"
+          />
+          <span class="truncate">{opt.label}</span>
+          <span class="ml-auto text-stone-500 tabular-nums">{opt.count}</span>
+        </label>
+      ))
+    }
   </div>
 </details>
 

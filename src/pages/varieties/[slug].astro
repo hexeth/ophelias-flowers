@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../../layouts/base-layout.astro";
 import { getCollection } from "astro:content";
-import { Picture } from "astro:assets";
 import { formatPrice } from "../../lib/commerce/pricing";
 
 export async function getStaticPaths() {
@@ -40,12 +39,11 @@ const canAddToCart = stock !== "sold-out";
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl">
       <div class="border border-ink">
         <div class="aspect-[3/4] overflow-hidden">
-          <Picture
+          <img
             src={image}
             alt={`${name} dahlia bloom`}
-            widths={[400, 600, 800, 1200]}
-            formats={["avif", "webp", "jpeg"]}
             loading="eager"
+            decoding="async"
             class="w-full h-full object-cover"
           />
         </div>

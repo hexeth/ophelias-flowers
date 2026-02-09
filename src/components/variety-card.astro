@@ -1,6 +1,5 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { Picture } from "astro:assets";
 
 interface Props {
   variety: CollectionEntry<"varieties">;
@@ -29,11 +28,11 @@ const stockClass: Record<string, string> = {
     <div
       class={`overflow-hidden ${featured ? "aspect-[3/4] sm:aspect-[4/3] lg:aspect-[3/4]" : "aspect-[3/4]"}`}
     >
-      <Picture
+      <img
         src={image}
         alt={`${name} dahlia bloom`}
-        widths={[400, 600, 800]}
-        formats={["avif", "webp", "jpeg"]}
+        loading="lazy"
+        decoding="async"
         class="w-full h-full object-cover"
       />
     </div>
