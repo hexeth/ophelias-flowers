@@ -4,26 +4,38 @@
 
 @layer base {
   html {
-    @apply text-black bg-white antialiased;
+    @apply text-ink bg-cream antialiased;
   }
 
   body {
-    @apply min-h-screen flex flex-col;
+    @apply min-h-screen flex flex-col font-sans;
   }
 
   h1 {
-    @apply text-5xl font-bold tracking-tight leading-tight;
+    @apply font-serif text-6xl sm:text-7xl lg:text-8xl tracking-tighter leading-none;
   }
 
   h2 {
-    @apply text-3xl font-bold tracking-tight;
+    @apply font-serif text-3xl lg:text-4xl tracking-tight leading-tight;
   }
 
   h3 {
-    @apply text-xl font-semibold;
+    @apply font-sans text-xl font-semibold;
   }
 
   a {
     @apply underline underline-offset-2;
+  }
+}
+
+@layer utilities {
+  .badge-pulse {
+    animation: badge-pop 150ms ease-out;
+  }
+
+  @keyframes badge-pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
   }
 }

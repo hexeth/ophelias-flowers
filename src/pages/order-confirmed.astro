@@ -3,41 +3,45 @@ import BaseLayout from "../layouts/base-layout.astro";
 ---
 
 <BaseLayout title="Order Confirmed" description="Your pre-order has been submitted successfully.">
-  <section class="px-6 py-16 max-w-2xl">
-    <h1 class="mb-6">Order Confirmed</h1>
+  <section class="px-4 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-20">
+    <div class="max-w-2xl">
+      <p class="text-xs uppercase tracking-widest text-botanical mb-4">Confirmed</p>
+      <h1 class="mb-6">Thank You</h1>
 
-    <div id="confirmation-details" class="space-y-4 text-neutral-600 leading-relaxed">
-      <p class="text-lg">
-        Thank you, <span id="customer-name" class="font-semibold text-black"></span>!
-        Your pre-order has been submitted.
-      </p>
+      <div id="confirmation-details" class="space-y-4 text-stone-500 leading-relaxed">
+        <p class="text-lg">
+          <span id="customer-name" class="font-semibold text-ink"></span>,
+          your pre-order has been submitted.
+        </p>
 
-      <div class="border border-black p-6 my-8">
-        <dl class="grid grid-cols-2 gap-y-3 text-sm">
-          <dt class="font-semibold">Items</dt>
-          <dd id="item-count"></dd>
-          <dt class="font-semibold">Estimated Total</dt>
-          <dd id="order-total" class="font-bold"></dd>
-        </dl>
+        <div class="border border-ink p-6 my-8">
+          <dl class="grid grid-cols-2 gap-y-3 text-sm">
+            <dt class="font-semibold text-ink">Items</dt>
+            <dd id="item-count"></dd>
+            <dt class="font-semibold text-ink">Estimated Total</dt>
+            <dd id="order-total" class="font-bold text-ink"></dd>
+          </dl>
+        </div>
+
+        <h2 class="mt-10">What happens next?</h2>
+        <ol class="list-decimal list-inside space-y-3 text-sm mt-4">
+          <li>We'll review your order and confirm availability.</li>
+          <li>We'll reach out via email to arrange payment.</li>
+          <li>Your tubers will ship in spring, timed for planting after last frost.</li>
+        </ol>
+
+        <p class="mt-8">
+          Questions? Reply to the confirmation email or reach out at
+          <a href="mailto:hello@opheliasflowers.com" class="text-ink">hello@opheliasflowers.com</a>.
+        </p>
+
+        <a
+          href="/varieties"
+          class="inline-block mt-8 border border-ink text-ink px-8 py-4 text-xs uppercase tracking-widest no-underline hover:bg-ink hover:text-cream transition-colors"
+        >
+          Continue Browsing
+        </a>
       </div>
-
-      <h2 class="text-xl font-bold mt-8">What happens next?</h2>
-      <ol class="list-decimal list-inside space-y-2 text-sm">
-        <li>We'll review your order and confirm availability.</li>
-        <li>We'll reach out via email to arrange payment.</li>
-        <li>Your tubers will ship in spring, timed for planting after last frost.</li>
-      </ol>
-
-      <p class="mt-8">
-        Questions? Reply to the confirmation email or reach out directly.
-      </p>
-
-      <a
-        href="/varieties"
-        class="inline-block mt-6 border border-black px-6 py-3 text-sm uppercase tracking-widest no-underline hover:bg-black hover:text-white transition-colors"
-      >
-        Continue Browsing
-      </a>
     </div>
   </section>
 </BaseLayout>

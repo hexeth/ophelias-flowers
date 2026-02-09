@@ -2,31 +2,74 @@
 import BaseLayout from "../layouts/base-layout.astro";
 import VarietyCard from "../components/variety-card.astro";
 import { getCollection } from "astro:content";
+import { Picture } from "astro:assets";
 
 const varieties = await getCollection("varieties");
+const featured = varieties.slice(0, 3);
+const heroVariety = featured[0];
+const heroImage = heroVariety?.data.image;
 ---
 
 <BaseLayout title="Home">
-  <section class="px-6 py-16 max-w-2xl">
-    <h1 class="mb-6">Dahlia Tubers</h1>
-    <p class="text-lg leading-relaxed text-neutral-600">
-      Small-batch dahlia tubers grown with care. Order in spring, plant after
-      last frost, enjoy blooms from midsummer through fall.
-    </p>
-    <a
-      href="/varieties"
-      class="inline-block mt-8 border border-black px-6 py-3 text-sm uppercase tracking-widest no-underline hover:bg-black hover:text-white transition-colors"
-    >
-      Shop All Varieties
-    </a>
+  <!-- Hero Section -->
+  <section class="relative w-full overflow-hidden">
+    {heroImage && (
+      <Picture
+        src={heroImage}
+        alt=""
+        widths={[600, 800, 1200, 1600]}
+        formats={["avif", "webp", "jpeg"]}
+        loading="eager"
+        class="w-full h-[70vh] sm:h-[80vh] object-cover"
+      />
+    )}
+    <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/30 to-transparent"></div>
+    <div class="absolute bottom-0 left-0 right-0 px-4 sm:px-8 lg:px-12 pb-10 sm:pb-14 lg:pb-20">
+      <h1 class="text-cream mb-4">Dahlia Tubers</h1>
+      <p class="text-cream/80 text-lg sm:text-xl max-w-xl leading-relaxed">
+        Small-batch dahlias grown with care. Pre-orders open for spring 2026 planting.
+      </p>
+      <a
+        href="/varieties"
+        class="inline-block mt-8 bg-cream text-ink border border-cream px-8 py-4 text-xs uppercase tracking-widest no-underline hover:bg-transparent hover:text-cream transition-colors"
+      >
+        Shop All Varieties
+      </a>
+    </div>
   </section>
 
-  <section class="px-6 py-12 border-t border-black">
-    <h2 class="mb-8">Featured Varieties</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {varieties.slice(0, 3).map((variety) => (
-        <VarietyCard variety={variety} />
-      ))}
+  <!-- Seasonal Message -->
+  <section class="px-4 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-20 border-b border-stone-300">
+    <div class="max-w-2xl">
+      <p class="text-xs uppercase tracking-widest text-stone-500 mb-4">Spring 2026 Season</p>
+      <p class="text-lg sm:text-xl leading-relaxed text-stone-500">
+        Order now for spring planting. Tubers ship after your last frost date, ready to grow into midsummer through fall blooms.
+      </p>
+    </div>
+  </section>
+
+  <!-- Featured Varieties — Asymmetric Grid -->
+  <section class="px-4 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-20">
+    <div class="flex items-baseline justify-between mb-8 lg:mb-12 max-w-6xl">
+      <h2>Featured Varieties</h2>
+      <a href="/varieties" class="text-xs uppercase tracking-widest text-stone-500 no-underline hover:text-ink transition-colors">View All</a>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-6xl">
+      {featured[0] && (
+        <div class="lg:col-span-2 lg:row-span-2">
+          <VarietyCard variety={featured[0]} featured />
+        </div>
+      )}
+      {featured[1] && (
+        <div>
+          <VarietyCard variety={featured[1]} />
+        </div>
+      )}
+      {featured[2] && (
+        <div>
+          <VarietyCard variety={featured[2]} />
+        </div>
+      )}
     </div>
   </section>
 </BaseLayout>

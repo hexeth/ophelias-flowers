@@ -7,15 +7,17 @@ const varieties = await getCollection("varieties");
 ---
 
 <BaseLayout title="All Varieties" description="Browse our full collection of dahlia tubers.">
-  <section class="px-6 py-12">
-    <h1 class="mb-2">All Varieties</h1>
-    <p class="text-neutral-500 mb-10">
-      {varieties.length} varieties available this season.
-    </p>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {varieties.map((variety) => (
-        <VarietyCard variety={variety} />
-      ))}
+  <section class="px-4 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-20">
+    <div class="max-w-6xl">
+      <h1 class="mb-3">All Varieties</h1>
+      <p class="text-stone-500 mb-10 lg:mb-14">
+        {varieties.length} varieties available this season.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+        {varieties.map((variety) => (
+          <VarietyCard variety={variety} />
+        ))}
+      </div>
     </div>
   </section>
 </BaseLayout>

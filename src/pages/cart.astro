@@ -3,52 +3,54 @@ import BaseLayout from "../layouts/base-layout.astro";
 ---
 
 <BaseLayout title="Cart" description="Review your dahlia tuber selections before checkout.">
-  <section class="px-6 py-12 max-w-3xl">
-    <h1 class="mb-8">Your Cart</h1>
+  <section class="px-4 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-20">
+    <div class="max-w-3xl">
+      <h1 class="mb-8 lg:mb-12">Your Cart</h1>
 
-    <div id="cart-empty" class="py-16 text-center" hidden>
-      <p class="text-neutral-500 text-lg mb-6">Your cart is empty.</p>
-      <a
-        href="/varieties"
-        class="inline-block border border-black px-6 py-3 text-sm uppercase tracking-widest no-underline hover:bg-black hover:text-white transition-colors"
-      >
-        Browse Varieties
-      </a>
-    </div>
-
-    <div id="cart-contents" hidden>
-      <table class="w-full text-left">
-        <thead>
-          <tr class="border-b-2 border-black text-xs uppercase tracking-widest">
-            <th class="pb-3">Variety</th>
-            <th class="pb-3 text-center">Qty</th>
-            <th class="pb-3 text-right">Price</th>
-            <th class="pb-3 text-right">Subtotal</th>
-            <th class="pb-3 w-10"><span class="sr-only">Remove</span></th>
-          </tr>
-        </thead>
-        <tbody id="cart-items"></tbody>
-      </table>
-
-      <div class="border-t-2 border-black mt-6 pt-6 flex items-center justify-between">
-        <span class="text-sm uppercase tracking-widest">Total</span>
-        <span id="cart-total" class="text-2xl font-bold"></span>
-      </div>
-
-      <div class="mt-8 flex flex-col sm:flex-row gap-4">
+      <div id="cart-empty" class="py-16 text-center" hidden>
+        <p class="text-stone-500 text-lg mb-6">Your cart is empty.</p>
         <a
           href="/varieties"
-          class="border border-black px-6 py-4 text-sm uppercase tracking-widest text-center no-underline hover:bg-black hover:text-white transition-colors"
+          class="inline-block border border-ink px-8 py-4 text-xs uppercase tracking-widest no-underline hover:bg-ink hover:text-cream transition-colors"
         >
-          Continue Shopping
+          Browse Varieties
         </a>
-        <a
-          id="checkout-link"
-          href="/checkout"
-          class="flex-1 border border-black bg-black text-white px-6 py-4 text-sm uppercase tracking-widest text-center no-underline hover:bg-neutral-800 transition-colors"
-        >
-          Proceed to Checkout
-        </a>
+      </div>
+
+      <div id="cart-contents" hidden>
+        <table class="w-full text-left">
+          <thead>
+            <tr class="border-b-2 border-ink text-xs uppercase tracking-widest">
+              <th class="pb-3">Variety</th>
+              <th class="pb-3 text-center">Qty</th>
+              <th class="pb-3 text-right">Price</th>
+              <th class="pb-3 text-right">Subtotal</th>
+              <th class="pb-3 w-10"><span class="sr-only">Remove</span></th>
+            </tr>
+          </thead>
+          <tbody id="cart-items"></tbody>
+        </table>
+
+        <div class="border-t-2 border-ink mt-6 pt-6 flex items-center justify-between">
+          <span class="text-xs uppercase tracking-widest">Total</span>
+          <span id="cart-total" class="font-serif text-2xl"></span>
+        </div>
+
+        <div class="mt-10 flex flex-col sm:flex-row gap-4">
+          <a
+            href="/varieties"
+            class="border border-ink px-8 py-4 text-xs uppercase tracking-widest text-center no-underline hover:bg-ink hover:text-cream transition-colors"
+          >
+            Continue Shopping
+          </a>
+          <a
+            id="checkout-link"
+            href="/checkout"
+            class="flex-1 bg-ink text-cream border border-ink px-8 py-4 text-xs uppercase tracking-widest text-center no-underline hover:bg-transparent hover:text-ink transition-colors"
+          >
+            Proceed to Checkout
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -86,17 +88,17 @@ import BaseLayout from "../layouts/base-layout.astro";
     itemsEl.innerHTML = cart.items
       .map(
         (item) => `
-        <tr class="border-b border-neutral-200">
+        <tr class="border-b border-stone-300">
           <td class="py-4">
             <span class="font-semibold">${item.name}</span>
             <br />
-            <span class="text-xs text-neutral-500">${item.sku}</span>
+            <span class="text-xs text-stone-500">${item.sku}</span>
           </td>
           <td class="py-4 text-center">
-            <div class="inline-flex items-center border border-black">
+            <div class="inline-flex items-center border border-ink">
               <button
                 type="button"
-                class="qty-btn px-3 py-1 text-sm hover:bg-black hover:text-white transition-colors"
+                class="qty-btn px-3 py-1 text-sm hover:bg-ink hover:text-cream transition-colors"
                 data-sku="${item.sku}"
                 data-action="decrement"
                 aria-label="Decrease quantity of ${item.name}"
@@ -104,19 +106,19 @@ import BaseLayout from "../layouts/base-layout.astro";
               <span class="px-3 py-1 text-sm min-w-[2rem] text-center">${item.quantity}</span>
               <button
                 type="button"
-                class="qty-btn px-3 py-1 text-sm hover:bg-black hover:text-white transition-colors"
+                class="qty-btn px-3 py-1 text-sm hover:bg-ink hover:text-cream transition-colors"
                 data-sku="${item.sku}"
                 data-action="increment"
                 aria-label="Increase quantity of ${item.name}"
               >+</button>
             </div>
           </td>
-          <td class="py-4 text-right text-sm">${formatPrice(item.price)}</td>
+          <td class="py-4 text-right text-sm text-stone-500">${formatPrice(item.price)}</td>
           <td class="py-4 text-right font-semibold">${formatPrice(item.price * item.quantity)}</td>
           <td class="py-4 text-right">
             <button
               type="button"
-              class="remove-btn text-neutral-400 hover:text-black transition-colors"
+              class="remove-btn text-stone-300 hover:text-ink transition-colors"
               data-sku="${item.sku}"
               aria-label="Remove ${item.name} from cart"
             >✕</button>

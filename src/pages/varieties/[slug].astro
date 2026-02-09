@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../../layouts/base-layout.astro";
 import { getCollection } from "astro:content";
-import { Image } from "astro:assets";
+import { Picture } from "astro:assets";
 import { formatPrice } from "../../lib/commerce/pricing";
 
 export async function getStaticPaths() {
@@ -23,45 +23,54 @@ const stockLabel: Record<string, string> = {
   "sold-out": "Sold Out",
 };
 
+const stockClass: Record<string, string> = {
+  available: "text-botanical",
+  low: "text-dahlia-wine",
+  "sold-out": "text-stone-300 line-through",
+};
+
 const canAddToCart = stock !== "sold-out";
 ---
 
 <BaseLayout title={name} description={`${name} dahlia tubers — ${formatPrice(price)}`}>
-  <article class="px-6 py-12">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl">
-      <div class="border border-black">
-        <Image
-          src={image}
-          alt={`${name} dahlia bloom`}
-          width={800}
-          height={600}
-          class="w-full h-auto"
-        />
+  <article class="px-4 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-20">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl">
+      <div class="border border-ink">
+        <div class="aspect-[3/4] overflow-hidden">
+          <Picture
+            src={image}
+            alt={`${name} dahlia bloom`}
+            widths={[400, 600, 800, 1200]}
+            formats={["avif", "webp", "jpeg"]}
+            loading="eager"
+            class="w-full h-full object-cover"
+          />
+        </div>
       </div>
 
       <div>
-        <p class="text-xs uppercase tracking-widest text-neutral-500 mb-2">
+        <p class="text-xs uppercase tracking-widest text-stone-500 mb-2">
           {category}
         </p>
-        <h1 class="mb-4">{name}</h1>
-        <p class="text-3xl font-bold mb-6">{formatPrice(price)}</p>
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl mb-4">{name}</h1>
+        <p class="font-serif text-3xl mb-6">{formatPrice(price)}</p>
 
-        <dl class="grid grid-cols-2 gap-y-3 text-sm mb-8 border-t border-black pt-6">
+        <dl class="grid grid-cols-2 gap-y-3 text-sm mb-8 border-t border-ink pt-6">
           <dt class="font-semibold">Bloom Size</dt>
-          <dd>{bloomSize}</dd>
+          <dd class="text-stone-500">{bloomSize}</dd>
           <dt class="font-semibold">Height</dt>
-          <dd>{height}</dd>
+          <dd class="text-stone-500">{height}</dd>
           <dt class="font-semibold">Colors</dt>
-          <dd>{color.join(", ")}</dd>
+          <dd class="text-stone-500">{color.join(", ")}</dd>
           <dt class="font-semibold">Availability</dt>
-          <dd>{stockLabel[stock]}</dd>
+          <dd class={`text-xs uppercase tracking-wider ${stockClass[stock]}`}>{stockLabel[stock]}</dd>
         </dl>
 
         {canAddToCart ? (
           <button
             id="add-to-cart"
             type="button"
-            class="w-full border border-black px-6 py-4 text-sm uppercase tracking-widest hover:bg-black hover:text-white transition-colors"
+            class="w-full bg-ink text-white border border-ink px-6 py-4 text-xs uppercase tracking-widest hover:bg-transparent hover:text-ink transition-colors focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
             data-sku={variety.data.sku}
             data-name={name}
             data-price={price}
@@ -69,12 +78,12 @@ const canAddToCart = stock !== "sold-out";
             Add to Cart
           </button>
         ) : (
-          <p class="w-full border border-neutral-300 px-6 py-4 text-sm uppercase tracking-widest text-center text-neutral-400">
+          <p class="w-full border border-stone-300 px-6 py-4 text-xs uppercase tracking-widest text-center text-stone-300 cursor-not-allowed">
             Sold Out
           </p>
         )}
 
-        <div class="prose mt-10 border-t border-black pt-8">
+        <div class="prose mt-10 border-t border-stone-300 pt-8 text-stone-500 leading-relaxed">
           <Content />
         </div>
       </div>
@@ -96,17 +105,20 @@ const canAddToCart = stock !== "sold-out";
       cart = addItem(cart, { sku, name, price });
       saveCart(cart);
 
-      // Update cart count in header
+      // Update cart count in header with pulse animation
       const cartCount = document.getElementById("cart-count");
       if (cartCount) {
         const count = getCartItemCount(cart);
         cartCount.textContent = String(count);
         cartCount.hidden = false;
+        cartCount.classList.remove("badge-pulse");
+        void cartCount.offsetWidth;
+        cartCount.classList.add("badge-pulse");
       }
 
       // Brief feedback on the button
       const original = button.textContent;
-      button.textContent = "Added!";
+      button.textContent = "Added";
       button.disabled = true;
       setTimeout(() => {
         button.textContent = original;

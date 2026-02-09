@@ -16,13 +16,13 @@ test.describe("homepage", () => {
 
 test.describe("variety detail", () => {
   test("displays variety information", async ({ page }) => {
-    await page.goto("/varieties/cafe-au-lait");
-    await expect(page.locator("h1")).toContainText("Café au Lait");
-    await expect(page.locator("text=$8.50")).toBeVisible();
+    await page.goto("/varieties/bracken-rose");
+    await expect(page.locator("h1")).toContainText("Bracken Rose");
+    await expect(page.locator("text=$8.00")).toBeVisible();
   });
 
   test("shows add to cart button for available variety", async ({ page }) => {
-    await page.goto("/varieties/cafe-au-lait");
+    await page.goto("/varieties/bracken-rose");
     await expect(page.locator("button#add-to-cart")).toBeVisible();
     await expect(page.locator("button#add-to-cart")).toContainText("Add to Cart");
   });
@@ -36,14 +36,14 @@ test.describe("cart", () => {
   });
 
   test("adding an item updates cart", async ({ page }) => {
-    await page.goto("/varieties/cafe-au-lait");
+    await page.goto("/varieties/bracken-rose");
     await page.click("button#add-to-cart");
     await expect(page.locator("button#add-to-cart")).toContainText("Added!");
     await expect(page.locator("#cart-count")).toBeVisible();
 
     await page.goto("/cart");
     await expect(page.locator("#cart-contents")).toBeVisible();
-    await expect(page.locator("#cart-items")).toContainText("Café au Lait");
+    await expect(page.locator("#cart-items")).toContainText("Bracken Rose");
   });
 });
 
@@ -55,12 +55,12 @@ test.describe("checkout", () => {
 
   test("checkout page shows form with items in cart", async ({ page }) => {
     // Add item to cart first
-    await page.goto("/varieties/cafe-au-lait");
+    await page.goto("/varieties/bracken-rose");
     await page.click("button#add-to-cart");
 
     await page.goto("/checkout");
     await expect(page.locator("#checkout-form-wrapper")).toBeVisible();
-    await expect(page.locator("#order-summary")).toContainText("Café au Lait");
+    await expect(page.locator("#order-summary")).toContainText("Bracken Rose");
     await expect(page.locator("form#preorder-form")).toBeVisible();
   });
 });

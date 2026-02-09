@@ -17,6 +17,7 @@ The goal is a **high-performance, lightweight** storefront — fast to load, sim
 | Framework    | Astro (SSG + SSR)                       |
 | Language     | TypeScript (strict mode)                |
 | Styling      | Tailwind CSS                            |
+| Typography   | Playfair Display (Google Fonts, headings only) |
 | Deployment   | Cloudflare Pages (with CI/CD pipeline)  |
 | Testing      | Vitest (unit), Playwright (e2e)         |
 | Images       | Astro `<Image>` / `<Picture>` + sharp   |
@@ -48,16 +49,115 @@ Cloudflare Pages with CI/CD. A push to the main branch triggers a rebuild and de
 
 ## Design Direction
 
-**Elegant Brutalist.** Defined concretely as:
+**Elegant Brutalist.** The tension between refinement and rawness defines the aesthetic — a refined serif typeface set against an undecorated, structurally honest grid. The photography provides warmth and richness; the UI provides restraint and clarity.
 
-- **Minimal UI chrome.** No rounded cards, drop shadows, or gradient fills. Borders are structural, not decorative.
-- **Bold typography.** High-contrast type hierarchy. Large headings, generous line-height. System fonts or a single loaded typeface.
-- **Generous whitespace.** Content breathes. Dense layouts are avoided.
-- **Limited color palette.** Monochrome base (black, white, grays) with one or two accent colors derived from dahlia hues.
-- **No gratuitous animation.** Motion is functional only (e.g., cart drawer open/close). No hover effects, parallax, or scroll-triggered transitions.
+### Core Principles
+
+- **Minimal UI chrome.** No rounded corners, drop shadows, or gradient fills. Borders are structural, not decorative.
 - **Raw, exposed structure.** The grid and layout are visible and intentional. The design looks like it was built, not decorated.
+- **Generous whitespace.** Content breathes. Dense layouts are avoided. Whitespace is a first-class design element, not leftover space.
+- **No gratuitous animation.** Motion is functional only (cart feedback, page transitions). No hover effects beyond color shifts. No parallax, scroll-triggered transitions, or decorative animation.
 
-The product photography (high-resolution images of bloomed dahlias) provides all the visual richness. The UI stays out of the way.
+### Typography
+
+Typography is the primary design lever — it carries the entire aesthetic when photography isn't present.
+
+- **Heading typeface:** Load a single refined serif — **Playfair Display** (Google Fonts). Used for `h1`, `h2`, and display text. The contrast of a high-stroke-contrast serif against the raw grid *is* the brutalist tension.
+- **Body typeface:** System font stack (`system-ui`, `-apple-system`, `BlinkMacSystemFont`, `Segoe UI`, `Roboto`, `sans-serif`). Clean, invisible, fast.
+- **Scale:** Use an extreme contrast ratio between heading and body sizes:
+  - `h1`: `text-6xl` on mobile, `text-7xl` on `sm`, `text-8xl` on `lg`. Negative letter-spacing (`tracking-tighter`).
+  - `h2`: `text-3xl` on mobile, `text-4xl` on `lg`.
+  - `h3`: `text-xl`, semibold, sans-serif.
+  - Body: `text-base`, `leading-relaxed`.
+- **Uppercase accents:** Category labels, stock status, navigation links, and button text use `text-xs uppercase tracking-widest` sans-serif. This creates a second rhythm against the serif headings.
+
+### Color Palette
+
+A warm, restrained palette. The flowers provide color; the UI provides a quiet stage.
+
+| Token              | Value       | Usage                                                    |
+| ------------------ | ----------- | -------------------------------------------------------- |
+| `cream`            | `#faf8f5`   | Page background. Warm, not clinical white.               |
+| `ink`              | `#1a1a1a`   | Primary text, borders, buttons. Softer than pure black.  |
+| `stone-500`        | `#78716c`   | Secondary text, captions, muted UI.                      |
+| `stone-300`        | `#d6d3d1`   | Dividers, disabled states, table borders.                |
+| `dahlia-wine`      | `#722f37`   | Primary accent. Low-stock warnings, required field markers, error states. |
+| `dahlia-blush`     | `#d4a0a0`   | Soft accent. Hover tints, subtle highlights.             |
+| `botanical`        | `#4a6741`   | "In Stock" and success states. Grounded, natural green.  |
+| `white`            | `#ffffff`   | Card insets, input backgrounds, inverted button text.    |
+
+All color combinations must meet WCAG AA contrast ratios. Test `ink` on `cream`, `stone-500` on `cream`, `dahlia-wine` on `cream`, and `botanical` on `cream` before use.
+
+### Layout & Spacing
+
+#### Responsive Spacing Scale
+
+Padding and margins shift across breakpoints to respect screen real estate:
+
+| Context              | Mobile (`< sm`) | Tablet (`sm`–`lg`) | Desktop (`lg`+)   |
+| -------------------- | --------------- | ------------------- | ------------------ |
+| Page horizontal pad  | `px-4`          | `px-8`              | `px-12` or `px-16` |
+| Section vertical pad | `py-10`         | `py-14`             | `py-20`            |
+| Component gaps       | `gap-4`         | `gap-6`             | `gap-8`            |
+
+Do **not** use a single fixed padding value (e.g., `px-6 py-12`) across all viewports.
+
+#### Grid Patterns
+
+- **Product listing grid:** `grid-cols-1` on mobile, `sm:grid-cols-2`, `lg:grid-cols-3`. Simple, predictable.
+- **Homepage featured section:** Asymmetric layout — one featured variety at `col-span-2` (2/3 width) with two smaller cards stacked alongside. This creates visual hierarchy without decoration.
+- **Product detail page:** Two-column layout on desktop (`lg:grid-cols-2`), single column stacked on mobile. Image column first.
+- **Max content width:** Prose and form content cap at `max-w-2xl`. Product grids cap at `max-w-6xl`. Full-bleed sections (hero, feature banners) have no max-width.
+
+### Page-Specific Design Guidance
+
+#### Homepage
+
+The homepage is **editorial, not transactional**. It should feel like the cover of a plant catalog, not a product listing.
+
+- **Hero section:** Full-bleed hero image of a single standout dahlia bloom. Text overlaid on a semi-transparent dark gradient at the bottom — large serif heading, one line of subtext, and a CTA button. The image should dominate the viewport above the fold.
+- **Featured varieties:** Below the hero. Asymmetric grid (one large, two small) rather than a uniform 3-column grid.
+- **Seasonal awareness:** Include a short seasonal message. The site sells a seasonal product — it should acknowledge the current growing cycle. Example: "Pre-orders open for spring 2026 planting."
+
+#### Product Detail Page
+
+- Image fills its grid column fully, bordered. Consider a portrait aspect ratio for the detail image (`3/4` or `2/3`) since dahlia blooms are roughly circular and benefit from vertical framing.
+- Description text (`<Content />`) should render in a `prose` block with adequate typographic styling.
+
+#### Cart & Checkout
+
+- Keep functional and clean. These pages exist to complete a task, not to impress.
+- Use the `fieldset` / `legend` pattern for form grouping — it's semantic and visually distinctive in the brutalist style.
+- Buttons: Primary actions use filled `ink`-background buttons. Secondary actions use outlined `ink`-border buttons.
+
+### Component Design Tokens
+
+| Element            | Specification                                                                 |
+| ------------------ | ----------------------------------------------------------------------------- |
+| **Buttons (primary)**   | `bg-ink text-white border border-ink`, uppercase, `tracking-widest`, `text-sm` |
+| **Buttons (secondary)** | `bg-transparent text-ink border border-ink`, same type treatment              |
+| **Buttons (disabled)**  | `border-stone-300 text-stone-300`, `cursor-not-allowed`                       |
+| **Input fields**        | `border border-ink bg-white`, `px-4 py-3`, `focus:ring-2 focus:ring-ink`     |
+| **Cards**               | `border border-ink`, no rounding, no shadow. Image top, content bottom.       |
+| **Dividers**            | `border-t border-ink` for major sections. `border-t border-stone-300` for minor. |
+| **Stock: available**    | `text-botanical`, uppercase, `text-xs tracking-wider`                         |
+| **Stock: low**          | `text-dahlia-wine`, uppercase, `text-xs tracking-wider`                       |
+| **Stock: sold-out**     | `text-stone-300 line-through`, uppercase, `text-xs tracking-wider`            |
+
+### Interaction & Motion
+
+- **Hover states:** Color transitions only (`transition-colors`). Buttons invert fill on hover. Links shift color. No scale, transform, or opacity transitions.
+- **Cart feedback:** When an item is added, briefly pulse the cart icon badge (a single CSS scale animation, `150ms ease-out`). The button text changes to "Added" for `1.2s` with `disabled` state.
+- **Page transitions:** Use Astro View Transitions API with a simple crossfade (`200ms`). No slide or morph transitions.
+- **Focus indicators:** Visible `ring-2 ring-ink ring-offset-2` on all interactive elements. Never suppress the focus ring.
+
+### Footer
+
+The footer is not throwaway space. For a small nursery, it builds trust and connection.
+
+- **Required content:** Copyright, tagline, contact email, and physical growing region/location.
+- **Optional content:** Social media links (icon-only, monochrome), newsletter signup (single email input + submit), link to About page.
+- **Layout:** Two or three columns on desktop, stacked on mobile. Same `border-t border-ink` top border. Background matches page `cream`.
 
 ---
 
@@ -136,13 +236,27 @@ Business logic must be **decoupled from external service providers**. Concretely
 
 ## Image Strategy
 
-Dahlia photography is the primary visual asset. Images must be optimized aggressively:
+Dahlia photography is the primary visual asset and the sole source of color and emotion on the site. Images must be treated as first-class design elements, not afterthoughts.
 
-- Use Astro's built-in `<Image>` and `<Picture>` components for all product images.
-- Output formats: **WebP** and **AVIF** with JPEG fallback.
-- Generate responsive `srcset` for multiple viewport sizes.
-- Lazy-load all images below the fold.
-- Store source images at high resolution in the repository (or a referenced asset path). Let the build pipeline handle optimization.
+### Optimization
+
+- Use Astro's `<Picture>` component (not `<Image>`) for all product images to serve multiple formats.
+- Output formats: **AVIF** (primary), **WebP** (fallback), **JPEG** (legacy fallback).
+- Generate responsive `srcset` with breakpoints at `400w`, `600w`, `800w`, `1200w`.
+- Lazy-load all images below the fold. Hero images and above-the-fold content use `loading="eager"`.
+- Store source images at high resolution (minimum 1600px on the long edge) in the repository. The build pipeline handles all optimization.
+
+### Aspect Ratios & Framing
+
+| Context              | Aspect Ratio | Rationale                                                   |
+| -------------------- | ------------ | ----------------------------------------------------------- |
+| Variety card (grid)  | `3/4`        | Portrait orientation. Dahlia blooms are roughly circular — vertical framing gives breathing room above and below the bloom and feels more editorial. |
+| Product detail page   | `3/4`        | Consistent with cards. Large, generous, fills its column.   |
+| Homepage hero         | `16/9`       | Landscape, full-bleed. Cinematic framing for a single hero bloom. |
+
+### Alt Text
+
+Every product image must have a descriptive `alt` attribute following the pattern: `"{Variety name} dahlia bloom"` — e.g., `"Café au Lait dahlia bloom"`. Decorative images (backgrounds, dividers) use `alt=""`.
 
 ---
 
