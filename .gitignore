@@ -26,6 +26,9 @@ npm-debug.log*
 test-results/
 playwright-report/
 
+# E2E test fixture (created at test time, removed by teardown)
+src/content/varieties/e2e-test-variety.md
+
 # Editor
 *.sw?
 .vscode/settings.json
