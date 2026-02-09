@@ -5,8 +5,7 @@ import { getCollection } from "astro:content";
 
 const varieties = await getCollection("varieties");
 const featured = varieties.slice(0, 3);
-const heroVariety = featured[0];
-const heroImage = heroVariety?.data.image;
+const heroImage = "/images/hero.jpg";
 ---
 
 <BaseLayout title="Home">
