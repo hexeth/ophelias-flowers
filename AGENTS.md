@@ -38,8 +38,9 @@ This is a deliberate constraint. The interactive surface (cart drawer, quantity 
 | -------------------------- | --------- | ------------------------------------------------------ |
 | Product catalog pages      | SSG       | Small, slowly-changing catalog. Rebuild on push.       |
 | Static pages (about, etc.) | SSG       | No dynamic content.                                    |
-| Cart mutations             | SSR       | Astro Actions. Server-side, no client JS needed.       |
+| Cart mutations             | Client    | Client-side state (localStorage).                      |
 | Pre-order submission       | SSR       | Astro Actions. Validates and sends email notification. |
+| Checkout                   | SSR       | Renders cart summary and captures customer info.       |
 
 ### Deployment Model
 
@@ -172,15 +173,14 @@ Products are stored as **Markdown files** in the repository, managed via Astro C
 ```yaml
 ---
 name: "Café au Lait"
-slug: "cafe-au-lait"
 sku: "DAH-CAL-001"
 price: 8.50
 stock: "available" # available | low | sold-out
-category: "dinnerplate" # dinnerplate | ball | pompon | cactus | etc.
+category: "dinnerplate" # ball | pompon | cactus | decorative | waterlily | collarette | anemone | stellar | single
 color: ["blush", "cream"]
 bloomSize: "8-10 inches"
 height: "3-4 feet"
-image: "./cafe-au-lait.jpg"
+image: "/images/varieties/cafe-au-lait.jpg"
 ---
 A classic dinnerplate dahlia with enormous creamy blush blooms...
 ```
@@ -239,11 +239,11 @@ Dahlia photography is the primary visual asset and the sole source of color and 
 
 ### Optimization
 
-- Use Astro's `<Picture>` component (not `<Image>`) for all product images to serve multiple formats.
-- Output formats: **AVIF** (primary), **WebP** (fallback), **JPEG** (legacy fallback).
-- Generate responsive `srcset` with breakpoints at `400w`, `600w`, `800w`, `1200w`.
-- Lazy-load all images below the fold. Hero images and above-the-fold content use `loading="eager"`.
-- Store source images at high resolution (minimum 1600px on the long edge) in the repository. The build pipeline handles all optimization.
+- Prefer Astro's `<Image>` or `<Picture>` components for automated optimization. Standard `<img>` tags are also permissible for high-performance layout control (e.g., hero backgrounds) provided they include proper `loading` and `decoding` attributes.
+- Output formats: When using Astro components, prioritize **AVIF** (primary), **WebP** (fallback), and **JPEG** (legacy fallback).
+- Generate responsive `srcset` where applicable.
+- Lazy-load all images below the fold. Hero images and above-the-fold content must use `loading="eager"`.
+- Store source images at high resolution in the repository. The build pipeline handles optimization via standard Astro assets or pre-optimized public assets.
 
 ### Aspect Ratios & Framing
 
@@ -288,7 +288,7 @@ Tests run in CI on every pull request. The main branch must always be green.
 
 ## Conventions
 
-### File Structure (planned)
+### File Structure
 
 ```
 src/

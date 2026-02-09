@@ -1,6 +1,6 @@
 ---
+import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
-import { Picture } from "astro:assets";
 
 interface Props {
   variety: CollectionEntry<"varieties">;
@@ -9,6 +9,9 @@ interface Props {
 
 const { variety, featured = false } = Astro.props;
 const { name, price, stock, category, image } = variety.data;
+const imageSizes = featured
+  ? "(min-width: 1024px) 66vw, (min-width: 640px) 100vw, 100vw"
+  : "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw";
 const slug = variety.id.replace(/\.md$/, "");
 
 const stockLabel: Record<string, string> = {
@@ -29,11 +32,12 @@ const stockClass: Record<string, string> = {
     <div
       class={`overflow-hidden ${featured ? "aspect-[3/4] sm:aspect-[4/3] lg:aspect-[3/4]" : "aspect-[3/4]"}`}
     >
-      <Picture
+      <Image
         src={image}
         alt={`${name} dahlia bloom`}
-        widths={[400, 600, 800]}
-        formats={["avif", "webp", "jpeg"]}
+        loading="lazy"
+        decoding="async"
+        sizes={imageSizes}
         class="w-full h-full object-cover"
       />
     </div>

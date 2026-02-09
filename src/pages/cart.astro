@@ -78,12 +78,12 @@ import BaseLayout from "../layouts/base-layout.astro";
     const contentsEl = document.getElementById("cart-contents")!;
     const itemsEl = document.getElementById("cart-items")!;
     const totalEl = document.getElementById("cart-total")!;
-    const cartCountEl = document.getElementById("cart-count");
+    const cartCountEls = document.querySelectorAll<HTMLElement>("#cart-count, #cart-count-mobile");
 
     if (cart.items.length === 0) {
       emptyEl.hidden = false;
       contentsEl.hidden = true;
-      if (cartCountEl) cartCountEl.hidden = true;
+      cartCountEls.forEach((el) => { el.hidden = true; });
       return;
     }
 
@@ -136,11 +136,11 @@ import BaseLayout from "../layouts/base-layout.astro";
     totalEl.textContent = formatPrice(getCartSubtotal(cart));
 
     // Update cart count badge
-    if (cartCountEl) {
-      const count = getCartItemCount(cart);
-      cartCountEl.textContent = String(count);
-      cartCountEl.hidden = count === 0;
-    }
+    const count = getCartItemCount(cart);
+    cartCountEls.forEach((el) => {
+      el.textContent = `(${count})`;
+      el.hidden = count === 0;
+    });
 
     // Bind quantity buttons
     itemsEl.querySelectorAll<HTMLButtonElement>(".qty-btn").forEach((btn) => {

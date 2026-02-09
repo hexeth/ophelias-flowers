@@ -7,9 +7,11 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: "html",
+  timeout: 60_000,
   use: {
     baseURL: "http://localhost:4321",
     trace: "on-first-retry",
+    navigationTimeout: 45_000,
   },
   projects: [
     {
@@ -18,8 +20,11 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: "npm run preview",
+    command: "npx astro dev --port 4321",
     url: "http://localhost:4321",
     reuseExistingServer: !process.env.CI,
+    timeout: 30_000,
   },
+  globalSetup: "./e2e/global-setup.ts",
+  globalTeardown: "./e2e/global-teardown.ts",
 });

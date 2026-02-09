@@ -28,15 +28,73 @@ const {
   <body>
     <slot name="header">
       <header
-        class="border-b border-ink px-4 sm:px-8 lg:px-12 py-6 flex items-center justify-between"
+        class="border-b border-ink px-4 sm:px-8 lg:px-12 py-6"
       >
-        <a href="/" class="no-underline">
-          <span class="font-serif text-2xl lg:text-3xl tracking-tight">
-            Ophelia's Flowers
-          </span>
-        </a>
-        <nav aria-label="Main navigation">
-          <ul class="flex gap-6 text-xs uppercase tracking-widest items-center">
+        <div class="flex items-center justify-between">
+          <a href="/" class="no-underline">
+            <span class="font-serif text-2xl lg:text-3xl tracking-tight">
+              Ophelia's Flowers
+            </span>
+          </a>
+
+          <!-- Mobile menu button -->
+          <button
+            id="mobile-menu-toggle"
+            type="button"
+            class="sm:hidden border border-ink p-2 hover:bg-ink hover:text-white transition-colors"
+            aria-expanded="false"
+            aria-controls="main-nav"
+            aria-label="Open menu"
+          >
+            <svg id="menu-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="square" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg id="menu-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="square" stroke-width="2" d="M6 6l12 12M6 18L18 6" />
+            </svg>
+          </button>
+
+          <!-- Desktop nav -->
+          <nav aria-label="Main navigation" class="hidden sm:block">
+            <ul class="flex gap-6 text-xs uppercase tracking-widest items-center">
+              <li>
+                <a
+                  href="/varieties"
+                  class="no-underline hover:text-stone-500 transition-colors"
+                  >Shop</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/about"
+                  class="no-underline hover:text-stone-500 transition-colors"
+                  >About</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/cart"
+                  class="inline-flex items-center gap-2 no-underline hover:text-stone-500 transition-colors"
+                >
+                  <span>Cart</span>
+                  <span
+                    id="cart-count"
+                    class="text-xs"
+                    hidden>(0)</span
+                  >
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- Mobile nav -->
+        <nav
+          id="main-nav"
+          class="hidden sm:hidden border-t border-stone-300 mt-6 pt-6"
+          aria-label="Main navigation"
+        >
+          <ul class="flex flex-col gap-4 text-xs uppercase tracking-widest">
             <li>
               <a
                 href="/varieties"
@@ -54,31 +112,13 @@ const {
             <li>
               <a
                 href="/cart"
-                class="relative inline-flex items-center no-underline hover:text-stone-500 transition-colors"
-                aria-label="Cart"
+                class="inline-flex items-center gap-2 no-underline hover:text-stone-500 transition-colors"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <circle cx="9" cy="21" r="1"></circle>
-                  <circle cx="20" cy="21" r="1"></circle>
-                  <path
-                    d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
-                  ></path>
-                </svg>
+                <span>Cart</span>
                 <span
-                  id="cart-count"
-                  class="absolute -top-2 -right-3 bg-ink text-white text-xs w-5 h-5 flex items-center justify-center"
-                  hidden>0</span
+                  id="cart-count-mobile"
+                  class="text-xs"
+                  hidden>(0)</span
                 >
               </a>
             </li>
@@ -138,12 +178,12 @@ const {
           <ul class="space-y-2 text-sm text-stone-500">
             <li>
               <a
-                href="mailto:hello@opheliasflowers.com"
+                href="mailto:hello@opheliasflowers.ca"
                 class="no-underline hover:text-ink transition-colors"
-                >hello@opheliasflowers.com</a
+                >hello@opheliasflowers.ca</a
               >
             </li>
-            <li>Pacific Northwest, USA</li>
+            <li>Chilliwack, BC Canada</li>
           </ul>
         </div>
       </div>
@@ -157,14 +197,35 @@ const {
     <script>
       import { loadCart, getCartItemCount } from "../lib/commerce/cart";
 
+      // Cart count badges
       const cartCount = document.getElementById("cart-count");
-      if (cartCount) {
-        const cart = loadCart();
-        const count = getCartItemCount(cart);
-        if (count > 0) {
-          cartCount.textContent = String(count);
-          cartCount.hidden = false;
-        }
+      const cartCountMobile = document.getElementById("cart-count-mobile");
+      const cart = loadCart();
+      const count = getCartItemCount(cart);
+      if (count > 0) {
+        [cartCount, cartCountMobile].forEach((el) => {
+          if (el) {
+            el.textContent = `(${count})`;
+            el.hidden = false;
+          }
+        });
+      }
+
+      // Mobile menu toggle
+      const toggle = document.getElementById("mobile-menu-toggle");
+      const mobileNav = document.getElementById("main-nav");
+      const iconOpen = document.getElementById("menu-icon-open");
+      const iconClose = document.getElementById("menu-icon-close");
+
+      if (toggle && mobileNav && iconOpen && iconClose) {
+        toggle.addEventListener("click", () => {
+          const isOpen = toggle.getAttribute("aria-expanded") === "true";
+          toggle.setAttribute("aria-expanded", String(!isOpen));
+          toggle.setAttribute("aria-label", isOpen ? "Open menu" : "Close menu");
+          mobileNav.classList.toggle("hidden");
+          iconOpen.classList.toggle("hidden");
+          iconClose.classList.toggle("hidden");
+        });
       }
     </script>
   </body>

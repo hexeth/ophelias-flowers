@@ -34,7 +34,7 @@ jobs:
       - run: npm run check
 
   test:
-    name: Unit Tests
+    name: Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -86,7 +86,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy --project-name=ophelias-flowers --branch=${{ github.head_ref }}
+          command: pages deploy ./dist --project-name=ophelias-flowers --branch=${{ github.head_ref }}
 
       - name: Comment preview URL on PR
         if: github.event_name == 'pull_request'

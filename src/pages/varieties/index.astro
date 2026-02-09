@@ -1,9 +1,59 @@
 ---
 import BaseLayout from "../../layouts/base-layout.astro";
 import VarietyCard from "../../components/variety-card.astro";
+import FilterDropdown from "../../components/filter-dropdown.astro";
 import { getCollection } from "astro:content";
 
 const varieties = await getCollection("varieties");
+
+/* --- Compute filter counts --- */
+
+const categoryCounts = new Map<string, number>();
+const colorCounts = new Map<string, number>();
+let inStockCount = 0;
+
+for (const v of varieties) {
+  const { category, color, stock } = v.data;
+
+  categoryCounts.set(category, (categoryCounts.get(category) ?? 0) + 1);
+
+  for (const c of color) {
+    colorCounts.set(c, (colorCounts.get(c) ?? 0) + 1);
+  }
+
+  if (stock !== "sold-out") {
+    inStockCount++;
+  }
+}
+
+const categoryLabel: Record<string, string> = {
+  dinnerplate: "Dinnerplate",
+  ball: "Ball",
+  pompon: "Pompon",
+  cactus: "Cactus",
+  decorative: "Decorative",
+  waterlily: "Waterlily",
+  collarette: "Collarette",
+  anemone: "Anemone",
+  stellar: "Stellar",
+  single: "Single",
+};
+
+const categoryOptions = [...categoryCounts.entries()]
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([value, count]) => ({
+    value,
+    label: categoryLabel[value] ?? value,
+    count,
+  }));
+
+const colorOptions = [...colorCounts.entries()]
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([value, count]) => ({
+    value,
+    label: value.charAt(0).toUpperCase() + value.slice(1),
+    count,
+  }));
 ---
 
 <BaseLayout
@@ -13,14 +63,194 @@ const varieties = await getCollection("varieties");
   <section class="px-4 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-20">
     <div class="max-w-6xl">
       <h1 class="mb-3">All Varieties</h1>
-      <p class="text-stone-500 mb-10 lg:mb-14">
-        {varieties.length} varieties available this season.
+      <p class="text-stone-500 mb-6 lg:mb-8">
+        <span id="visible-count">{varieties.length}</span> varieties available this
+        season.
       </p>
+
+      <!-- Filters -->
       <div
+        class="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-10 lg:mb-14 border-b border-ink pb-8"
+        id="filters"
+        role="search"
+        aria-label="Filter varieties"
+      >
+        <div class="sm:w-48">
+          <FilterDropdown
+            id="category"
+            label="Category"
+            options={categoryOptions}
+            allLabel="All Categories"
+          />
+        </div>
+        <div class="sm:w-48">
+          <FilterDropdown
+            id="color"
+            label="Color"
+            options={colorOptions}
+            allLabel="All Colors"
+          />
+        </div>
+        <label
+          class="inline-flex items-center gap-2 border border-ink px-4 py-3 cursor-pointer select-none self-start"
+        >
+          <input
+            type="checkbox"
+            id="in-stock"
+            data-filter="in-stock"
+            class="accent-ink w-4 h-4 cursor-pointer"
+          />
+          <span class="text-xs uppercase tracking-widest">
+            In Stock ({inStockCount})
+          </span>
+        </label>
+      </div>
+
+      <!-- No results message -->
+      <p
+        id="no-results"
+        class="hidden text-stone-500 text-center py-20 text-sm uppercase tracking-widest"
+      >
+        No varieties match your filters.
+      </p>
+
+      <!-- Product grid -->
+      <div
+        id="variety-grid"
         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
       >
-        {varieties.map((variety) => <VarietyCard variety={variety} />)}
+        {
+          varieties.map((variety) => (
+            <div
+              data-category={variety.data.category}
+              data-colors={variety.data.color.join(" ")}
+              data-stock={variety.data.stock}
+              class="variety-item"
+            >
+              <VarietyCard variety={variety} />
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  function initFilters() {
+    const filterGroups = document.querySelectorAll("[data-filter-group]");
+    const inStockCheckbox = document.getElementById(
+      "in-stock",
+    ) as HTMLInputElement | null;
+    const items = document.querySelectorAll(
+      ".variety-item",
+    ) as NodeListOf<HTMLElement>;
+    const visibleCount = document.getElementById("visible-count");
+    const noResults = document.getElementById("no-results");
+    const grid = document.getElementById("variety-grid");
+
+    if (!inStockCheckbox) return;
+
+    function getSelected(groupId: string): string[] {
+      const group = document.querySelector(`[data-filter-group="${groupId}"]`);
+      if (!group) return [];
+      const checked = group.querySelectorAll(
+        'input[type="checkbox"]:checked',
+      ) as NodeListOf<HTMLInputElement>;
+      return Array.from(checked).map((cb) => cb.value);
+    }
+
+    function updateSummary(groupId: string, allLabel: string) {
+      const group = document.querySelector(`[data-filter-group="${groupId}"]`);
+      if (!group) return;
+      const summary = group.querySelector(".filter-summary-text");
+      if (!summary) return;
+      const selected = getSelected(groupId);
+      if (selected.length === 0) {
+        summary.textContent = allLabel;
+      } else if (selected.length === 1) {
+        const label = group
+          .querySelector(`input[value="${selected[0]}"]`)
+          ?.closest("label");
+        const text =
+          label?.querySelector(".truncate")?.textContent ?? selected[0];
+        summary.textContent = text.trim();
+      } else {
+        summary.textContent = `${selected.length} selected`;
+      }
+    }
+
+    function applyFilters() {
+      const selectedCategories = getSelected("category");
+      const selectedColors = getSelected("color");
+      const inStockOnly = inStockCheckbox!.checked;
+      let count = 0;
+
+      items.forEach((item) => {
+        const itemCategory = item.dataset.category ?? "";
+        const itemColors = (item.dataset.colors ?? "").split(" ");
+        const itemStock = item.dataset.stock ?? "";
+
+        const matchesCategory =
+          selectedCategories.length === 0 ||
+          selectedCategories.includes(itemCategory);
+        const matchesColor =
+          selectedColors.length === 0 ||
+          selectedColors.some((c) => itemColors.includes(c));
+        const matchesStock = !inStockOnly || itemStock !== "sold-out";
+
+        if (matchesCategory && matchesColor && matchesStock) {
+          item.style.display = "";
+          count++;
+        } else {
+          item.style.display = "none";
+        }
+      });
+
+      updateSummary("category", "All Categories");
+      updateSummary("color", "All Colors");
+
+      if (visibleCount) visibleCount.textContent = String(count);
+      if (noResults && grid) {
+        noResults.classList.toggle("hidden", count > 0);
+        grid.classList.toggle("hidden", count === 0);
+      }
+    }
+
+    // Listen to checkbox changes inside filter groups
+    filterGroups.forEach((group) => {
+      group.addEventListener("change", applyFilters);
+    });
+
+    // Listen to in-stock checkbox
+    inStockCheckbox.addEventListener("change", applyFilters);
+
+    // Close other dropdowns when one opens
+    filterGroups.forEach((group) => {
+      group.addEventListener("toggle", () => {
+        if ((group as HTMLDetailsElement).open) {
+          filterGroups.forEach((other) => {
+            if (other !== group) {
+              (other as HTMLDetailsElement).open = false;
+            }
+          });
+        }
+      });
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener("click", (e) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest("[data-filter-group]")) {
+        filterGroups.forEach((group) => {
+          (group as HTMLDetailsElement).open = false;
+        });
+      }
+    });
+  }
+
+  // Astro module scripts are deferred — DOM is ready
+  initFilters();
+  // Also re-init if View Transitions are used
+  document.addEventListener("astro:after-swap", initFilters);
+</script>
