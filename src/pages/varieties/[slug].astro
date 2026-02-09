@@ -125,7 +125,7 @@ const canAddToCart = stock !== "sold-out";
       const cartCount = document.getElementById("cart-count");
       if (cartCount) {
         const count = getCartItemCount(cart);
-        cartCount.textContent = String(count);
+        cartCount.textContent = `(${count})`;
         cartCount.hidden = false;
         cartCount.classList.remove("badge-pulse");
         void cartCount.offsetWidth;

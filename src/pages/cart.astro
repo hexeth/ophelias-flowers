@@ -138,7 +138,7 @@ import BaseLayout from "../layouts/base-layout.astro";
     // Update cart count badge
     if (cartCountEl) {
       const count = getCartItemCount(cart);
-      cartCountEl.textContent = String(count);
+      cartCountEl.textContent = `(${count})`;
       cartCountEl.hidden = count === 0;
     }
 
