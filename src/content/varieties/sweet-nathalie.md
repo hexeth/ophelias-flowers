@@ -1,5 +1,5 @@
 ---
-name: "Sweet Nathalie"
+name: "Sweet Natalie"
 sku: "DAH-SWN-016"
 price: 8.50
 stock: "available"
