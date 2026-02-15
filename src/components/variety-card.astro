@@ -27,8 +27,8 @@ const stockClass: Record<string, string> = {
 };
 ---
 
-<article class="border border-ink group">
-  <a href={`/varieties/${slug}`} class="block no-underline">
+<article class="border border-ink group h-full">
+  <a href={`/varieties/${slug}`} class="block no-underline h-full flex flex-col">
     <div
       class={`overflow-hidden ${featured ? "aspect-[3/4] sm:aspect-[4/3] lg:aspect-[3/4]" : "aspect-[3/4]"}`}
     >
@@ -41,12 +41,12 @@ const stockClass: Record<string, string> = {
         class="w-full h-full object-cover"
       />
     </div>
-    <div class="p-4 sm:p-5 border-t border-ink">
+    <div class="p-4 sm:p-5 border-t border-ink flex flex-col flex-1">
       <p class="text-xs uppercase tracking-widest text-stone-500 mb-1">
         {category}
       </p>
       <h3 class="font-serif text-lg sm:text-xl font-normal">{name}</h3>
-      <div class="flex items-center justify-between mt-3">
+      <div class="flex items-center justify-between mt-auto pt-3">
         <span class="text-lg font-semibold">${price.toFixed(2)}</span>
         <span class={`text-xs uppercase tracking-wider ${stockClass[stock]}`}>
           {stockLabel[stock]}

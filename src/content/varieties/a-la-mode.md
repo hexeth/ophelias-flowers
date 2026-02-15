@@ -4,10 +4,10 @@ sku: "DAH-ALM-029"
 price: 6.00
 stock: "sold-out"
 category: "decorative"
-color: ["blush", "cream"]
+color: ["bi-color", "variegated"]
 bloomSize: "4-6 inches"
 height: "3-4 feet"
 image: "../../assets/varieties/a-la-mode.jpg"
 ---
 
-A creamy blush decorative dahlia with elegant, layered petals and romantic color.
+Striking orange with distinct white tips.

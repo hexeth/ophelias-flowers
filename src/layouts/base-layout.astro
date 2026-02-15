@@ -39,22 +39,38 @@ const {
             </span>
           </a>
 
-          <!-- Mobile menu button -->
-          <button
-            id="mobile-menu-toggle"
-            type="button"
-            class="sm:hidden border border-ink p-2 hover:bg-ink hover:text-white transition-colors"
-            aria-expanded="false"
-            aria-controls="main-nav"
-            aria-label="Open menu"
-          >
-            <svg id="menu-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="square" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-            <svg id="menu-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="square" stroke-width="2" d="M6 6l12 12M6 18L18 6" />
-            </svg>
-          </button>
+          <div class="sm:hidden flex items-center gap-2">
+            <button
+              id="mobile-search-toggle"
+              type="button"
+              class="border border-ink p-2 hover:bg-ink hover:text-white transition-colors"
+              aria-expanded="false"
+              aria-controls="mobile-search-panel"
+              aria-label="Open search"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="11" cy="11" r="7" stroke-width="2" />
+                <path stroke-linecap="square" stroke-width="2" d="M20 20l-3.5-3.5" />
+              </svg>
+            </button>
+
+            <!-- Mobile menu button -->
+            <button
+              id="mobile-menu-toggle"
+              type="button"
+              class="border border-ink p-2 hover:bg-ink hover:text-white transition-colors"
+              aria-expanded="false"
+              aria-controls="main-nav"
+              aria-label="Open menu"
+            >
+              <svg id="menu-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="square" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              <svg id="menu-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="square" stroke-width="2" d="M6 6l12 12M6 18L18 6" />
+              </svg>
+            </button>
+          </div>
 
           <!-- Desktop nav -->
           <div class="hidden sm:flex items-center gap-6">
@@ -115,18 +131,16 @@ const {
           </div>
         </div>
 
-        <!-- Mobile nav -->
-        <nav
-          id="main-nav"
+        <div
+          id="mobile-search-panel"
           class="hidden sm:hidden border-t border-stone-300 mt-6 pt-6"
-          aria-label="Main navigation"
         >
           <form
             action="/varieties"
             method="get"
             role="search"
             aria-label="Search varieties"
-            class="mb-6 flex items-center gap-2"
+            class="flex items-center gap-2"
           >
             <label for="nav-search-mobile" class="sr-only">Search varieties</label>
             <input
@@ -143,7 +157,14 @@ const {
               Search
             </button>
           </form>
+        </div>
 
+        <!-- Mobile nav -->
+        <nav
+          id="main-nav"
+          class="hidden sm:hidden border-t border-stone-300 mt-6 pt-6"
+          aria-label="Main navigation"
+        >
           <ul class="flex flex-col gap-4 text-xs uppercase tracking-widest">
             <li>
               <a
@@ -268,6 +289,11 @@ const {
       const mobileNav = document.getElementById("main-nav");
       const iconOpen = document.getElementById("menu-icon-open");
       const iconClose = document.getElementById("menu-icon-close");
+      const searchToggle = document.getElementById("mobile-search-toggle");
+      const mobileSearchPanel = document.getElementById("mobile-search-panel");
+      const mobileSearchInput = document.getElementById(
+        "nav-search-mobile",
+      ) as HTMLInputElement | null;
 
       if (toggle && mobileNav && iconOpen && iconClose) {
         toggle.addEventListener("click", () => {
@@ -277,6 +303,19 @@ const {
           mobileNav.classList.toggle("hidden");
           iconOpen.classList.toggle("hidden");
           iconClose.classList.toggle("hidden");
+        });
+      }
+
+      if (searchToggle && mobileSearchPanel) {
+        searchToggle.addEventListener("click", () => {
+          const isOpen = searchToggle.getAttribute("aria-expanded") === "true";
+          searchToggle.setAttribute("aria-expanded", String(!isOpen));
+          searchToggle.setAttribute("aria-label", isOpen ? "Open search" : "Close search");
+          mobileSearchPanel.classList.toggle("hidden");
+
+          if (!isOpen && mobileSearchInput) {
+            mobileSearchInput.focus();
+          }
         });
       }
     </script>

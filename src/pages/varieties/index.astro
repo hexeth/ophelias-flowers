@@ -1,10 +1,15 @@
 ---
 import BaseLayout from "../../layouts/base-layout.astro";
 import VarietyCard from "../../components/variety-card.astro";
-import FilterDropdown from "../../components/filter-dropdown.astro";
+import VarietiesControls from "../../components/varieties-controls.astro";
 import { getCollection } from "astro:content";
 
-const varieties = await getCollection("varieties");
+const varieties = (await getCollection("varieties")).sort((a, b) =>
+  a.data.name.localeCompare(b.data.name, undefined, {
+    numeric: true,
+    sensitivity: "base",
+  }),
+);
 
 /* --- Compute filter counts --- */
 
@@ -68,68 +73,11 @@ const colorOptions = [...colorCounts.entries()]
         season.
       </p>
 
-      <!-- Filters -->
-      <div
-        class="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-10 lg:mb-14 border-b border-ink pb-8"
-        id="filters"
-        role="search"
-        aria-label="Filter varieties"
-      >
-        <div class="sm:w-48">
-          <FilterDropdown
-            id="category"
-            label="Category"
-            options={categoryOptions}
-            allLabel="All Categories"
-          />
-        </div>
-        <div class="sm:w-48">
-          <FilterDropdown
-            id="color"
-            label="Color"
-            options={colorOptions}
-            allLabel="All Colors"
-          />
-        </div>
-        <label
-          class="inline-flex items-center gap-2 border border-ink px-4 py-3 cursor-pointer select-none self-start"
-        >
-          <input
-            type="checkbox"
-            id="in-stock"
-            data-filter="in-stock"
-            class="accent-ink w-4 h-4 cursor-pointer"
-          />
-          <span class="text-xs uppercase tracking-widest">
-            In Stock ({inStockCount})
-          </span>
-        </label>
-
-        <div class="sm:ml-auto flex flex-col sm:flex-row gap-3 sm:gap-4">
-          <label class="flex flex-col gap-1">
-            <span class="text-xs uppercase tracking-widest text-stone-500">View</span>
-            <select
-              id="view-size"
-              class="border border-ink bg-white text-ink text-xs uppercase tracking-widest px-4 py-3 focus:ring-2 focus:ring-ink focus:outline-none"
-            >
-              <option value="comfortable">Comfortable</option>
-              <option value="compact">Compact</option>
-            </select>
-          </label>
-
-          <label class="flex flex-col gap-1">
-            <span class="text-xs uppercase tracking-widest text-stone-500">Per Page</span>
-            <select
-              id="results-per-page"
-              class="border border-ink bg-white text-ink text-xs uppercase tracking-widest px-4 py-3 focus:ring-2 focus:ring-ink focus:outline-none"
-            >
-              <option value="12">12</option>
-              <option value="24" selected>24</option>
-              <option value="48">48</option>
-            </select>
-          </label>
-        </div>
-      </div>
+      <VarietiesControls
+        categoryOptions={categoryOptions}
+        colorOptions={colorOptions}
+        inStockCount={inStockCount}
+      />
 
       <!-- No results message -->
       <p
@@ -150,6 +98,8 @@ const colorOptions = [...colorCounts.entries()]
               data-category={variety.data.category}
               data-colors={variety.data.color.join(" ")}
               data-stock={variety.data.stock}
+              data-name={variety.data.name}
+              data-price={String(variety.data.price)}
               data-search={`${variety.data.name} ${variety.data.category} ${variety.data.color.join(" ")} ${variety.data.sku}`}
               class="variety-item"
             >
@@ -200,6 +150,9 @@ const colorOptions = [...colorCounts.entries()]
     const resultsPerPageSelect = document.getElementById(
       "results-per-page",
     ) as HTMLSelectElement | null;
+    const sortBySelect = document.getElementById(
+      "sort-by",
+    ) as HTMLSelectElement | null;
     const viewSizeSelect = document.getElementById(
       "view-size",
     ) as HTMLSelectElement | null;
@@ -217,8 +170,7 @@ const colorOptions = [...colorCounts.entries()]
     const navSearchMobile = document.getElementById(
       "nav-search-mobile",
     ) as HTMLInputElement | null;
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    const initialSearchValue = (urlSearchParams.get("q") ?? "").trim();
+    const initialSearchValue = "";
     let searchQuery = initialSearchValue.toLowerCase();
     const searchInputs = [navSearchDesktop, navSearchMobile].filter(
       (input): input is HTMLInputElement => input !== null,
@@ -246,6 +198,7 @@ const colorOptions = [...colorCounts.entries()]
       !inStockCheckbox ||
       !grid ||
       !resultsPerPageSelect ||
+      !sortBySelect ||
       !viewSizeSelect ||
       !pagination ||
       !prevButton ||
@@ -267,9 +220,173 @@ const colorOptions = [...colorCounts.entries()]
     const prevPageButton = prevButton;
     const nextPageButton = nextButton;
     const paginationStatusEl = paginationStatus;
+    const sortSelectEl = sortBySelect;
+    const defaultSortBy = "name-asc";
+    const defaultViewSize = "comfortable";
+
+    interface UrlFilterState {
+      selectedCategories: string[];
+      selectedColors: string[];
+      inStockOnly: boolean;
+      sortBy: string;
+      viewSize: string;
+      resultsPerPage: number;
+      currentPage: number;
+      searchQuery: string;
+    }
 
     resultsPerPageSelect.value = String(defaultResultsPerPage);
     resultsPerPage = Number.parseInt(resultsPerPageSelect.value, 10);
+
+    function setSelectIfValid(selectEl: HTMLSelectElement, value: string | undefined) {
+      if (!value) return;
+      const hasOption = Array.from(selectEl.options).some(
+        (option) => option.value === value,
+      );
+      if (hasOption) {
+        selectEl.value = value;
+      }
+    }
+
+    function setSelected(groupId: string, values: string[]) {
+      const group = document.querySelector(`[data-filter-group="${groupId}"]`);
+      if (!group) return;
+
+      const valueSet = new Set(values);
+      const checkboxes = group.querySelectorAll(
+        'input[type="checkbox"]',
+      ) as NodeListOf<HTMLInputElement>;
+
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = valueSet.has(checkbox.value);
+      });
+    }
+
+    function parsePositiveInt(value: string | null, fallback: number): number {
+      const parsed = Number.parseInt(value ?? "", 10);
+      return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+    }
+
+    function readFilterStateFromUrl(): UrlFilterState {
+      const searchParams = new URLSearchParams(window.location.search);
+
+      return {
+        selectedCategories: Array.from(
+          new Set(searchParams.getAll("category").filter((value) => value.length > 0)),
+        ),
+        selectedColors: Array.from(
+          new Set(searchParams.getAll("color").filter((value) => value.length > 0)),
+        ),
+        inStockOnly: searchParams.get("stock") === "in",
+        sortBy: searchParams.get("sort") ?? defaultSortBy,
+        viewSize: searchParams.get("view") ?? defaultViewSize,
+        resultsPerPage: parsePositiveInt(
+          searchParams.get("perPage"),
+          defaultResultsPerPage,
+        ),
+        currentPage: parsePositiveInt(searchParams.get("page"), 1),
+        searchQuery: (searchParams.get("q") ?? "").trim(),
+      };
+    }
+
+    function applyStateToControls(state: UrlFilterState) {
+      setSelected("category", state.selectedCategories);
+      setSelected("color", state.selectedColors);
+      inStockCheckbox.checked = state.inStockOnly;
+      setSelectIfValid(sortSelectEl, state.sortBy);
+      setSelectIfValid(viewSizeSelect, state.viewSize);
+      setSelectIfValid(resultsPerPageSelect, String(state.resultsPerPage));
+      resultsPerPage = Number.parseInt(resultsPerPageSelect.value, 10);
+      currentPage = state.currentPage;
+      searchQuery = state.searchQuery.toLowerCase();
+      searchInputs.forEach((input) => {
+        input.value = state.searchQuery;
+      });
+    }
+
+    function syncUrlWithCurrentState() {
+      const searchParams = new URLSearchParams(window.location.search);
+
+      ["category", "color", "stock", "sort", "view", "perPage", "page", "q"].forEach(
+        (key) => {
+          searchParams.delete(key);
+        },
+      );
+
+      const selectedCategories = getSelected("category");
+      const selectedColors = getSelected("color");
+
+      selectedCategories.forEach((category) => {
+        searchParams.append("category", category);
+      });
+
+      selectedColors.forEach((color) => {
+        searchParams.append("color", color);
+      });
+
+      if (inStockCheckbox.checked) {
+        searchParams.set("stock", "in");
+      }
+
+      if (sortSelectEl.value !== defaultSortBy) {
+        searchParams.set("sort", sortSelectEl.value);
+      }
+
+      if (viewSizeSelect.value !== defaultViewSize) {
+        searchParams.set("view", viewSizeSelect.value);
+      }
+
+      if (resultsPerPage !== defaultResultsPerPage) {
+        searchParams.set("perPage", String(resultsPerPage));
+      }
+
+      if (currentPage > 1) {
+        searchParams.set("page", String(currentPage));
+      }
+
+      const query = searchQuery.trim();
+      if (query.length > 0) {
+        searchParams.set("q", query);
+      }
+
+      const nextQueryString = searchParams.toString();
+      const nextUrl = `${window.location.pathname}${nextQueryString ? `?${nextQueryString}` : ""}${window.location.hash}`;
+      const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+
+      if (nextUrl !== currentUrl) {
+        window.history.replaceState(null, "", nextUrl);
+      }
+    }
+
+    function sortItems(itemsToSort: HTMLElement[]): HTMLElement[] {
+      const sortBy = sortSelectEl.value;
+      const collator = new Intl.Collator(undefined, {
+        numeric: true,
+        sensitivity: "base",
+      });
+
+      return itemsToSort.sort((a, b) => {
+        const aName = a.dataset.name ?? "";
+        const bName = b.dataset.name ?? "";
+        const aPrice = Number.parseFloat(a.dataset.price ?? "0");
+        const bPrice = Number.parseFloat(b.dataset.price ?? "0");
+        const comparison = collator.compare(aName, bName);
+
+        if (sortBy === "price-asc") {
+          return aPrice === bPrice ? comparison : aPrice - bPrice;
+        }
+
+        if (sortBy === "price-desc") {
+          return aPrice === bPrice ? comparison : bPrice - aPrice;
+        }
+
+        if (sortBy === "name-desc") {
+          return -comparison;
+        }
+
+        return comparison;
+      });
+    }
 
     function setViewSize(viewSize: string) {
       gridEl.classList.remove(...gridViewClasses);
@@ -335,6 +452,7 @@ const colorOptions = [...colorCounts.entries()]
       });
 
       const count = filteredItems.length;
+      const sortedItems = sortItems(filteredItems);
       const totalPages = Math.max(1, Math.ceil(count / resultsPerPage));
 
       if (currentPage > totalPages) {
@@ -343,7 +461,11 @@ const colorOptions = [...colorCounts.entries()]
 
       const start = (currentPage - 1) * resultsPerPage;
       const end = start + resultsPerPage;
-      const pageItems = filteredItems.slice(start, end);
+      const pageItems = sortedItems.slice(start, end);
+
+      sortedItems.forEach((item) => {
+        gridEl.appendChild(item);
+      });
 
       pageItems.forEach((item) => {
         item.style.display = "";
@@ -370,6 +492,7 @@ const colorOptions = [...colorCounts.entries()]
       prevPageButton.disabled = count === 0 || currentPage <= 1;
       nextPageButton.disabled = count === 0 || currentPage >= totalPages;
       paginationEl.classList.toggle("hidden", count <= resultsPerPage);
+      syncUrlWithCurrentState();
     }
 
     // Listen to checkbox changes inside filter groups
@@ -393,8 +516,14 @@ const colorOptions = [...colorCounts.entries()]
       applyFilters();
     });
 
+    sortSelectEl.addEventListener("change", () => {
+      currentPage = 1;
+      applyFilters();
+    });
+
     viewSizeSelect.addEventListener("change", () => {
       setViewSize(viewSizeSelect.value);
+      applyFilters();
     });
 
     prevPageButton.addEventListener("click", () => {
@@ -431,8 +560,18 @@ const colorOptions = [...colorCounts.entries()]
       }
     });
 
+    const initialState = readFilterStateFromUrl();
+    applyStateToControls(initialState);
+
     setViewSize(viewSizeSelect.value);
     applyFilters();
+
+    window.addEventListener("popstate", () => {
+      const stateFromUrl = readFilterStateFromUrl();
+      applyStateToControls(stateFromUrl);
+      setViewSize(viewSizeSelect.value);
+      applyFilters();
+    });
   }
 
   // Astro module scripts are deferred — DOM is ready

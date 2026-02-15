@@ -10,4 +10,4 @@ height: "3-4 feet"
 image: "../../assets/varieties/boom-boom-white.jpg"
 ---
 
-A crisp white ball dahlia with tidy form and excellent cut-flower performance.
+Large white with a creamy center.

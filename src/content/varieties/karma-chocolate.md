@@ -2,12 +2,12 @@
 name: "Karma Chocolate"
 sku: "DAH-KCH-012"
 price: 12.00
-stock: "available"
+stock: "sold-out"
 category: "waterlily"
-color: ["burgundy", "black", "red"]
+color: ["red", "dark-red"]
 bloomSize: "4-5 inches"
 height: "3 feet"
 image: "../../assets/varieties/karma-chocolate.jpg"
 ---
 
-A dramatic dahlia with deep, velvety dark red blooms that can appear nearly black in certain light. A favorite for adding depth and sophistication.
+Dark chocolate shading to velvet red.

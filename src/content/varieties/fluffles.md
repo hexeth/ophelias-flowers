@@ -1,13 +1,13 @@
 ---
 name: "Fluffles"
 sku: "DAH-FLF-027"
-price: 10.00
-stock: "available"
+price: 8.00
+stock: "sold-out"
 category: "decorative"
-color: ["pink", "white", "cream"]
+color: ["pink", "blush"]
 bloomSize: "4-5 inches"
 height: "3-4 feet"
 image: "../../assets/varieties/fluffles.jpg"
 ---
 
-A charming decorative dahlia with soft, fluffy petals in shades of pink, white, and cream. Its ruffled, cottage-garden style blooms are so sweet. A whimsical variety that flowers steadily all season.
+Lavender-pink with soft white center.

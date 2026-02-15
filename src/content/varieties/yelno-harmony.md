@@ -2,12 +2,12 @@
 name: "Yelno Harmony"
 sku: "DAH-YEH-025"
 price: 14.00
-stock: "available"
+stock: "sold-out"
 category: "waterlily"
-color: ["apricot", "cream"]
+color: ["peach", "salmon"]
 bloomSize: "4-5 inches"
 height: "4 feet"
 image: "../../assets/varieties/yelno-harmony.jpg"
 ---
 
-Cheerful, with warm yellow, orange, and cream tones. It blooms abundantly on strong stems and delivers reliable, vibrant color all season. A favourite for us!
+Warm apricot, peach, and buttery yellow.

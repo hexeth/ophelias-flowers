@@ -4,10 +4,10 @@ sku: "DAH-CDK-036"
 price: 8.00
 stock: "sold-out"
 category: "decorative"
-color: ["lavender", "plum"]
+color: ["bi-color", "variegated"]
 bloomSize: "4-6 inches"
 height: "3-4 feet"
 image: "../../assets/varieties/creme-de-cassis.jpg"
 ---
 
-A bicolor decorative dahlia with lavender petals brushed in deeper cassis tones.
+Lavender/mauve top with dark berry/wine reverse.

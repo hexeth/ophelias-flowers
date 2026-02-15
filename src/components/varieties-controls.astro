@@ -1,0 +1,231 @@
+---
+import FilterDropdown from "./filter-dropdown.astro";
+
+interface FilterOption {
+  value: string;
+  label: string;
+  count: number;
+}
+
+interface Props {
+  categoryOptions: FilterOption[];
+  colorOptions: FilterOption[];
+  inStockCount: number;
+}
+
+const { categoryOptions, colorOptions, inStockCount } = Astro.props;
+---
+
+<div
+  class="mb-10 lg:mb-14"
+  id="filters"
+  role="search"
+  aria-label="Filter varieties"
+>
+  <div class="flex flex-col gap-2 sm:gap-3" data-mobile-controls-root>
+    <div class="flex items-center gap-2 sm:gap-3 lg:flex-row lg:flex-wrap lg:items-start lg:gap-3">
+      <label class="flex-1 flex items-center gap-2 border border-ink px-3 py-3 bg-white min-h-[44px] w-full lg:flex-none lg:w-auto lg:min-w-[11rem]">
+        <span class="text-xs uppercase tracking-widest text-stone-500 whitespace-nowrap">Sort</span>
+        <select
+          id="sort-by"
+          aria-label="Sort varieties"
+          class="w-full bg-white text-ink text-xs uppercase tracking-widest focus:ring-2 focus:ring-ink focus:outline-none"
+        >
+          <option value="name-asc" selected>A–Z</option>
+          <option value="name-desc">Z–A</option>
+          <option value="price-asc">$ Low</option>
+          <option value="price-desc">$ High</option>
+        </select>
+      </label>
+
+      <button
+        type="button"
+        id="mobile-filters-toggle"
+        aria-expanded="false"
+        aria-controls="mobile-extra-controls"
+        class="lg:hidden inline-flex items-center justify-center border border-ink px-3 py-3 min-h-[44px] min-w-[44px] text-ink focus:ring-2 focus:ring-ink focus:outline-none"
+      >
+        <span class="sr-only">Toggle filters</span>
+        <svg
+          data-filter-icon-off
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          class="w-4 h-4"
+        >
+          <path d="M4 6h16M7 12h10M10 18h4"></path>
+        </svg>
+        <svg
+          data-filter-icon-on
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          class="w-4 h-4 hidden"
+        >
+          <path d="M4 6h16l-6 7v5l-4-2v-3z"></path>
+          <circle cx="19" cy="5" r="2" fill="currentColor" stroke="none"></circle>
+        </svg>
+      </button>
+    </div>
+
+    <div
+      id="mobile-extra-controls"
+      class="hidden border border-ink p-3 sm:p-4 lg:contents lg:border-0 lg:p-0"
+    >
+      <div class="flex flex-col gap-2 sm:gap-3 lg:flex-row lg:flex-wrap lg:items-start">
+        <label class="flex items-center justify-center gap-2 border border-ink px-3 py-3 cursor-pointer select-none min-h-[44px] w-full lg:w-auto lg:min-w-[11rem]">
+          <input
+            type="checkbox"
+            id="in-stock"
+            data-filter="in-stock"
+            class="accent-ink w-4 h-4 cursor-pointer"
+          />
+          <span class="text-xs uppercase tracking-widest">In Stock ({inStockCount})</span>
+        </label>
+
+        <div class="w-full lg:w-auto lg:min-w-[12rem]">
+          <FilterDropdown
+            id="category"
+            label="Category"
+            options={categoryOptions}
+            allLabel="All Categories"
+          />
+        </div>
+        <div class="w-full lg:w-auto lg:min-w-[12rem]">
+          <FilterDropdown
+            id="color"
+            label="Color"
+            options={colorOptions}
+            allLabel="All Colors"
+          />
+        </div>
+
+        <label class="flex items-center gap-2 border border-ink px-3 py-3 bg-white min-h-[44px] w-full lg:w-auto lg:min-w-[10rem]">
+          <span class="text-xs uppercase tracking-widest text-stone-500 whitespace-nowrap">View</span>
+          <select
+            id="view-size"
+            aria-label="Select view size"
+            class="w-full bg-white text-ink text-xs uppercase tracking-widest focus:ring-2 focus:ring-ink focus:outline-none"
+          >
+            <option value="comfortable">Comfort</option>
+            <option value="compact">Dense</option>
+          </select>
+        </label>
+
+        <label class="flex items-center gap-2 border border-ink px-3 py-3 bg-white min-h-[44px] w-full lg:w-auto lg:min-w-[9rem]">
+          <span class="text-xs uppercase tracking-widest text-stone-500 whitespace-nowrap">Page</span>
+          <select
+            id="results-per-page"
+            aria-label="Select results per page"
+            class="w-full bg-white text-ink text-xs uppercase tracking-widest focus:ring-2 focus:ring-ink focus:outline-none"
+          >
+            <option value="12">12</option>
+            <option value="24" selected>24</option>
+            <option value="48">48</option>
+          </select>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initVarietiesControls() {
+    const root = document.querySelector("[data-mobile-controls-root]") as HTMLElement | null;
+    if (!root || root.dataset.initialized === "true") return;
+
+    const toggleButton = document.getElementById("mobile-filters-toggle") as HTMLButtonElement | null;
+    const extraControls = document.getElementById("mobile-extra-controls");
+    const iconOff = toggleButton?.querySelector("[data-filter-icon-off]") as SVGElement | null;
+    const iconOn = toggleButton?.querySelector("[data-filter-icon-on]") as SVGElement | null;
+
+    if (!toggleButton || !extraControls) {
+      root.dataset.initialized = "true";
+      return;
+    }
+
+    function hasActiveFilters() {
+      const inStockInput = document.getElementById("in-stock") as HTMLInputElement | null;
+      const categorySelected = root.querySelectorAll(
+        '[data-filter-group="category"] input[type="checkbox"]:checked',
+      ).length;
+      const colorSelected = root.querySelectorAll(
+        '[data-filter-group="color"] input[type="checkbox"]:checked',
+      ).length;
+
+      return Boolean(inStockInput?.checked) || categorySelected > 0 || colorSelected > 0;
+    }
+
+    function updateToggleIconState() {
+      const expanded = toggleButton.getAttribute("aria-expanded") === "true";
+      const isOn = expanded || hasActiveFilters();
+
+      toggleButton.classList.toggle("text-dahlia-wine", isOn);
+      toggleButton.classList.toggle("text-ink", !isOn);
+      toggleButton.setAttribute("aria-pressed", String(isOn));
+      iconOff?.classList.toggle("hidden", isOn);
+      iconOn?.classList.toggle("hidden", !isOn);
+    }
+
+    function setExpanded(expanded: boolean) {
+      toggleButton.setAttribute("aria-expanded", String(expanded));
+      extraControls.classList.toggle("hidden", !expanded);
+      updateToggleIconState();
+    }
+
+    setExpanded(false);
+
+    toggleButton.addEventListener("click", () => {
+      const expanded = toggleButton.getAttribute("aria-expanded") === "true";
+      setExpanded(!expanded);
+    });
+
+    const desktopQuery = window.matchMedia("(min-width: 1024px)");
+    const syncForViewport = () => {
+      if (desktopQuery.matches) {
+        extraControls.classList.remove("hidden");
+        toggleButton.setAttribute("aria-expanded", "false");
+        updateToggleIconState();
+      } else {
+        setExpanded(false);
+      }
+    };
+
+    extraControls.addEventListener("change", (event) => {
+      const target = event.target as HTMLElement;
+      const isImmediateCloseControl =
+        (target.matches("select") &&
+          (target.id === "view-size" || target.id === "results-per-page")) ||
+        (target.matches('input[type="checkbox"]') && target.id === "in-stock");
+
+      if (!desktopQuery.matches && isImmediateCloseControl) {
+        setExpanded(false);
+      }
+
+      updateToggleIconState();
+    });
+
+    extraControls.addEventListener("filter-dropdown-confirmed", (event) => {
+      const detail = (event as CustomEvent<{ groupId?: string }>).detail;
+      const groupId = detail?.groupId ?? "";
+      const shouldCloseAfterMultiSelect = groupId === "category" || groupId === "color";
+
+      if (!desktopQuery.matches && shouldCloseAfterMultiSelect) {
+        setExpanded(false);
+      }
+
+      updateToggleIconState();
+    });
+
+    desktopQuery.addEventListener("change", syncForViewport);
+    updateToggleIconState();
+    root.dataset.initialized = "true";
+  }
+
+  initVarietiesControls();
+  document.addEventListener("astro:after-swap", initVarietiesControls);
+</script>

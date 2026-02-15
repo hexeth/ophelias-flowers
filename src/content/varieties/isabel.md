@@ -1,13 +1,13 @@
 ---
 name: "Isabel"
 sku: "DAH-ISB-019"
-price: 10.00
-stock: "available"
+price: 8.00
+stock: "sold-out"
 category: "ball"
-color: ["mauve", "pink", "lavender", "bronze"]
+color: ["pink", "blush"]
 bloomSize: "4-5 inches"
 height: "4 feet"
 image: "../../assets/varieties/isabel.jpg"
 ---
 
-Excellent tuber producer and eye catching in bouquets.
+Lavender/mauve with dusty rose accents.

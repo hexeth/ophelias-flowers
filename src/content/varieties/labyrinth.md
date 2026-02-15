@@ -2,12 +2,12 @@
 name: "Labyrinth"
 sku: "DAH-LAB-013"
 price: 10.00
-stock: "available"
+stock: "sold-out"
 category: "decorative"
-color: ["peach", "apricot", "pink"]
+color: ["peach", "salmon"]
 bloomSize: "6-8 inches"
 height: "4-5 feet"
 image: "../../assets/varieties/labyrinth.jpg"
 ---
 
-A show-stopper with large, lush blooms in glowing peach, apricot, and pink tones. Its layered petals create beautiful depth and texture. Strong cutting stems.
+Vibrant mix of peach, apricot, and raspberry.

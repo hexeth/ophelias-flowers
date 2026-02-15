@@ -32,25 +32,103 @@ const { id, label, options, allLabel = "All" } = Astro.props;
       <path stroke-linecap="square" d="M6 9l6 6 6-6"></path>
     </svg>
   </summary>
-  <div
-    class="absolute z-20 left-0 top-full mt-px w-full min-w-[12rem] border border-ink border-t-0 bg-white max-h-64 overflow-y-auto"
-  >
-    {
-      options.map((opt) => (
-        <label class="flex items-center gap-3 px-4 py-2.5 cursor-pointer hover:bg-cream transition-colors text-xs uppercase tracking-widest">
-          <input
-            type="checkbox"
-            name={id}
-            value={opt.value}
-            class="accent-ink w-3.5 h-3.5 cursor-pointer shrink-0"
-          />
-          <span class="truncate">{opt.label}</span>
-          <span class="ml-auto text-stone-500 tabular-nums">{opt.count}</span>
-        </label>
-      ))
-    }
+  <div class="absolute z-20 left-0 top-full mt-px w-full min-w-[12rem] border border-ink border-t-0 bg-white">
+    <div class="max-h-64 overflow-y-auto">
+      {
+        options.map((opt) => (
+          <label class="flex items-center gap-3 px-4 py-2.5 cursor-pointer hover:bg-cream transition-colors text-xs uppercase tracking-widest">
+            <input
+              type="checkbox"
+              name={id}
+              value={opt.value}
+              class="accent-ink w-3.5 h-3.5 cursor-pointer shrink-0"
+            />
+            <span class="truncate">{opt.label}</span>
+            <span class="ml-auto text-stone-500 tabular-nums">{opt.count}</span>
+          </label>
+        ))
+      }
+    </div>
+    <button
+      type="button"
+      class="lg:hidden w-full border-t border-ink px-4 py-3 text-xs uppercase tracking-widest text-ink text-center focus:ring-2 focus:ring-ink focus:outline-none"
+      data-filter-ok
+    >
+      Ok
+    </button>
   </div>
 </details>
+
+<script>
+  function initFilterDropdowns() {
+    const dropdowns = document.querySelectorAll("details.filter-dropdown") as NodeListOf<HTMLDetailsElement>;
+
+    dropdowns.forEach((dropdown) => {
+      if (dropdown.dataset.initialized === "true") return;
+
+      const okButton = dropdown.querySelector("[data-filter-ok]") as HTMLButtonElement | null;
+
+      dropdown.addEventListener("change", () => {
+        dropdown.dataset.dirty = "true";
+      });
+
+      dropdown.addEventListener("toggle", () => {
+        if (!dropdown.open && dropdown.dataset.dirty === "true") {
+          const groupId = dropdown.dataset.filterGroup ?? "";
+          dropdown.dispatchEvent(
+            new CustomEvent("filter-dropdown-confirmed", {
+              bubbles: true,
+              detail: { groupId },
+            }),
+          );
+          dropdown.dataset.dirty = "false";
+        }
+      });
+
+      okButton?.addEventListener("click", () => {
+        dropdown.open = false;
+      });
+
+      dropdown.dataset.initialized = "true";
+    });
+
+    if (document.body.dataset.filterDropdownDismissReady === "true") {
+      return;
+    }
+
+    document.addEventListener("pointerdown", (event) => {
+      const target = event.target as HTMLElement | null;
+      if (target?.closest("details.filter-dropdown")) {
+        return;
+      }
+
+      const openDropdowns = document.querySelectorAll(
+        "details.filter-dropdown[open]",
+      ) as NodeListOf<HTMLDetailsElement>;
+
+      openDropdowns.forEach((dropdown) => {
+        dropdown.open = false;
+      });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+
+      const openDropdowns = document.querySelectorAll(
+        "details.filter-dropdown[open]",
+      ) as NodeListOf<HTMLDetailsElement>;
+
+      openDropdowns.forEach((dropdown) => {
+        dropdown.open = false;
+      });
+    });
+
+    document.body.dataset.filterDropdownDismissReady = "true";
+  }
+
+  initFilterDropdowns();
+  document.addEventListener("astro:after-swap", initFilterDropdowns);
+</script>
 
 <style>
   details[open] .filter-chevron {

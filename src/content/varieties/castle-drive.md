@@ -1,13 +1,13 @@
 ---
 name: "Castle Drive"
 sku: "DAH-CSD-007"
-price: 10.00
-stock: "available"
+price: 12.00
+stock: "sold-out"
 category: "decorative"
-color: ["pink", "yellow", "cream"]
+color: ["pink", "blush"]
 bloomSize: "4-5 inches"
 height: "4 feet"
 image: "../../assets/varieties/castle-drive.jpg"
 ---
 
-A soft pink dahlia that fades into yellow and cream for a dreamy watercolor effect. Medium-sized blooms with a romantic, informal look. A reliable producer on strong cutting stems. A garden standout.
+Soft blush-pink with yellow highlights.
