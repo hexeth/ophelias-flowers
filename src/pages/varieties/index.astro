@@ -220,6 +220,9 @@ const colorOptions = [...colorCounts.entries()]
     const prevPageButton = prevButton;
     const nextPageButton = nextButton;
     const paginationStatusEl = paginationStatus;
+    const inStockCheckboxEl = inStockCheckbox;
+    const viewSizeSelectEl = viewSizeSelect;
+    const resultsPerPageSelectEl = resultsPerPageSelect;
     const sortSelectEl = sortBySelect;
     const defaultSortBy = "name-asc";
     const defaultViewSize = "comfortable";
@@ -235,8 +238,8 @@ const colorOptions = [...colorCounts.entries()]
       searchQuery: string;
     }
 
-    resultsPerPageSelect.value = String(defaultResultsPerPage);
-    resultsPerPage = Number.parseInt(resultsPerPageSelect.value, 10);
+    resultsPerPageSelectEl.value = String(defaultResultsPerPage);
+    resultsPerPage = Number.parseInt(resultsPerPageSelectEl.value, 10);
 
     function setSelectIfValid(selectEl: HTMLSelectElement, value: string | undefined) {
       if (!value) return;
@@ -292,11 +295,11 @@ const colorOptions = [...colorCounts.entries()]
     function applyStateToControls(state: UrlFilterState) {
       setSelected("category", state.selectedCategories);
       setSelected("color", state.selectedColors);
-      inStockCheckbox.checked = state.inStockOnly;
+      inStockCheckboxEl.checked = state.inStockOnly;
       setSelectIfValid(sortSelectEl, state.sortBy);
-      setSelectIfValid(viewSizeSelect, state.viewSize);
-      setSelectIfValid(resultsPerPageSelect, String(state.resultsPerPage));
-      resultsPerPage = Number.parseInt(resultsPerPageSelect.value, 10);
+      setSelectIfValid(viewSizeSelectEl, state.viewSize);
+      setSelectIfValid(resultsPerPageSelectEl, String(state.resultsPerPage));
+      resultsPerPage = Number.parseInt(resultsPerPageSelectEl.value, 10);
       currentPage = state.currentPage;
       searchQuery = state.searchQuery.toLowerCase();
       searchInputs.forEach((input) => {
@@ -324,7 +327,7 @@ const colorOptions = [...colorCounts.entries()]
         searchParams.append("color", color);
       });
 
-      if (inStockCheckbox.checked) {
+      if (inStockCheckboxEl.checked) {
         searchParams.set("stock", "in");
       }
 
@@ -332,8 +335,8 @@ const colorOptions = [...colorCounts.entries()]
         searchParams.set("sort", sortSelectEl.value);
       }
 
-      if (viewSizeSelect.value !== defaultViewSize) {
-        searchParams.set("view", viewSizeSelect.value);
+      if (viewSizeSelectEl.value !== defaultViewSize) {
+        searchParams.set("view", viewSizeSelectEl.value);
       }
 
       if (resultsPerPage !== defaultResultsPerPage) {

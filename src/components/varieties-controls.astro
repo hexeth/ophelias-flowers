@@ -148,12 +148,16 @@ const { categoryOptions, colorOptions, inStockCount } = Astro.props;
       return;
     }
 
+    const rootEl = root;
+    const toggleButtonEl = toggleButton;
+    const extraControlsEl = extraControls;
+
     function hasActiveFilters() {
       const inStockInput = document.getElementById("in-stock") as HTMLInputElement | null;
-      const categorySelected = root.querySelectorAll(
+      const categorySelected = rootEl.querySelectorAll(
         '[data-filter-group="category"] input[type="checkbox"]:checked',
       ).length;
-      const colorSelected = root.querySelectorAll(
+      const colorSelected = rootEl.querySelectorAll(
         '[data-filter-group="color"] input[type="checkbox"]:checked',
       ).length;
 
@@ -161,41 +165,41 @@ const { categoryOptions, colorOptions, inStockCount } = Astro.props;
     }
 
     function updateToggleIconState() {
-      const expanded = toggleButton.getAttribute("aria-expanded") === "true";
+      const expanded = toggleButtonEl.getAttribute("aria-expanded") === "true";
       const isOn = expanded || hasActiveFilters();
 
-      toggleButton.classList.toggle("text-dahlia-wine", isOn);
-      toggleButton.classList.toggle("text-ink", !isOn);
-      toggleButton.setAttribute("aria-pressed", String(isOn));
+      toggleButtonEl.classList.toggle("text-dahlia-wine", isOn);
+      toggleButtonEl.classList.toggle("text-ink", !isOn);
+      toggleButtonEl.setAttribute("aria-pressed", String(isOn));
       iconOff?.classList.toggle("hidden", isOn);
       iconOn?.classList.toggle("hidden", !isOn);
     }
 
     function setExpanded(expanded: boolean) {
-      toggleButton.setAttribute("aria-expanded", String(expanded));
-      extraControls.classList.toggle("hidden", !expanded);
+      toggleButtonEl.setAttribute("aria-expanded", String(expanded));
+      extraControlsEl.classList.toggle("hidden", !expanded);
       updateToggleIconState();
     }
 
     setExpanded(false);
 
-    toggleButton.addEventListener("click", () => {
-      const expanded = toggleButton.getAttribute("aria-expanded") === "true";
+    toggleButtonEl.addEventListener("click", () => {
+      const expanded = toggleButtonEl.getAttribute("aria-expanded") === "true";
       setExpanded(!expanded);
     });
 
     const desktopQuery = window.matchMedia("(min-width: 1024px)");
     const syncForViewport = () => {
       if (desktopQuery.matches) {
-        extraControls.classList.remove("hidden");
-        toggleButton.setAttribute("aria-expanded", "false");
+        extraControlsEl.classList.remove("hidden");
+        toggleButtonEl.setAttribute("aria-expanded", "false");
         updateToggleIconState();
       } else {
         setExpanded(false);
       }
     };
 
-    extraControls.addEventListener("change", (event) => {
+    extraControlsEl.addEventListener("change", (event) => {
       const target = event.target as HTMLElement;
       const isImmediateCloseControl =
         (target.matches("select") &&
@@ -209,7 +213,7 @@ const { categoryOptions, colorOptions, inStockCount } = Astro.props;
       updateToggleIconState();
     });
 
-    extraControls.addEventListener("filter-dropdown-confirmed", (event) => {
+    extraControlsEl.addEventListener("filter-dropdown-confirmed", (event) => {
       const detail = (event as CustomEvent<{ groupId?: string }>).detail;
       const groupId = detail?.groupId ?? "";
       const shouldCloseAfterMultiSelect = groupId === "category" || groupId === "color";
