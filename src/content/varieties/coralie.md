@@ -1,7 +1,7 @@
 ---
 name: "Coralie"
 sku: "DAH-COR-008"
-price: 8.50
+price: 14.00
 stock: "available"
 category: "decorative"
 color: ["salmon", "pink"]
@@ -10,4 +10,6 @@ height: "4 feet"
 image: "../../assets/varieties/coralie.jpg"
 ---
 
-A luminous decorative dahlia with warm salmon-pink blooms that seem to glow in the garden. The soft, peachy-pink coloring is universally flattering in arrangements and garden compositions. Medium-sized flowers are produced abundantly on strong stems that are perfect for cutting. This variety has excellent vase life and the color holds beautifully both in the garden and in arrangements. A garden favorite that blooms reliably from summer through frost.
+A soft salmon-pink to apricot decorative dahlia with warm, glowing tones. Petals often blend peach, rose, and coral hues, giving a luminous watercolor look.
+
+Medium-sized flowers are produced abundantly on strong cutting stems, with excellent vase life and color that holds beautifully. A reliable garden favorite from summer to frost.

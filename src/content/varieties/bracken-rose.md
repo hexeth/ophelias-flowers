@@ -1,7 +1,7 @@
 ---
 name: "Bracken Rose"
 sku: "DAH-BKR-004"
-price: 8.00
+price: 14.00
 stock: "sold-out"
 category: "decorative"
 color: ["pink", "rose"]
@@ -10,4 +10,4 @@ height: "3-4 feet"
 image: "../../assets/varieties/bracken-rose.jpg"
 ---
 
-The most exquisite shade of dusty rose — what we affectionately call "ballet slipper pink." Long stems are topped with slightly nodding formal decorative flower heads that look incredible in arrangements. Harvest when blooms are three-quarters open for a vase life of around 5 days. Pinch when 12 inches tall for the best branching and stem length.
+A soft dusty-rose bloom. Elegant stems that shine in arrangements. A favourite!

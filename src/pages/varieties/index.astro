@@ -104,6 +104,31 @@ const colorOptions = [...colorCounts.entries()]
             In Stock ({inStockCount})
           </span>
         </label>
+
+        <div class="sm:ml-auto flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <label class="flex flex-col gap-1">
+            <span class="text-xs uppercase tracking-widest text-stone-500">View</span>
+            <select
+              id="view-size"
+              class="border border-ink bg-white text-ink text-xs uppercase tracking-widest px-4 py-3 focus:ring-2 focus:ring-ink focus:outline-none"
+            >
+              <option value="comfortable">Comfortable</option>
+              <option value="compact">Compact</option>
+            </select>
+          </label>
+
+          <label class="flex flex-col gap-1">
+            <span class="text-xs uppercase tracking-widest text-stone-500">Per Page</span>
+            <select
+              id="results-per-page"
+              class="border border-ink bg-white text-ink text-xs uppercase tracking-widest px-4 py-3 focus:ring-2 focus:ring-ink focus:outline-none"
+            >
+              <option value="12">12</option>
+              <option value="24" selected>24</option>
+              <option value="48">48</option>
+            </select>
+          </label>
+        </div>
       </div>
 
       <!-- No results message -->
@@ -125,12 +150,36 @@ const colorOptions = [...colorCounts.entries()]
               data-category={variety.data.category}
               data-colors={variety.data.color.join(" ")}
               data-stock={variety.data.stock}
+              data-search={`${variety.data.name} ${variety.data.category} ${variety.data.color.join(" ")} ${variety.data.sku}`}
               class="variety-item"
             >
               <VarietyCard variety={variety} />
             </div>
           ))
         }
+      </div>
+
+      <div
+        id="pagination"
+        class="mt-8 lg:mt-10 flex items-center justify-between gap-4 border-t border-ink pt-6 hidden"
+      >
+        <button
+          type="button"
+          id="page-prev"
+          class="border border-ink px-4 py-3 text-xs uppercase tracking-widest transition-colors focus:ring-2 focus:ring-ink focus:outline-none disabled:border-stone-300 disabled:text-stone-300 disabled:cursor-not-allowed"
+        >
+          Previous
+        </button>
+        <p id="pagination-status" class="text-xs uppercase tracking-widest text-stone-500">
+          Page 1 of 1
+        </p>
+        <button
+          type="button"
+          id="page-next"
+          class="border border-ink px-4 py-3 text-xs uppercase tracking-widest transition-colors focus:ring-2 focus:ring-ink focus:outline-none disabled:border-stone-300 disabled:text-stone-300 disabled:cursor-not-allowed"
+        >
+          Next
+        </button>
       </div>
     </div>
   </section>
@@ -148,8 +197,85 @@ const colorOptions = [...colorCounts.entries()]
     const visibleCount = document.getElementById("visible-count");
     const noResults = document.getElementById("no-results");
     const grid = document.getElementById("variety-grid");
+    const resultsPerPageSelect = document.getElementById(
+      "results-per-page",
+    ) as HTMLSelectElement | null;
+    const viewSizeSelect = document.getElementById(
+      "view-size",
+    ) as HTMLSelectElement | null;
+    const pagination = document.getElementById("pagination");
+    const prevButton = document.getElementById(
+      "page-prev",
+    ) as HTMLButtonElement | null;
+    const nextButton = document.getElementById(
+      "page-next",
+    ) as HTMLButtonElement | null;
+    const paginationStatus = document.getElementById("pagination-status");
+    const navSearchDesktop = document.getElementById(
+      "nav-search-desktop",
+    ) as HTMLInputElement | null;
+    const navSearchMobile = document.getElementById(
+      "nav-search-mobile",
+    ) as HTMLInputElement | null;
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const initialSearchValue = (urlSearchParams.get("q") ?? "").trim();
+    let searchQuery = initialSearchValue.toLowerCase();
+    const searchInputs = [navSearchDesktop, navSearchMobile].filter(
+      (input): input is HTMLInputElement => input !== null,
+    );
 
-    if (!inStockCheckbox) return;
+    const gridViewClasses = [
+      "grid-cols-1",
+      "grid-cols-2",
+      "sm:grid-cols-2",
+      "sm:grid-cols-3",
+      "lg:grid-cols-3",
+      "lg:grid-cols-4",
+    ];
+
+    const viewSizeClassMap: Record<string, string[]> = {
+      comfortable: ["grid-cols-1", "sm:grid-cols-2", "lg:grid-cols-3"],
+      compact: ["grid-cols-2", "sm:grid-cols-3", "lg:grid-cols-4"],
+    };
+
+    const defaultResultsPerPage = 24;
+    let currentPage = 1;
+    let resultsPerPage = defaultResultsPerPage;
+
+    if (
+      !inStockCheckbox ||
+      !grid ||
+      !resultsPerPageSelect ||
+      !viewSizeSelect ||
+      !pagination ||
+      !prevButton ||
+      !nextButton ||
+      !paginationStatus
+    ) {
+      return;
+    }
+
+    if (grid.dataset.initialized === "true") return;
+    grid.dataset.initialized = "true";
+
+    searchInputs.forEach((input) => {
+      input.value = initialSearchValue;
+    });
+
+    const gridEl = grid;
+    const paginationEl = pagination;
+    const prevPageButton = prevButton;
+    const nextPageButton = nextButton;
+    const paginationStatusEl = paginationStatus;
+
+    resultsPerPageSelect.value = String(defaultResultsPerPage);
+    resultsPerPage = Number.parseInt(resultsPerPageSelect.value, 10);
+
+    function setViewSize(viewSize: string) {
+      gridEl.classList.remove(...gridViewClasses);
+      const classes = viewSizeClassMap[viewSize] ?? viewSizeClassMap.comfortable;
+      gridEl.classList.add(...classes);
+    }
 
     function getSelected(groupId: string): string[] {
       const group = document.querySelector(`[data-filter-group="${groupId}"]`);
@@ -184,12 +310,13 @@ const colorOptions = [...colorCounts.entries()]
       const selectedCategories = getSelected("category");
       const selectedColors = getSelected("color");
       const inStockOnly = inStockCheckbox!.checked;
-      let count = 0;
+      const filteredItems: HTMLElement[] = [];
 
       items.forEach((item) => {
         const itemCategory = item.dataset.category ?? "";
         const itemColors = (item.dataset.colors ?? "").split(" ");
         const itemStock = item.dataset.stock ?? "";
+        const itemSearch = (item.dataset.search ?? "").toLowerCase();
 
         const matchesCategory =
           selectedCategories.length === 0 ||
@@ -198,32 +325,88 @@ const colorOptions = [...colorCounts.entries()]
           selectedColors.length === 0 ||
           selectedColors.some((c) => itemColors.includes(c));
         const matchesStock = !inStockOnly || itemStock !== "sold-out";
+        const matchesSearch = searchQuery.length === 0 || itemSearch.includes(searchQuery);
 
-        if (matchesCategory && matchesColor && matchesStock) {
-          item.style.display = "";
-          count++;
-        } else {
-          item.style.display = "none";
+        if (matchesCategory && matchesColor && matchesStock && matchesSearch) {
+          filteredItems.push(item);
         }
+
+        item.style.display = "none";
+      });
+
+      const count = filteredItems.length;
+      const totalPages = Math.max(1, Math.ceil(count / resultsPerPage));
+
+      if (currentPage > totalPages) {
+        currentPage = totalPages;
+      }
+
+      const start = (currentPage - 1) * resultsPerPage;
+      const end = start + resultsPerPage;
+      const pageItems = filteredItems.slice(start, end);
+
+      pageItems.forEach((item) => {
+        item.style.display = "";
       });
 
       updateSummary("category", "All Categories");
       updateSummary("color", "All Colors");
 
       if (visibleCount) visibleCount.textContent = String(count);
-      if (noResults && grid) {
+      if (noResults) {
         noResults.classList.toggle("hidden", count > 0);
-        grid.classList.toggle("hidden", count === 0);
       }
+
+      gridEl.classList.toggle("hidden", count === 0);
+
+      if (count === 0) {
+        paginationStatusEl.textContent = "Page 0 of 0";
+      } else {
+        const rangeStart = start + 1;
+        const rangeEnd = Math.min(end, count);
+        paginationStatusEl.textContent = `Page ${currentPage} of ${totalPages} · ${rangeStart}-${rangeEnd} of ${count}`;
+      }
+
+      prevPageButton.disabled = count === 0 || currentPage <= 1;
+      nextPageButton.disabled = count === 0 || currentPage >= totalPages;
+      paginationEl.classList.toggle("hidden", count <= resultsPerPage);
     }
 
     // Listen to checkbox changes inside filter groups
     filterGroups.forEach((group) => {
-      group.addEventListener("change", applyFilters);
+      group.addEventListener("change", () => {
+        currentPage = 1;
+        applyFilters();
+      });
     });
 
     // Listen to in-stock checkbox
-    inStockCheckbox.addEventListener("change", applyFilters);
+    inStockCheckbox.addEventListener("change", () => {
+      currentPage = 1;
+      applyFilters();
+    });
+
+    resultsPerPageSelect.addEventListener("change", () => {
+      const parsed = Number.parseInt(resultsPerPageSelect.value, 10);
+      resultsPerPage = Number.isFinite(parsed) && parsed > 0 ? parsed : 24;
+      currentPage = 1;
+      applyFilters();
+    });
+
+    viewSizeSelect.addEventListener("change", () => {
+      setViewSize(viewSizeSelect.value);
+    });
+
+    prevPageButton.addEventListener("click", () => {
+      if (currentPage <= 1) return;
+      currentPage -= 1;
+      applyFilters();
+    });
+
+    nextPageButton.addEventListener("click", () => {
+      currentPage += 1;
+      applyFilters();
+    });
 
     // Close other dropdowns when one opens
     filterGroups.forEach((group) => {
@@ -247,6 +430,9 @@ const colorOptions = [...colorCounts.entries()]
         });
       }
     });
+
+    setViewSize(viewSizeSelect.value);
+    applyFilters();
   }
 
   // Astro module scripts are deferred — DOM is ready

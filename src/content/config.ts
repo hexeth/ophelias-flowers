@@ -7,7 +7,7 @@ const varieties = defineCollection({
     z.object({
       name: z.string(),
       sku: z.string().regex(/^DAH-[A-Z]+-\d{3}$/),
-      price: z.number().positive(),
+      price: z.number().nonnegative(),
       stock: z.enum(["available", "low", "sold-out"]),
       category: z.enum([
         "dinnerplate",

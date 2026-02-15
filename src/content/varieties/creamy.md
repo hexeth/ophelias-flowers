@@ -1,7 +1,7 @@
 ---
 name: "Creamy"
 sku: "DAH-CRM-026"
-price: 8.00
+price: 14.00
 stock: "available"
 category: "decorative"
 color: ["cream", "yellow", "white"]
@@ -10,4 +10,4 @@ height: "4 feet"
 image: "../../assets/varieties/creamy.jpg"
 ---
 
-A soft and elegant decorative dahlia with luscious cream tones that blend seamlessly with hints of yellow and white. The gentle coloring provides a neutral backdrop that works beautifully with any color scheme in the garden or arrangements. Medium-sized blooms are produced prolifically on sturdy stems. A versatile variety that is equally at home in formal or cottage garden settings, blooming reliably from summer through frost.
+A soft, elegant dahlia in creamy tones with hints of yellow and white. Medium-sized blooms are abundant on sturdy stems, offering a versatile neutral that complements any palette. A reliable performer.

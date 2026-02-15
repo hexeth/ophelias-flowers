@@ -1,7 +1,7 @@
 ---
 name: "Bloomquist Alan"
 sku: "DAH-BQA-002"
-price: 9.00
+price: 15.00
 stock: "available"
 category: "decorative"
 color: ["red"]
@@ -10,4 +10,4 @@ height: "4-5 feet"
 image: "../../assets/varieties/bq-alan.jpg"
 ---
 
-A stunning decorative dahlia with rich, velvety red blooms that command attention in any garden. The large 6-8 inch flowers are held on strong stems, making them excellent for cutting and exhibition. This vigorous grower produces abundant blooms from mid-summer through frost. The deep red color holds well in both full sun and partial shade, making it a versatile addition to the garden.
+A vibrant ball dahlia with tightly packed petals and perfectly rounded blooms. Known for its exceptional productivity, BQ Alan pumps out flowers on strong, straight stems ideal for cutting. Its bright, cheerful color holds beautifully in arrangements and stands out in the garden from midsummer through frost. A must-grow!

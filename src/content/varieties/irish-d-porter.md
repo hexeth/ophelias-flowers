@@ -1,7 +1,7 @@
 ---
 name: "Irish D. Porter"
 sku: "DAH-IDP-018"
-price: 8.50
+price: 20.00
 stock: "available"
 category: "decorative"
 color: ["purple", "lavender", "white"]
@@ -10,4 +10,4 @@ height: "4 feet"
 image: "../../assets/varieties/irish-d-porter.jpg"
 ---
 
-A stunning decorative dahlia with rich purple and lavender tones accented by white tips. This variety creates a dramatic focal point in the garden with its bold coloring and reliable performance. The medium-sized blooms are produced prolifically on strong stems perfect for cutting. A vigorous grower that performs well in various conditions and produces abundant tubers for future seasons.
+A striking dahlia with lavender blooms tipped in white, creating bold contrast in both garden and vase. Produce abundantly on strong cutting stems. A vigorous, reliable grower and excellent tuber producer.

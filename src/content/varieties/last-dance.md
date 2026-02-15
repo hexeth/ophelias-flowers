@@ -1,13 +1,13 @@
 ---
 name: "Last Dance"
 sku: "DAH-LSD-020"
-price: 9.00
+price: 12.00
 stock: "available"
 category: "decorative"
-color: ["coral", "peach", "pink"]
+color: ["white", "lavender"]
 bloomSize: "5-6 inches"
 height: "4-5 feet"
 image: "../../assets/varieties/last-dance.jpg"
 ---
 
-A captivating decorative dahlia with warm coral, peach, and pink tones that seem to dance across the petals. This variety brings a lively, energetic presence to the garden with its vibrant coloring and generous bloom size. The flowers are held on strong stems that are excellent for cutting and arrangements. A vigorous grower that produces abundant blooms throughout the season with good tuber production.
+A soft white-to-lavender decorative dahlia with fine pinstriping. Compact 3–4" blooms are abundant on 4–5' plants, making Last Dance a reliable and elegant cut-flower favorite.

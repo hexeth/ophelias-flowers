@@ -1,7 +1,7 @@
 ---
 name: "Mystique"
 sku: "DAH-MYS-021"
-price: 9.00
+price: 10.00
 stock: "available"
 category: "decorative"
 color: ["purple", "lavender", "pink"]
@@ -10,4 +10,4 @@ height: "4 feet"
 image: "../../assets/varieties/mystique.jpg"
 ---
 
-An enchanting decorative dahlia with mysterious purple, lavender, and pink hues that shift in different lights. True to its name, Mystique captivates with its complex coloring and elegant form. The medium to large blooms are produced on sturdy stems perfect for exhibition and cutting. This reliable variety performs well throughout the season and produces a steady succession of show-quality flowers.
+Smoky plum, berry, and mauve tones that shift beautifully in changing light. A distinctive color palette and reliable garden performance make this a standout for both designers and growers.
