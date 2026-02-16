@@ -7,7 +7,7 @@ category: "decorative"
 color: ["red", "dark-red"]
 bloomSize: "4-6 inches"
 height: "3-4 feet"
-image: "../../assets/varieties/placeholder-variety.jpg"
+image: "../../assets/varieties/cornel.png"
 ---
 
 Dark cherry-red ball.
