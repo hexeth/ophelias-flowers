@@ -1,7 +1,7 @@
 ---
 name: "Salish Twilight Girl"
 sku: "DAH-NEW-130"
-price: 20.00
+price: 16.00
 stock: "sold-out"
 category: "decorative"
 color: ["lavender", "purple"]

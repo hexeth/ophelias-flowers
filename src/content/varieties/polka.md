@@ -1,7 +1,7 @@
 ---
 name: "Polka"
 sku: "DAH-NEW-127"
-price: 12.00
+price: 14.00
 stock: "sold-out"
 category: "decorative"
 color: ["bi-color", "variegated"]

@@ -1,7 +1,7 @@
 ---
 name: "Tiny Treasure"
 sku: "DAH-NEW-134"
-price: 8.00
+price: 10.00
 stock: "sold-out"
 category: "pompon"
 color: ["white"]

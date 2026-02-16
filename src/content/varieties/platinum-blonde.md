@@ -1,7 +1,7 @@
 ---
 name: "Platinum Blonde"
 sku: "DAH-PLB-046"
-price: 0.00
+price: 14.00
 stock: "sold-out"
 category: "decorative"
 color: ["white"]
