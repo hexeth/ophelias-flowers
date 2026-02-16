@@ -7,7 +7,7 @@ category: "decorative"
 color: ["orange", "bronze"]
 bloomSize: "4-6 inches"
 height: "3-4 feet"
-image: "../../assets/varieties/placeholder-variety.jpg"
+image: "../../assets/varieties/brown-sugar.jpg"
 ---
 
 Rusty orange with reddish center.
