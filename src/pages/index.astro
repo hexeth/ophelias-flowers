@@ -11,6 +11,10 @@ const featured = varieties.slice(0, 3);
 ---
 
 <BaseLayout title="Home">
+  <Fragment slot="head">
+    <link rel="preload" as="image" href={heroImage.src} />
+  </Fragment>
+
   <!-- Hero Section -->
   <section class="relative w-full overflow-hidden">
     {
@@ -19,7 +23,9 @@ const featured = varieties.slice(0, 3);
           src={heroImage}
           alt=""
           loading="eager"
-          decoding="async"
+          decoding="sync"
+          fetchpriority="high"
+          placeholder="blur"
           sizes="100vw"
           class="w-full h-[70vh] sm:h-[80vh] object-cover"
         />
