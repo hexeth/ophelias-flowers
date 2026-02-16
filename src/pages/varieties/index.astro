@@ -220,6 +220,7 @@ const colorOptions = [...colorCounts.entries()]
     const prevPageButton = prevButton;
     const nextPageButton = nextButton;
     const paginationStatusEl = paginationStatus;
+    const listSectionEl = gridEl.closest("section") as HTMLElement | null;
     const inStockCheckboxEl = inStockCheckbox;
     const viewSizeSelectEl = viewSizeSelect;
     const resultsPerPageSelectEl = resultsPerPageSelect;
@@ -498,6 +499,15 @@ const colorOptions = [...colorCounts.entries()]
       syncUrlWithCurrentState();
     }
 
+    function scrollToListTop() {
+      const topTarget = listSectionEl ?? gridEl;
+      const top = Math.max(
+        0,
+        topTarget.getBoundingClientRect().top + window.scrollY,
+      );
+      window.scrollTo({ top, behavior: "auto" });
+    }
+
     // Listen to checkbox changes inside filter groups
     filterGroups.forEach((group) => {
       group.addEventListener("change", () => {
@@ -533,11 +543,13 @@ const colorOptions = [...colorCounts.entries()]
       if (currentPage <= 1) return;
       currentPage -= 1;
       applyFilters();
+      scrollToListTop();
     });
 
     nextPageButton.addEventListener("click", () => {
       currentPage += 1;
       applyFilters();
+      scrollToListTop();
     });
 
     // Close other dropdowns when one opens
