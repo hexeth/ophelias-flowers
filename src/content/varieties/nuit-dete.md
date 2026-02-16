@@ -1,7 +1,7 @@
 ---
 name: "N'uit D'ete"
 sku: "DAH-NDE-043"
-price: 0.00
+price: 8.00
 stock: "sold-out"
 category: "decorative"
 color: ["red", "dark-red"]
