@@ -280,6 +280,30 @@ test.describe("in-stock filter", () => {
 });
 
 // ---------------------------------------------------------------------------
+// View density
+// ---------------------------------------------------------------------------
+
+test.describe("view density", () => {
+  test("comfortable view includes a four-column xl layout", async ({
+    page,
+  }) => {
+    await goToVarieties(page);
+
+    await expect(page.locator("#variety-grid")).toHaveClass(/xl:grid-cols-4/);
+  });
+
+  test("dense view adds five and six-column desktop layouts", async ({
+    page,
+  }) => {
+    await goToVarieties(page);
+
+    await page.locator("#view-size").selectOption("compact");
+    await expect(page.locator("#variety-grid")).toHaveClass(/xl:grid-cols-5/);
+    await expect(page.locator("#variety-grid")).toHaveClass(/2xl:grid-cols-6/);
+  });
+});
+
+// ---------------------------------------------------------------------------
 // Summary text updates
 // ---------------------------------------------------------------------------
 

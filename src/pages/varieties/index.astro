@@ -77,7 +77,7 @@ const colorOptions = [...colorCounts.entries()]
       <!-- Product grid -->
       <div
         id="variety-grid"
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8"
       >
         {
           varieties.map((variety) => (
@@ -170,11 +170,14 @@ const colorOptions = [...colorCounts.entries()]
       "sm:grid-cols-3",
       "lg:grid-cols-3",
       "lg:grid-cols-4",
+      "xl:grid-cols-4",
+      "xl:grid-cols-5",
+      "2xl:grid-cols-6",
     ];
 
     const viewSizeClassMap: Record<string, string[]> = {
-      comfortable: ["grid-cols-1", "sm:grid-cols-2", "lg:grid-cols-3"],
-      compact: ["grid-cols-2", "sm:grid-cols-3", "lg:grid-cols-4"],
+      comfortable: ["grid-cols-1", "sm:grid-cols-2", "lg:grid-cols-3", "xl:grid-cols-4"],
+      compact: ["grid-cols-2", "sm:grid-cols-3", "lg:grid-cols-4", "xl:grid-cols-5", "2xl:grid-cols-6"],
     };
 
     const defaultResultsPerPage = 24;

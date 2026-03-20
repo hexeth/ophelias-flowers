@@ -1,4 +1,4 @@
-import type { ChangeEvent } from "react";
+import React, { type ChangeEvent } from "react";
 
 type EditableCellType =
   | "text"
@@ -93,6 +93,8 @@ export function EditableCell(props: EditableCellProps) {
           <img
             src={imageUrl}
             alt={imageAlt}
+            loading="lazy"
+            decoding="async"
             className={
               compact
                 ? "aspect-[3/4] w-16 border border-ink object-cover"
@@ -193,9 +195,7 @@ export function EditableCell(props: EditableCellProps) {
 
     for (const option of [
       ...options,
-      ...selectedValues.map(
-        (item): Option => ({ label: item, value: item }),
-      ),
+      ...selectedValues.map((item): Option => ({ label: item, value: item })),
     ]) {
       const normalizedValue = normalizeOptionValue(option.value);
       if (!normalizedValue) {

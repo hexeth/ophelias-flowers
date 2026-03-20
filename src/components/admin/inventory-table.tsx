@@ -1,6 +1,11 @@
-import { useState } from "react";
+import React, { useDeferredValue, useMemo, useState } from "react";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { EditableCell } from "./editable-cell";
+import {
+  inventoryFilterFieldClassName,
+  inventoryFilterLabelClassName,
+  inventoryFilterLabelTextClassName,
+} from "./inventory-table-controls";
 import { RowActions } from "./row-actions";
 import {
   VARIETY_CATEGORIES,
@@ -8,6 +13,13 @@ import {
   STOCK_STATUSES,
   stockLabels,
 } from "../../lib/catalog/constants";
+import {
+  applyInventoryTableControls,
+  type InventoryRow,
+  type InventorySortField,
+  type InventoryTableFilters,
+  type InventoryTableSort,
+} from "../../lib/catalog/admin-inventory-table";
 import { varietyInputSchema } from "../../lib/catalog/schema";
 import type { Variety } from "../../lib/varieties";
 
@@ -15,9 +27,58 @@ interface InventoryTableProps {
   initialVarieties: Variety[];
 }
 
-type InventoryRow = Variety & {
-  isNew?: boolean;
+const defaultFilters: InventoryTableFilters = {
+  category: "all",
+  stock: "all",
+  visibility: "all",
+  query: "",
 };
+
+const sortableHeaders: Array<{
+  field: InventorySortField;
+  label: string;
+}> = [
+  { field: "name", label: "Name" },
+  { field: "category", label: "Category" },
+  { field: "stock", label: "Stock" },
+  { field: "price", label: "Price" },
+  { field: "salePrice", label: "Sale" },
+  { field: "color", label: "Colors" },
+  { field: "bloomSize", label: "Bloom" },
+  { field: "height", label: "Height" },
+  { field: "hidden", label: "Hidden" },
+];
+
+function SortIcon(props: {
+  active: boolean;
+  direction: InventoryTableSort["direction"];
+}) {
+  const { active, direction } = props;
+  const activeUp = active && direction === "asc";
+  const activeDown = active && direction === "desc";
+
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 12 12"
+      className="h-3.5 w-3.5 shrink-0"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path
+        d="M3.25 4.5 6 1.75 8.75 4.5"
+        className={activeUp ? "text-ink" : "text-stone-300"}
+      />
+      <path
+        d="M3.25 7.5 6 10.25 8.75 7.5"
+        className={activeDown ? "text-ink" : "text-stone-300"}
+      />
+    </svg>
+  );
+}
 
 function createDraftRow(): InventoryRow {
   const id = `draft-${crypto.randomUUID()}`;
@@ -80,6 +141,12 @@ export default function InventoryTable({
   initialVarieties,
 }: InventoryTableProps) {
   const [rows, setRows] = useState<InventoryRow[]>(initialVarieties);
+  const [filters, setFilters] = useState<InventoryTableFilters>(defaultFilters);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sort, setSort] = useState<InventoryTableSort>({
+    direction: "asc",
+    field: "name",
+  });
   const [originalRows, setOriginalRows] = useState<
     Record<string, InventoryRow>
   >({});
@@ -89,10 +156,53 @@ export default function InventoryTable({
   const [savingRowId, setSavingRowId] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const colorOptions = getColorOptions(rows).map((color) => ({
-    value: color,
-    label: color,
-  }));
+  const deferredSearchQuery = useDeferredValue(searchQuery);
+  const colorOptions = useMemo(
+    () =>
+      getColorOptions(rows).map((color) => ({
+        value: color,
+        label: color,
+      })),
+    [rows],
+  );
+  const activeFilters = useMemo(
+    () => ({
+      ...filters,
+      query: deferredSearchQuery,
+    }),
+    [deferredSearchQuery, filters],
+  );
+  const visibleRows = useMemo(
+    () => applyInventoryTableControls(rows, activeFilters, sort),
+    [activeFilters, rows, sort],
+  );
+  const isFiltering = searchQuery !== deferredSearchQuery;
+
+  function setFilter<K extends Exclude<keyof InventoryTableFilters, "query">>(
+    key: K,
+    value: InventoryTableFilters[K],
+  ) {
+    setFilters((current) => ({
+      ...current,
+      [key]: value,
+    }));
+  }
+
+  function toggleSort(field: InventorySortField) {
+    setSort((current) => ({
+      field,
+      direction:
+        current.field === field && current.direction === "asc" ? "desc" : "asc",
+    }));
+  }
+
+  function getSortIndicator(field: InventorySortField) {
+    if (sort.field !== field) {
+      return "Sort";
+    }
+
+    return sort.direction === "asc" ? "Ascending" : "Descending";
+  }
 
   function beginEdit(row: InventoryRow) {
     setOriginalRows((current) => ({ ...current, [row.id]: row }));
@@ -237,7 +347,7 @@ export default function InventoryTable({
   }
 
   const table = useReactTable({
-    data: rows,
+    data: visibleRows,
     columns: [],
     getCoreRowModel: getCoreRowModel(),
   });
@@ -249,16 +359,14 @@ export default function InventoryTable({
           <p className="text-xs uppercase tracking-widest text-stone-500 mb-2">
             Catalog rows
           </p>
-          <p className="text-sm text-stone-500">
-            Edit each variety inline. Slugs and SKUs are generated automatically
-            when a record is first saved.
-          </p>
         </div>
         <button
           type="button"
           onClick={() => {
             const draft = createDraftRow();
             setRows((current) => [draft, ...current]);
+            setFilters(defaultFilters);
+            setSearchQuery("");
             beginEdit(draft);
           }}
           className="border border-ink bg-ink px-4 py-3 text-xs uppercase tracking-widest text-white hover:bg-white hover:text-ink transition-colors"
@@ -266,6 +374,75 @@ export default function InventoryTable({
           Add Variety
         </button>
       </div>
+
+      <div className="grid gap-3 border border-ink bg-cream p-4 md:grid-cols-2 xl:grid-cols-[minmax(0,2fr)_repeat(3,minmax(0,1fr))]">
+        <label className={inventoryFilterLabelClassName}>
+          <span className={inventoryFilterLabelTextClassName}>Filter</span>
+          <input
+            type="search"
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+            placeholder="Search name, SKU, colors, description"
+            className={inventoryFilterFieldClassName}
+          />
+        </label>
+
+        <label className={inventoryFilterLabelClassName}>
+          <span className={inventoryFilterLabelTextClassName}>Category</span>
+          <select
+            value={filters.category}
+            onChange={(event) => setFilter("category", event.target.value)}
+            className={inventoryFilterFieldClassName}
+          >
+            <option value="all">All Categories</option>
+            {VARIETY_CATEGORIES.map((category) => (
+              <option key={category} value={category}>
+                {categoryLabels[category]}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className={inventoryFilterLabelClassName}>
+          <span className={inventoryFilterLabelTextClassName}>Stock</span>
+          <select
+            value={filters.stock}
+            onChange={(event) => setFilter("stock", event.target.value)}
+            className={inventoryFilterFieldClassName}
+          >
+            <option value="all">All Stock</option>
+            {STOCK_STATUSES.map((status) => (
+              <option key={status} value={status}>
+                {stockLabels[status]}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className={inventoryFilterLabelClassName}>
+          <span className={inventoryFilterLabelTextClassName}>Visibility</span>
+          <select
+            value={filters.visibility}
+            onChange={(event) =>
+              setFilter(
+                "visibility",
+                event.target.value as InventoryTableFilters["visibility"],
+              )
+            }
+            className={inventoryFilterFieldClassName}
+          >
+            <option value="all">All Rows</option>
+            <option value="visible">Visible</option>
+            <option value="hidden">Hidden</option>
+          </select>
+        </label>
+      </div>
+
+      <p className="text-xs uppercase tracking-widest text-stone-500">
+        {isFiltering
+          ? `Updating search over ${rows.length} varieties...`
+          : `Showing ${visibleRows.length} of ${rows.length} varieties.`}
+      </p>
 
       {error ? (
         <p className="border border-dahlia-wine px-4 py-3 text-sm text-dahlia-wine">
@@ -286,33 +463,26 @@ export default function InventoryTable({
                 <th className="w-20 px-2 py-2 text-xs uppercase tracking-widest text-stone-500">
                   Image
                 </th>
-                <th className="px-2 py-2 text-xs uppercase tracking-widest text-stone-500">
-                  Name
-                </th>
-                <th className="px-2 py-2 text-xs uppercase tracking-widest text-stone-500">
-                  Category
-                </th>
-                <th className="px-2 py-2 text-xs uppercase tracking-widest text-stone-500">
-                  Stock
-                </th>
-                <th className="px-2 py-2 text-xs uppercase tracking-widest text-stone-500">
-                  Price
-                </th>
-                <th className="px-2 py-2 text-xs uppercase tracking-widest text-stone-500">
-                  Sale
-                </th>
-                <th className="px-2 py-2 text-xs uppercase tracking-widest text-stone-500">
-                  Colors
-                </th>
-                <th className="px-2 py-2 text-xs uppercase tracking-widest text-stone-500">
-                  Bloom
-                </th>
-                <th className="px-2 py-2 text-xs uppercase tracking-widest text-stone-500">
-                  Height
-                </th>
-                <th className="px-2 py-2 text-xs uppercase tracking-widest text-stone-500">
-                  Hidden
-                </th>
+                {sortableHeaders.map((header) => (
+                  <th
+                    key={header.field}
+                    className="px-2 py-2 text-xs uppercase tracking-widest text-stone-500"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => toggleSort(header.field)}
+                      className="inline-flex items-center gap-2 text-left hover:text-ink transition-colors"
+                      aria-label={`${header.label}: ${getSortIndicator(header.field)}`}
+                      title={getSortIndicator(header.field)}
+                    >
+                      <span>{header.label}</span>
+                      <SortIcon
+                        active={sort.field === header.field}
+                        direction={sort.direction}
+                      />
+                    </button>
+                  </th>
+                ))}
                 <th className="w-[20%] px-2 py-2 text-xs uppercase tracking-widest text-stone-500">
                   Description
                 </th>
