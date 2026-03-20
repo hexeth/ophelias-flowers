@@ -3,6 +3,14 @@ import { CATALOG_PLACEHOLDER_IMAGE } from "../../../lib/catalog/constants";
 
 export const prerender = false;
 
+const allowedImageTypes = new Set([
+  "image/avif",
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+]);
+const maxImageSizeBytes = 5 * 1024 * 1024;
+
 function json(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
@@ -12,9 +20,24 @@ function json(body: unknown, status = 200) {
   });
 }
 
+function getVarietyImagesBucket(locals: App.Locals) {
+  const bucket = locals.runtime.env.VARIETY_IMAGES;
+
+  if (!bucket) {
+    return null;
+  }
+
+  return bucket;
+}
+
 export const POST: APIRoute = async ({ request, locals }) => {
   if (!locals.auth().userId) {
     return json({ error: "Unauthorized" }, 401);
+  }
+
+  const varietyImages = getVarietyImagesBucket(locals);
+  if (!varietyImages) {
+    return json({ error: "Variety image storage is not configured." }, 500);
   }
 
   const formData = await request.formData();
@@ -24,13 +47,21 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return json({ error: "Please attach an image file." }, 400);
   }
 
+  if (!allowedImageTypes.has(file.type)) {
+    return json({ error: "Upload a JPG, PNG, WebP, or AVIF image." }, 400);
+  }
+
+  if (file.size > maxImageSizeBytes) {
+    return json({ error: "Upload an image smaller than 5 MB." }, 400);
+  }
+
   const extension = file.name.includes(".")
     ? file.name.slice(file.name.lastIndexOf("."))
     : ".jpg";
   const imageKey = `varieties/${crypto.randomUUID()}${extension.toLowerCase()}`;
   const imageBuffer = await file.arrayBuffer();
 
-  await locals.runtime.env.VARIETY_IMAGES.put(imageKey, imageBuffer, {
+  await varietyImages.put(imageKey, imageBuffer, {
     httpMetadata: {
       contentType: file.type || "image/jpeg",
     },

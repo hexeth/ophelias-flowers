@@ -106,6 +106,21 @@ function getCatalogImageUrl(imageKey: string | null, imageUrl: string | null) {
   return imageUrl ?? CATALOG_PLACEHOLDER_IMAGE;
 }
 
+function parseColorJson(colorJson: string) {
+  try {
+    const parsed = JSON.parse(colorJson) as unknown;
+
+    if (!Array.isArray(parsed)) {
+      return [];
+    }
+
+    return parsed.filter((color): color is string => typeof color === "string");
+  } catch (error) {
+    console.error("Invalid color_json value in catalog row", error);
+    return [];
+  }
+}
+
 function rowToVariety(row: VarietyRow): Variety {
   return {
     id: row.id,
@@ -117,7 +132,7 @@ function rowToVariety(row: VarietyRow): Variety {
     salePrice: centsToDollars(row.sale_price_cents),
     stock: row.stock,
     category: row.category,
-    color: JSON.parse(row.color_json) as string[],
+    color: parseColorJson(row.color_json),
     bloomSize: row.bloom_size,
     height: row.height,
     imageUrl: getCatalogImageUrl(row.image_key, row.image_url),

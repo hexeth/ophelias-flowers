@@ -4,7 +4,7 @@ export const prerender = false;
 
 const cacheControl = "public, max-age=31536000, immutable";
 
-function buildImageHeaders(object: R2ObjectBody) {
+function buildImageHeaders(object: R2Object) {
   const headers = new Headers();
   const metadata = object.httpMetadata;
 
@@ -35,6 +35,7 @@ function buildImageHeaders(object: R2ObjectBody) {
   }
 
   headers.set("etag", object.httpEtag);
+  headers.set("content-length", String(object.size));
 
   return headers;
 }
@@ -44,6 +45,15 @@ function notFound() {
     status: 404,
     headers: {
       "cache-control": "public, max-age=60",
+    },
+  });
+}
+
+function storageUnavailable() {
+  return new Response("Variety image storage is not configured.", {
+    status: 500,
+    headers: {
+      "cache-control": "no-store",
     },
   });
 }
@@ -58,12 +68,17 @@ function getObjectKey(param: string | undefined) {
 }
 
 async function handleRequest(locals: App.Locals, param: string | undefined) {
+  const bucket = locals.runtime.env.VARIETY_IMAGES;
+  if (!bucket) {
+    return storageUnavailable();
+  }
+
   const objectKey = getObjectKey(param);
   if (!objectKey) {
     return notFound();
   }
 
-  const object = await locals.runtime.env.VARIETY_IMAGES.get(objectKey, {
+  const object = await bucket.get(objectKey, {
     onlyIf: undefined,
   });
 
@@ -71,22 +86,39 @@ async function handleRequest(locals: App.Locals, param: string | undefined) {
     return notFound();
   }
 
-  const imageBuffer = await object.arrayBuffer();
   const headers = buildImageHeaders(object);
-  headers.set("content-length", String(imageBuffer.byteLength));
 
-  return new Response(imageBuffer, {
+  return new Response(object.body, {
     headers,
+  });
+}
+
+async function handleHeadRequest(
+  locals: App.Locals,
+  param: string | undefined,
+) {
+  const bucket = locals.runtime.env.VARIETY_IMAGES;
+  if (!bucket) {
+    return storageUnavailable();
+  }
+
+  const objectKey = getObjectKey(param);
+  if (!objectKey) {
+    return notFound();
+  }
+
+  const object = await bucket.head(objectKey);
+  if (!object) {
+    return notFound();
+  }
+
+  return new Response(null, {
+    headers: buildImageHeaders(object),
   });
 }
 
 export const GET: APIRoute = async ({ params, locals }) =>
   handleRequest(locals, params.key);
 
-export const HEAD: APIRoute = async ({ params, locals }) => {
-  const response = await handleRequest(locals, params.key);
-  return new Response(null, {
-    status: response.status,
-    headers: response.headers,
-  });
-};
+export const HEAD: APIRoute = async ({ params, locals }) =>
+  handleHeadRequest(locals, params.key);

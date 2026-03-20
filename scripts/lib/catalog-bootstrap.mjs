@@ -186,6 +186,7 @@ ON CONFLICT(slug) DO UPDATE SET
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -193,6 +194,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;`,
     )
     .join("\n\n")}\n`;

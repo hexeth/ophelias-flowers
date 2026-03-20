@@ -55,6 +55,16 @@ function normalizeColorValue(value: string) {
   return value.trim().toLowerCase();
 }
 
+function omitRowSnapshot(rows: Record<string, InventoryRow>, rowIds: string[]) {
+  const next = { ...rows };
+
+  for (const rowId of rowIds) {
+    delete next[rowId];
+  }
+
+  return next;
+}
+
 function getColorOptions(rows: InventoryRow[]) {
   return Array.from(
     new Set(
@@ -109,6 +119,7 @@ export default function InventoryTable({
       delete next[row.id];
       return next;
     });
+    setOriginalRows((current) => omitRowSnapshot(current, [row.id]));
   }
 
   function setRowValue<K extends keyof InventoryRow>(
@@ -219,10 +230,9 @@ export default function InventoryTable({
       delete next[savedRow.id];
       return next;
     });
-    setOriginalRows((current) => ({
-      ...current,
-      [savedRow.id]: savedRow,
-    }));
+    setOriginalRows((current) =>
+      omitRowSnapshot(current, [row.id, savedRow.id]),
+    );
     setNotice(`${savedRow.name} saved.`);
   }
 
