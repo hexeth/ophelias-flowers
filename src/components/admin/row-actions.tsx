@@ -1,3 +1,5 @@
+import React from "react";
+
 interface RowActionsProps {
   isEditing: boolean;
   isSaving: boolean;

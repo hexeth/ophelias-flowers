@@ -5,9 +5,10 @@ import type { Variety } from "../lib/varieties";
 interface Props {
   variety: Variety;
   featured?: boolean;
+  imageLoading?: "eager" | "lazy";
 }
 
-const { variety, featured = false } = Astro.props;
+const { variety, featured = false, imageLoading = "lazy" } = Astro.props;
 const { name, stock, category, imageUrl, slug, price, salePrice } = variety;
 const displayPrice = getDisplayPrice(variety);
 ---
@@ -20,7 +21,7 @@ const displayPrice = getDisplayPrice(variety);
       <img
         src={imageUrl}
         alt={`${name} dahlia bloom`}
-        loading="eager"
+        loading={imageLoading}
         decoding="async"
         class="w-full h-full object-cover"
       />
