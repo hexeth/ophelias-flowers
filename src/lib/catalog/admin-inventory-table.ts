@@ -247,7 +247,7 @@ export function getVisibleInventoryRows(
     (row) => row.isNew && editingRowIds[row.id] === true,
   );
   const pinnedDraftRowIds = new Set(pinnedDraftRows.map((row) => row.id));
-  const currentRowsById = new Map(rows.map((row) => [row.id, row]));
+  const latestRowsById = new Map(rows.map((row) => [row.id, row]));
 
   const sortableRows = rows
     .filter((row) => !pinnedDraftRowIds.has(row.id))
@@ -262,7 +262,7 @@ export function getVisibleInventoryRows(
   return [
     ...pinnedDraftRows,
     ...applyInventoryTableControls(sortableRows, filters, sort).map(
-      (row) => currentRowsById.get(row.id) ?? row,
+      (row) => latestRowsById.get(row.id) ?? row,
     ),
   ];
 }
