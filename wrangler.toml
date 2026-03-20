@@ -3,7 +3,28 @@ pages_build_output_dir = "./dist"
 compatibility_date = "2026-02-09"
 compatibility_flags = ["nodejs_compat"]
 
+[[kv_namespaces]]
+binding = "SESSION"
+id = "local-session-kv"
+preview_id = "local-session-kv"
+
+[[d1_databases]]
+binding = "CATALOG_DB"
+database_name = "ophelias-flowers-catalog"
+database_id = "local-catalog-db"
+
+[[r2_buckets]]
+binding = "VARIETY_IMAGES"
+bucket_name = "ophelias-flowers-variety-images"
+
+[vars]
+CATALOG_IMAGE_PUBLIC_BASE_URL = "https://opheliasflowers.ca/catalog-images"
+
 # Email provider secrets (set via `wrangler secret put`):
 # RESEND_API_KEY
 # ORDER_EMAIL_TO
 # ORDER_EMAIL_FROM
+# CLERK_SECRET_KEY
+
+# Public vars:
+# PUBLIC_CLERK_PUBLISHABLE_KEY

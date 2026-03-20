@@ -4,9 +4,9 @@ import heroImage from "../assets/hero.jpg";
 import logo from "../assets/logo.png";
 import BaseLayout from "../layouts/base-layout.astro";
 import VarietyCard from "../components/variety-card.astro";
-import { getCollection } from "astro:content";
+import { listPublicVarieties } from "../lib/varieties";
 
-const varieties = await getCollection("varieties");
+const varieties = await listPublicVarieties(Astro.locals);
 const featured = varieties.slice(0, 3);
 ---
 

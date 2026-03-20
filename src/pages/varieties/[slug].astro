@@ -1,51 +1,55 @@
 ---
-import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/base-layout.astro";
-import { getCollection } from "astro:content";
+import {
+  getDisplayPrice,
+  getPublicVarietyBySlug,
+  stockClasses,
+  stockDetailLabels,
+} from "../../lib/varieties";
+import { renderDescriptionHtml } from "../../lib/catalog/render";
 import { formatPrice } from "../../lib/commerce/pricing";
 
-export async function getStaticPaths() {
-  const varieties = await getCollection("varieties");
-  return varieties.map((variety) => ({
-    params: { slug: variety.id.replace(/\.md$/, "") },
-    props: { variety },
-  }));
+export const prerender = false;
+
+const slug = Astro.params.slug ?? "";
+const variety = await getPublicVarietyBySlug(Astro.locals, slug);
+
+if (!variety) {
+  Astro.response.status = 404;
 }
 
-const { variety } = Astro.props;
-const { name, price, stock, category, color, bloomSize, height, image } =
-  variety.data;
-const { Content } = await variety.render();
-
-const stockLabel: Record<string, string> = {
-  available: "In Stock",
-  low: "Low Stock — order soon",
-  "sold-out": "Sold Out",
-};
-
-const stockClass: Record<string, string> = {
-  available: "text-botanical",
-  low: "text-dahlia-wine",
-  "sold-out": "text-stone-300 line-through",
-};
+const { name, price, salePrice, stock, category, color, bloomSize, height, imageUrl } =
+  variety ?? {
+    name: "Variety not found",
+    price: 0,
+    salePrice: null,
+    stock: "sold-out",
+    category: "decorative",
+    color: [],
+    bloomSize: "",
+    height: "",
+    imageUrl: "/catalog-seed/placeholder-variety.jpg",
+  };
+const displayPrice = variety ? getDisplayPrice(variety) : 0;
 
 const canAddToCart = stock !== "sold-out";
 ---
 
 <BaseLayout
   title={name}
-  description={`${name} dahlia tubers — ${formatPrice(price)}`}
+  description={`${name} dahlia tubers — ${formatPrice(displayPrice)}`}
 >
   <article class="px-4 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-20">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl">
+    {
+      variety ? (
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl">
       <div class="border border-ink">
         <div class="aspect-[3/4] overflow-hidden">
-          <Image
-            src={image}
+          <img
+            src={imageUrl}
             alt={`${name} dahlia bloom`}
             loading="eager"
             decoding="async"
-            sizes="(min-width: 1024px) 50vw, 100vw"
             class="w-full h-full object-cover"
           />
         </div>
@@ -56,7 +60,12 @@ const canAddToCart = stock !== "sold-out";
           {category}
         </p>
         <h1 class="text-5xl sm:text-6xl lg:text-7xl mb-4">{name}</h1>
-        <p class="font-serif text-3xl mb-6">{formatPrice(price)}</p>
+        <div class="font-serif text-3xl mb-6 flex items-center gap-3 flex-wrap">
+          <span class={salePrice !== null ? "text-dahlia-wine" : ""}>{formatPrice(displayPrice)}</span>
+          {salePrice !== null && (
+            <span class="text-lg text-stone-500 line-through">{formatPrice(price)}</span>
+          )}
+        </div>
 
         <dl
           class="grid grid-cols-2 gap-y-3 text-sm mb-8 border-t border-ink pt-6"
@@ -68,8 +77,8 @@ const canAddToCart = stock !== "sold-out";
           <dt class="font-semibold">Colors</dt>
           <dd class="text-stone-500">{color.join(", ")}</dd>
           <dt class="font-semibold">Availability</dt>
-          <dd class={`text-xs uppercase tracking-wider ${stockClass[stock]}`}>
-            {stockLabel[stock]}
+          <dd class={`text-xs uppercase tracking-wider ${stockClasses[stock]}`}>
+            {stockDetailLabels[stock]}
           </dd>
         </dl>
 
@@ -79,9 +88,9 @@ const canAddToCart = stock !== "sold-out";
               id="add-to-cart"
               type="button"
               class="w-full bg-ink text-white border border-ink px-6 py-4 text-xs uppercase tracking-widest hover:bg-transparent hover:text-ink transition-colors focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
-              data-sku={variety.data.sku}
+              data-sku={variety.sku}
               data-name={name}
-              data-price={price}
+              data-price={displayPrice}
             >
               Add to Cart
             </button>
@@ -94,11 +103,27 @@ const canAddToCart = stock !== "sold-out";
 
         <div
           class="prose mt-10 border-t border-stone-300 pt-8 text-stone-500 leading-relaxed"
+          set:html={renderDescriptionHtml(variety.description)}
         >
-          <Content />
         </div>
       </div>
-    </div>
+        </div>
+      ) : (
+        <div class="max-w-2xl">
+          <p class="text-xs uppercase tracking-widest text-stone-500 mb-3">Not Found</p>
+          <h1 class="mb-6">Variety unavailable</h1>
+          <p class="text-stone-500 mb-8 leading-relaxed">
+            This variety is hidden or no longer available in the catalog.
+          </p>
+          <a
+            href="/varieties"
+            class="inline-block border border-ink px-6 py-4 text-xs uppercase tracking-widest no-underline hover:bg-ink hover:text-cream transition-colors"
+          >
+            Back to Varieties
+          </a>
+        </div>
+      )
+    }
   </article>
 </BaseLayout>
 

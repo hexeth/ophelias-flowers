@@ -1,30 +1,15 @@
 ---
-import { Image } from "astro:assets";
-import type { CollectionEntry } from "astro:content";
+import { categoryLabels, getDisplayPrice, stockClasses, stockLabels } from "../lib/varieties";
+import type { Variety } from "../lib/varieties";
 
 interface Props {
-  variety: CollectionEntry<"varieties">;
+  variety: Variety;
   featured?: boolean;
 }
 
 const { variety, featured = false } = Astro.props;
-const { name, price, stock, category, image } = variety.data;
-const imageSizes = featured
-  ? "(min-width: 1024px) 66vw, (min-width: 640px) 100vw, 100vw"
-  : "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw";
-const slug = variety.id.replace(/\.md$/, "");
-
-const stockLabel: Record<string, string> = {
-  available: "In Stock",
-  low: "Low Stock",
-  "sold-out": "Sold Out",
-};
-
-const stockClass: Record<string, string> = {
-  available: "text-botanical",
-  low: "text-dahlia-wine",
-  "sold-out": "text-stone-300 line-through",
-};
+const { name, stock, category, imageUrl, slug, price, salePrice } = variety;
+const displayPrice = getDisplayPrice(variety);
 ---
 
 <article class="border border-ink group h-full">
@@ -32,24 +17,34 @@ const stockClass: Record<string, string> = {
     <div
       class={`overflow-hidden ${featured ? "aspect-[3/4] sm:aspect-[4/3] lg:aspect-[3/4]" : "aspect-[3/4]"}`}
     >
-      <Image
-        src={image}
+      <img
+        src={imageUrl}
         alt={`${name} dahlia bloom`}
         loading="eager"
         decoding="async"
-        sizes={imageSizes}
         class="w-full h-full object-cover"
       />
     </div>
     <div class="p-4 sm:p-5 border-t border-ink flex flex-col flex-1">
       <p class="text-xs uppercase tracking-widest text-stone-500 mb-1">
-        {category}
+        {categoryLabels[category]}
       </p>
       <h3 class="font-serif text-lg sm:text-xl font-normal">{name}</h3>
       <div class="flex items-center justify-between mt-auto pt-3">
-        <span class="text-lg font-semibold">${price.toFixed(2)}</span>
-        <span class={`text-xs uppercase tracking-wider ${stockClass[stock]}`}>
-          {stockLabel[stock]}
+        <span class="text-lg font-semibold">
+          {
+            salePrice !== null ? (
+              <>
+                <span class="text-dahlia-wine mr-2">${displayPrice.toFixed(2)}</span>
+                <span class="text-sm text-stone-500 line-through">${price.toFixed(2)}</span>
+              </>
+            ) : (
+              `$${displayPrice.toFixed(2)}`
+            )
+          }
+        </span>
+        <span class={`text-xs uppercase tracking-wider ${stockClasses[stock]}`}>
+          {stockLabels[stock]}
         </span>
       </div>
     </div>
