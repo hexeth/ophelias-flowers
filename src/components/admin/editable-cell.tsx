@@ -1,4 +1,4 @@
-import type { ChangeEvent, FormEvent } from "react";
+import type { ChangeEvent } from "react";
 
 type EditableCellType =
   | "text"
@@ -14,6 +14,11 @@ type EditableCellType =
 interface Option {
   label: string;
   value: string;
+}
+
+interface FormSubmitEvent {
+  preventDefault: () => void;
+  currentTarget: HTMLFormElement;
 }
 
 interface EditableCellProps {
@@ -184,25 +189,26 @@ export function EditableCell(props: EditableCellProps) {
       .map(normalizeOptionValue)
       .filter(Boolean);
     const selectedValueSet = new Set(normalizedSelectedValues);
-    const availableOptions = Array.from(
-      new Map(
-        [
-          ...options,
-          ...selectedValues.map((item) => ({ label: item, value: item })),
-        ]
-          .map((option) => {
-            const normalizedValue = normalizeOptionValue(option.value);
-            return [
-              normalizedValue,
-              {
-                label: option.label,
-                value: normalizedValue,
-              },
-            ];
-          })
-          .filter(([normalizedValue]) => normalizedValue.length > 0),
-      ).values(),
-    );
+    const availableOptionsMap = new Map<string, Option>();
+
+    for (const option of [
+      ...options,
+      ...selectedValues.map(
+        (item): Option => ({ label: item, value: item }),
+      ),
+    ]) {
+      const normalizedValue = normalizeOptionValue(option.value);
+      if (!normalizedValue) {
+        continue;
+      }
+
+      availableOptionsMap.set(normalizedValue, {
+        label: option.label,
+        value: normalizedValue,
+      });
+    }
+
+    const availableOptions = Array.from(availableOptionsMap.values());
     const summaryText =
       selectedValues.length > 0
         ? selectedValues.join(", ")
@@ -219,7 +225,7 @@ export function EditableCell(props: EditableCellProps) {
       onValueChange?.(nextValues);
     }
 
-    function addOption(event: FormEvent<HTMLFormElement>) {
+    function addOption(event: FormSubmitEvent) {
       event.preventDefault();
 
       const formData = new FormData(event.currentTarget);
