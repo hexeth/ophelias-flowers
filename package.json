@@ -4,9 +4,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "wrangler types && astro dev",
-    "build": "wrangler types && astro check && astro build",
-    "preview": "wrangler types && astro preview",
+    "dev": "node scripts/sync-variety-images.mjs && wrangler types --config wrangler.local.toml && astro dev",
+    "build": "node scripts/sync-variety-images.mjs && wrangler types && astro check && astro build",
+    "preview": "wrangler types --config wrangler.local.toml && astro preview",
     "astro": "astro",
     "lint": "oxlint",
     "format": "oxfmt --write .",
@@ -14,19 +14,32 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "check": "astro check"
+    "check": "astro check",
+    "bootstrap:cloudflare": "node scripts/bootstrap-cloudflare.mjs",
+    "catalog:sync-images": "node scripts/sync-variety-images.mjs",
+    "catalog:seed-sql": "node scripts/generate-variety-seed-sql.mjs",
+    "catalog:bootstrap": "node scripts/bootstrap-catalog.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
     "@astrojs/cloudflare": "^12.6.12",
+    "@astrojs/react": "^5.0.1",
     "@astrojs/tailwind": "^6.0.2",
+    "@clerk/astro": "^3.0.5",
+    "@tanstack/react-table": "^8.21.3",
     "astro": "^5.17.1",
+    "gray-matter": "^4.0.3",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "sharp": "^0.34.5",
-    "tailwindcss": "^3.4.19"
+    "tailwindcss": "^3.4.19",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.2.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "axe-playwright": "^2.2.2",
     "oxfmt": "^0.28.0",
     "oxlint": "^1.43.0",

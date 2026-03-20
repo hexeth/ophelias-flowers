@@ -2,10 +2,10 @@
 import BaseLayout from "../../layouts/base-layout.astro";
 import VarietyCard from "../../components/variety-card.astro";
 import VarietiesControls from "../../components/varieties-controls.astro";
-import { getCollection } from "astro:content";
+import { categoryLabels, getDisplayPrice, listPublicVarieties } from "../../lib/varieties";
 
-const varieties = (await getCollection("varieties")).sort((a, b) =>
-  a.data.name.localeCompare(b.data.name, undefined, {
+const varieties = (await listPublicVarieties(Astro.locals)).sort((a, b) =>
+  a.name.localeCompare(b.name, undefined, {
     numeric: true,
     sensitivity: "base",
   }),
@@ -18,7 +18,7 @@ const colorCounts = new Map<string, number>();
 let inStockCount = 0;
 
 for (const v of varieties) {
-  const { category, color, stock } = v.data;
+  const { category, color, stock } = v;
 
   categoryCounts.set(category, (categoryCounts.get(category) ?? 0) + 1);
 
@@ -31,24 +31,11 @@ for (const v of varieties) {
   }
 }
 
-const categoryLabel: Record<string, string> = {
-  dinnerplate: "Dinnerplate",
-  ball: "Ball",
-  pompon: "Pompon",
-  cactus: "Cactus",
-  decorative: "Decorative",
-  waterlily: "Waterlily",
-  collarette: "Collarette",
-  anemone: "Anemone",
-  stellar: "Stellar",
-  single: "Single",
-};
-
 const categoryOptions = [...categoryCounts.entries()]
   .sort(([a], [b]) => a.localeCompare(b))
   .map(([value, count]) => ({
     value,
-    label: categoryLabel[value] ?? value,
+    label: categoryLabels[value as keyof typeof categoryLabels] ?? value,
     count,
   }));
 
@@ -95,12 +82,12 @@ const colorOptions = [...colorCounts.entries()]
         {
           varieties.map((variety) => (
             <div
-              data-category={variety.data.category}
-              data-colors={variety.data.color.join(" ")}
-              data-stock={variety.data.stock}
-              data-name={variety.data.name}
-              data-price={String(variety.data.price)}
-              data-search={`${variety.data.name} ${variety.data.category} ${variety.data.color.join(" ")} ${variety.data.sku}`}
+              data-category={variety.category}
+              data-colors={variety.color.join(" ")}
+              data-stock={variety.stock}
+              data-name={variety.name}
+              data-price={String(getDisplayPrice(variety))}
+              data-search={`${variety.name} ${variety.category} ${variety.color.join(" ")} ${variety.sku}`}
               class="variety-item"
             >
               <VarietyCard variety={variety} />

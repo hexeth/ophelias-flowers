@@ -5,15 +5,18 @@ compatibility_flags = ["nodejs_compat", "disable_nodejs_process_v2"]
 
 [[kv_namespaces]]
 binding = "SESSION"
-id = "aea91dba691f4ce1b1c0a4512f3dc5fc"
-preview_id = "0a89c683ea1f4d719fc8579506702c81"
+id = "local-session-kv"
+preview_id = "local-session-kv"
+
 [[d1_databases]]
 binding = "CATALOG_DB"
 database_name = "ophelias-flowers-catalog"
-database_id = "2097a883-17b3-4cce-8684-64a09e4ac20b"
+database_id = "local-catalog-db"
+
 [[r2_buckets]]
 binding = "VARIETY_IMAGES"
-bucket_name = "ophelias-flowers-variety-images"
+bucket_name = "ophelias-flowers-variety-images-local"
+
 [vars]
 CATALOG_IMAGE_PUBLIC_BASE_URL = "https://opheliasflowers.ca/catalog-images"
 
