@@ -17,7 +17,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'f1bc3a27-a3b7-4401-91a8-6a844f84daf0',
+  'c175175e-0058-47e0-9651-7ef932e878d2',
   '20th-avenue-memory',
   '20th Avenue Memory',
   'DAH-TAM-028',
@@ -29,11 +29,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/20th-avenue-memory.jpg',
-  'varieties/legacy/20th-avenue-memory.jpg',
+  '/catalog-seed/20th-avenue-memory.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -68,7 +68,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'b7c5b58e-0f74-4cbe-acac-a5d1f769ead0',
+  '9f1ebc4d-057f-440d-a707-c63ccdbea26a',
   'a-la-mode',
   'A La Mode',
   'DAH-ALM-029',
@@ -80,11 +80,11 @@ INSERT INTO varieties (
   '["bi-color","variegated"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/a-la-mode.jpg',
-  'varieties/legacy/a-la-mode.jpg',
+  '/catalog-seed/a-la-mode.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -119,7 +119,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '03929182-9457-40fe-8784-4045e0d1bff6',
+  'a8cc1501-28d2-4438-8fbe-e161c9228d3a',
   'american-dawn',
   'American Dawn',
   'DAH-AMD-030',
@@ -131,11 +131,11 @@ INSERT INTO varieties (
   '["orange","bronze"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/american-dawn.jpg',
-  'varieties/legacy/american-dawn.jpg',
+  '/catalog-seed/american-dawn.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -170,7 +170,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '4d7996a2-b8c5-431e-8e77-21f27dee3fdc',
+  '626169fd-161c-4da5-a70c-07d76b2148b7',
   'apple-blossom',
   'Apple Blossom',
   'DAH-APB-001',
@@ -182,11 +182,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '3-4 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/apple-blossom.jpg',
-  'varieties/legacy/apple-blossom.jpg',
+  '/catalog-seed/apple-blossom.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -221,7 +221,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'f933bc3c-46af-4d9b-9ac4-68d5c90f7f74',
+  '3c71fa48-fe5e-4c55-b7d4-b9fa31b3a1fd',
   'blizzard',
   'Blizzard',
   'DAH-NEW-101',
@@ -233,11 +233,11 @@ INSERT INTO varieties (
   '["white"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/blizzard.jpg',
-  'varieties/legacy/blizzard.jpg',
+  '/catalog-seed/blizzard.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -272,7 +272,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '2dfdf01e-0da4-4467-b97a-fb9ada8d5f5d',
+  'd5bf6f40-a65b-4a61-b078-06c86879b5cf',
   'bloomquist-alan',
   'Bloomquist Alan',
   'DAH-BQA-002',
@@ -284,11 +284,11 @@ INSERT INTO varieties (
   '["peach","salmon"]',
   '6-8 inches',
   '4-5 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/bq-alan.jpg',
-  'varieties/legacy/bq-alan.jpg',
+  '/catalog-seed/bq-alan.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -323,7 +323,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '1e0ac4cf-2854-404f-a84b-bf07cfec54c4',
+  '2a73c605-550a-45c9-9d96-3fbefba9fa3b',
   'bloomquist-jean',
   'Bloomquist Jean',
   'DAH-BJN-032',
@@ -335,11 +335,11 @@ INSERT INTO varieties (
   '["orange","bronze"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/bq-jean.jpg',
-  'varieties/legacy/bq-jean.jpg',
+  '/catalog-seed/bq-jean.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -374,7 +374,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'f1088462-3db2-4db6-aa8b-9dd93054dd80',
+  '3c456231-b230-4c47-ae3c-9e4caab87ae0',
   'bloomquist-mojo',
   'Bloomquist Mojo',
   'DAH-BQM-003',
@@ -386,11 +386,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '5 inches',
   '5 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/bq-mojo.jpg',
-  'varieties/legacy/bq-mojo.jpg',
+  '/catalog-seed/bq-mojo.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -425,7 +425,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'd384006f-1e53-4240-be57-f507beef0f0b',
+  '26b346d6-9486-4779-af97-324cfc387d67',
   'bloomquist-tory-p',
   'Bloomquist Tory P',
   'DAH-BTP-033',
@@ -437,11 +437,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/bq-tory-p.jpg',
-  'varieties/legacy/bq-tory-p.jpg',
+  '/catalog-seed/bq-tory-p.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -476,7 +476,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '08f0c79c-8ee1-4acb-9ef4-7816b9ba8906',
+  'b2fc627b-52a4-4885-8424-9f2b4e3894d5',
   'bocherell',
   'Bocherell',
   'DAH-BOC-114',
@@ -488,11 +488,11 @@ INSERT INTO varieties (
   '["yellow"]',
   '3-4 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/bocherell.jpg',
-  'varieties/legacy/bocherell.jpg',
+  '/catalog-seed/bocherell.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -527,7 +527,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '19f1288e-83d9-4fcb-aced-2981b2f7a400',
+  'b101851b-55b2-473e-a605-4513414bba17',
   'boom-boom-white',
   'Boom Boom White',
   'DAH-BBW-031',
@@ -539,11 +539,11 @@ INSERT INTO varieties (
   '["white"]',
   '3-4 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/boom-boom-white.jpg',
-  'varieties/legacy/boom-boom-white.jpg',
+  '/catalog-seed/boom-boom-white.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -578,7 +578,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'b724fcd5-a91f-489c-b24a-bb174d86400d',
+  'f15aae65-4187-4167-bee3-cb8dddc5e8a1',
   'bracken-palomino',
   'Bracken Palomino',
   'DAH-NEW-102',
@@ -590,11 +590,11 @@ INSERT INTO varieties (
   '["peach","salmon"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -629,7 +629,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'dde85889-307a-411f-a687-d73ade2555c3',
+  '31d45359-4980-4e97-8f40-0c960d0c3d69',
   'bracken-rose',
   'Bracken Rose',
   'DAH-BKR-004',
@@ -641,11 +641,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '4 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/bracken-rose.jpg',
-  'varieties/legacy/bracken-rose.jpg',
+  '/catalog-seed/bracken-rose.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -680,7 +680,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'b2a603bc-2efb-41eb-b270-b614cd894c30',
+  '1ebfd22c-5a60-465d-8ce5-df2ea6fcf353',
   'bracken-sarah',
   'Bracken Sarah',
   'DAH-NEW-103',
@@ -692,11 +692,11 @@ INSERT INTO varieties (
   '["cream","yellow"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -731,7 +731,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'c94137ff-5c7d-4a4e-b053-0f59ec3dac58',
+  '301199b2-11c1-484f-8aa0-0269778f05f8',
   'bride-to-be',
   'Bride to Be',
   'DAH-NEW-104',
@@ -743,11 +743,11 @@ INSERT INTO varieties (
   '["white"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/bride-to-be.jpg',
-  'varieties/legacy/bride-to-be.jpg',
+  '/catalog-seed/bride-to-be.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -782,7 +782,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'ecf4072d-f2ba-4ae0-b921-3e20267a8a91',
+  'dcc18f2e-238a-4c82-b510-7ae4a209ee1b',
   'brown-sugar',
   'Brown Sugar',
   'DAH-NEW-105',
@@ -794,11 +794,11 @@ INSERT INTO varieties (
   '["orange","bronze"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/brown-sugar.jpg',
-  'varieties/legacy/brown-sugar.jpg',
+  '/catalog-seed/brown-sugar.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -833,7 +833,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'dcb259ef-be87-4c38-b5fd-89ec84d2a52f',
+  'cf365ce0-d352-458f-aa23-830c1d3a9026',
   'budapest-blush',
   'Budapest Blush',
   'DAH-NEW-106',
@@ -845,11 +845,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -884,7 +884,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '57808a1e-3c65-4a30-868d-8ab122e33280',
+  '6c26f90d-1a0c-470d-a6e1-4f7f72763bdb',
   'cafe-au-lait',
   'Cafe Au Lait',
   'DAH-NEW-107',
@@ -896,11 +896,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -935,7 +935,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '9f12a53f-a0ab-4e4a-a749-4b2a24d45e1f',
+  'd1d05ac8-1d7c-4e74-b5a2-911a1266d087',
   'caitlynns-joy',
   'Caitlynns Joy',
   'DAH-NEW-108',
@@ -947,11 +947,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -986,7 +986,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '24eb330f-4492-4548-a0dd-7d0320a012c0',
+  'f503b2cf-2207-47b1-9223-d93b5bdf468d',
   'cal-mini',
   'Café au Lait Mini',
   'DAH-CLM-005',
@@ -998,11 +998,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '3-5 inches',
   '4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/CAL-mini.jpg',
-  'varieties/legacy/CAL-mini.jpg',
+  '/catalog-seed/CAL-mini.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1037,7 +1037,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'c3e9e0fc-f41e-4340-9540-5e512089a80a',
+  'd22fc3b9-83c6-4a50-a5c7-e2c927b7f9a4',
   'castle-drive',
   'Castle Drive',
   'DAH-CSD-007',
@@ -1049,11 +1049,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '4-5 inches',
   '4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/castle-drive.jpg',
-  'varieties/legacy/castle-drive.jpg',
+  '/catalog-seed/castle-drive.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1088,7 +1088,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'bb904118-40a7-4b93-8088-0efd50742e94',
+  'c0654cc4-6564-47e8-bd6b-74cd58088c7d',
   'chewy',
   'Chewy',
   'DAH-CHW-034',
@@ -1100,11 +1100,11 @@ INSERT INTO varieties (
   '["peach","salmon"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/chewy.jpg',
-  'varieties/legacy/chewy.jpg',
+  '/catalog-seed/chewy.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1139,7 +1139,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '3047bfdc-766b-4c51-bc78-a15c70e36173',
+  'b4521ce0-250b-44fb-ba25-0ee9c2520658',
   'clearview-peachy',
   'Clearview Peachy',
   'DAH-CLP-035',
@@ -1151,11 +1151,11 @@ INSERT INTO varieties (
   '["peach","salmon"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/clearview-peachy.jpg',
-  'varieties/legacy/clearview-peachy.jpg',
+  '/catalog-seed/clearview-peachy.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1190,7 +1190,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'd397a68e-44f6-4fd4-b5d0-84de48836e59',
+  '90e33caa-635c-43d3-af16-5764f466d8b0',
   'colorado-classic',
   'Colorado Classic',
   'DAH-NEW-109',
@@ -1202,11 +1202,11 @@ INSERT INTO varieties (
   '["bi-color","variegated"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1241,7 +1241,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '927f86f7-0cbd-44e3-bd13-e89a76d2a172',
+  '1393fa3e-d054-4d07-9175-b5f88096a3ea',
   'copper-boy',
   'Copper Boy',
   'DAH-NEW-110',
@@ -1253,11 +1253,11 @@ INSERT INTO varieties (
   '["orange","bronze"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1292,7 +1292,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'ba97c9bc-95a5-477b-b93c-702a30876604',
+  'af8f0959-cbef-4313-832f-5aa030d7dd0d',
   'coralie',
   'Coralie',
   'DAH-COR-008',
@@ -1304,11 +1304,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '4-5 inches',
   '4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/coralie.jpg',
-  'varieties/legacy/coralie.jpg',
+  '/catalog-seed/coralie.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1343,7 +1343,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'd806e953-3b1c-4f59-b870-4b717f3b5602',
+  '271acf89-1e89-4e58-9bab-2f05aa2d25c9',
   'cornel-bronze',
   'Cornel Bronze',
   'DAH-NEW-112',
@@ -1355,11 +1355,11 @@ INSERT INTO varieties (
   '["orange","bronze"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1394,7 +1394,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'a47fb0b3-5c85-47e6-91b5-99eb23d9524d',
+  'a50ed58e-07da-4c29-98b1-6624fb6ebfdb',
   'cornel',
   'Cornel',
   'DAH-NEW-111',
@@ -1406,11 +1406,11 @@ INSERT INTO varieties (
   '["red","dark-red"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/cornel.png',
-  'varieties/legacy/cornel.png',
+  '/catalog-seed/cornel.png',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1445,7 +1445,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '54e76d4b-8c0e-48ab-b28e-6ea3237c7dd0',
+  'f5b196a4-f9eb-4c35-8e0f-a93c5cedb644',
   'coseytown-bounty',
   'Coseytown Bounty',
   'DAH-NEW-113',
@@ -1457,11 +1457,11 @@ INSERT INTO varieties (
   '["orange","bronze"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1496,7 +1496,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '2cae54c0-ead6-4a34-aee6-5cca81803104',
+  '752c3e0d-74ea-4289-89a0-2280b42c5470',
   'creamy',
   'Creamy',
   'DAH-CRM-026',
@@ -1508,11 +1508,11 @@ INSERT INTO varieties (
   '["cream","yellow"]',
   '4-5 inches',
   '4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/creamy.jpg',
-  'varieties/legacy/creamy.jpg',
+  '/catalog-seed/creamy.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1547,7 +1547,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '2106a2a6-568f-4578-bada-8fb63ab5af4a',
+  '86b3aa63-d78b-4606-9010-5677dc5c64ef',
   'creme-de-cassis',
   'Crème De Cassis',
   'DAH-CDK-036',
@@ -1559,11 +1559,11 @@ INSERT INTO varieties (
   '["bi-color","variegated"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/creme-de-cassis.jpg',
-  'varieties/legacy/creme-de-cassis.jpg',
+  '/catalog-seed/creme-de-cassis.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1598,7 +1598,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'cff891f3-7b7a-40a4-8f50-b61e55cb44e0',
+  'c0d94507-d0d8-444e-9ba5-4c51a5a3994f',
   'crighton-honey',
   'Crichton Honey',
   'DAH-CRH-037',
@@ -1610,11 +1610,11 @@ INSERT INTO varieties (
   '["peach","salmon"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/crighton-honey.jpg',
-  'varieties/legacy/crighton-honey.jpg',
+  '/catalog-seed/crighton-honey.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1649,7 +1649,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '6e0afd8f-0256-4118-b2a9-189111f084da',
+  'b20961a4-9d5a-44fe-9e28-1d4550cc103a',
   'diva',
   'Diva',
   'DAH-DIV-114',
@@ -1661,11 +1661,11 @@ INSERT INTO varieties (
   '["red"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/diva.jpg',
-  'varieties/legacy/diva.jpg',
+  '/catalog-seed/diva.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1700,7 +1700,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '9224c84d-06de-47fd-b634-dc14c284d4e7',
+  'a71eb249-1124-4cbf-aa11-c0e6ebb7a605',
   'eveline',
   'Eveline',
   'DAH-NEW-114',
@@ -1712,11 +1712,11 @@ INSERT INTO varieties (
   '["white"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1751,7 +1751,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '8b6f0fd7-50ef-479a-a19c-9b188d0665b1',
+  'a8493852-c6b8-4d36-8f0e-cc834bc27e08',
   'ferncliff-copper',
   'Ferncliff Copper',
   'DAH-NEW-115',
@@ -1763,11 +1763,11 @@ INSERT INTO varieties (
   '["orange","bronze"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1802,7 +1802,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '6a4084ff-f47d-44fa-8112-46d791cf6f5f',
+  '18e45040-d265-41b0-918b-24134bc04c81',
   'ferncliff-rusty',
   'Ferncliff Rusty',
   'DAH-FCR-009',
@@ -1814,11 +1814,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '4-6 inches',
   '4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/fc-rusty.jpg',
-  'varieties/legacy/fc-rusty.jpg',
+  '/catalog-seed/fc-rusty.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1853,7 +1853,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '8c7d3cb1-0c2d-49d7-b7cc-69e896245656',
+  '94db4bea-0266-414e-815e-ad41fc5c0214',
   'ferncliff-spice',
   'Ferncliff Spice',
   'DAH-FCS-010',
@@ -1865,11 +1865,11 @@ INSERT INTO varieties (
   '["peach","salmon"]',
   '5 inches',
   '4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/fc-spice.jpg',
-  'varieties/legacy/fc-spice.jpg',
+  '/catalog-seed/fc-spice.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1904,7 +1904,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'bd15ab60-7cac-4773-aaf6-530697de3d73',
+  'f8d31702-d1be-4b43-9aa3-bebef163f414',
   'fidalgo-blacky',
   'Fidalgo Blacky',
   'DAH-FDB-038',
@@ -1916,11 +1916,11 @@ INSERT INTO varieties (
   '["red","dark-red"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/fidalgo-blacky.jpg',
-  'varieties/legacy/fidalgo-blacky.jpg',
+  '/catalog-seed/fidalgo-blacky.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1955,7 +1955,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '8729e808-441e-4c09-972b-9605f579a7ef',
+  'e95aba4c-751c-4754-bc83-97f5b930f5c2',
   'fluffles',
   'Fluffles',
   'DAH-FLF-027',
@@ -1967,11 +1967,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '4-5 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/fluffles.jpg',
-  'varieties/legacy/fluffles.jpg',
+  '/catalog-seed/fluffles.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2006,7 +2006,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'dc7e9c0d-4dbe-476e-890d-39ef0cdf99ba',
+  'a85f2ba1-d862-4519-94d3-897803bde684',
   'gabbies-wish',
   'Gabby''s Wish',
   'DAH-GBW-039',
@@ -2018,11 +2018,11 @@ INSERT INTO varieties (
   '["peach","salmon"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/gabbies-wish.jpg',
-  'varieties/legacy/gabbies-wish.jpg',
+  '/catalog-seed/gabbies-wish.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2057,7 +2057,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'b5b6716e-2abb-4dad-b3e9-1e21d27d7526',
+  '66d8299a-48be-4443-a433-9e5fa2828b62',
   'gitts-attention',
   'Gitts Attention',
   'DAH-NEW-116',
@@ -2069,11 +2069,11 @@ INSERT INTO varieties (
   '["white"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2108,7 +2108,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '1ff3cc55-8739-48d8-aed7-2cd3d8a8fa5c',
+  '81dd528f-ef22-4c4c-9dc5-4fe459c40a21',
   'ice-tea',
   'Ice Tea',
   'DAH-ICT-040',
@@ -2120,11 +2120,11 @@ INSERT INTO varieties (
   '["peach","salmon"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/ice-tea.jpg',
-  'varieties/legacy/ice-tea.jpg',
+  '/catalog-seed/ice-tea.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2159,7 +2159,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '898ba4a5-732b-478b-90dd-4a5ea49f3c22',
+  '689f6e91-c656-4ecb-a891-28c3c83d8d3c',
   'irish-d-porter',
   'Irish D. Porter',
   'DAH-IDP-018',
@@ -2171,11 +2171,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '4-5 inches',
   '4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/irish-d-porter.jpg',
-  'varieties/legacy/irish-d-porter.jpg',
+  '/catalog-seed/irish-d-porter.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2210,7 +2210,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'd0e1a1e1-0d0e-421a-b6a0-516b5b815fc6',
+  'a0aec64a-e215-4f83-9648-29e0523d5b54',
   'irish-ruffles',
   'Irish Ruffles',
   'DAH-NEW-117',
@@ -2222,11 +2222,11 @@ INSERT INTO varieties (
   '["white"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/irish-ruffles.jpg',
-  'varieties/legacy/irish-ruffles.jpg',
+  '/catalog-seed/irish-ruffles.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2261,7 +2261,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '1f014486-ce16-440a-87f2-f5fc6d0253fd',
+  'cc960301-2f2a-4bad-9a16-b1b141da3c93',
   'isabel',
   'Isabel',
   'DAH-ISB-019',
@@ -2273,11 +2273,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '4-5 inches',
   '4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/isabel.jpg',
-  'varieties/legacy/isabel.jpg',
+  '/catalog-seed/isabel.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2312,7 +2312,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'd1710cd7-f0ff-46e2-914f-185905b5e086',
+  '4738878a-d2f5-4be2-9d86-69ac6bbb6f1e',
   'jowey-linda',
   'Jowey Linda',
   'DAH-JWL-006',
@@ -2324,11 +2324,11 @@ INSERT INTO varieties (
   '["orange","bronze"]',
   '5-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/jowey-linda.jpg',
-  'varieties/legacy/jowey-linda.jpg',
+  '/catalog-seed/jowey-linda.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2363,7 +2363,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'b56bc72b-9efb-4005-85d8-913cc9c51b50',
+  '3bc5d886-e3f5-458e-a9f9-be2aa480c6ec',
   'jowey-nicky',
   'Jowey Nicky',
   'DAH-JWN-041',
@@ -2375,11 +2375,11 @@ INSERT INTO varieties (
   '["peach","salmon"]',
   '3-4 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/jowey-nicky.jpg',
-  'varieties/legacy/jowey-nicky.jpg',
+  '/catalog-seed/jowey-nicky.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2414,7 +2414,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '32536fda-a18b-471d-a39e-0cecabd5626e',
+  '8ad9590f-a870-4dee-afe1-336d365ba0ac',
   'just-peachy',
   'Just Peachy',
   'DAH-JSP-042',
@@ -2426,11 +2426,11 @@ INSERT INTO varieties (
   '["peach","salmon"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/just-peachy.jpg',
-  'varieties/legacy/just-peachy.jpg',
+  '/catalog-seed/just-peachy.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2465,7 +2465,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '3ce77a42-9b8c-4220-9efd-cd59e4d4c961',
+  'c5011547-646f-4721-ae4b-bf0800395503',
   'ka-cloud',
   'KA Cloud',
   'DAH-NEW-119',
@@ -2477,11 +2477,11 @@ INSERT INTO varieties (
   '["white"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2516,7 +2516,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '2ab81f9e-dca9-4f50-aa76-13fa123eb19e',
+  'c55316d2-027b-4d8b-b9d6-942a1aaf78e5',
   'ka-mocha-katie',
   'KA Mocha Katie',
   'DAH-KMK-011',
@@ -2528,11 +2528,11 @@ INSERT INTO varieties (
   '["peach","salmon"]',
   '4 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/ka-mocha-katie.jpg',
-  'varieties/legacy/ka-mocha-katie.jpg',
+  '/catalog-seed/ka-mocha-katie.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2567,7 +2567,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '092c4ff4-a8e1-48c4-ae7d-a96848c34d85',
+  'de6a6451-2524-482a-a452-7e3d777457ed',
   'ka-rosie-jo',
   'KA Rosie Jo',
   'DAH-NEW-120',
@@ -2579,11 +2579,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/ka-rosie-jo.jpg',
-  'varieties/legacy/ka-rosie-jo.jpg',
+  '/catalog-seed/ka-rosie-jo.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2618,7 +2618,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '335cb876-9df4-4448-b8f0-49cef6512f2a',
+  '27685a6c-1cc1-4800-af6f-dd5313c03c65',
   'karma-chocolate',
   'Karma Chocolate',
   'DAH-KCH-012',
@@ -2630,11 +2630,11 @@ INSERT INTO varieties (
   '["red","dark-red"]',
   '4-5 inches',
   '3 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/karma-chocolate.jpg',
-  'varieties/legacy/karma-chocolate.jpg',
+  '/catalog-seed/karma-chocolate.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2669,7 +2669,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'cfc06e21-66e7-4ff3-b9c6-191f8514d48c',
+  '656167ed-e06d-4996-be00-575631ee6ed1',
   'kelgai-ann',
   'Kelgai Ann',
   'DAH-NEW-121',
@@ -2681,11 +2681,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2720,7 +2720,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'f302f606-b849-431d-a346-1d0ce09ad95d',
+  'f3d27031-7b82-4eca-bfe1-d23cd814fe1f',
   'koko-puff',
   'Koko Puff',
   'DAH-NEW-122',
@@ -2732,11 +2732,11 @@ INSERT INTO varieties (
   '["lavender","purple"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2771,7 +2771,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'f6b977e9-5e49-4892-9735-cfa5748b0d62',
+  '970e1170-08b8-49f4-b5e7-7e278385195c',
   'labyrinth',
   'Labyrinth',
   'DAH-LAB-013',
@@ -2783,11 +2783,11 @@ INSERT INTO varieties (
   '["peach","salmon"]',
   '6-8 inches',
   '4-5 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/labyrinth.jpg',
-  'varieties/legacy/labyrinth.jpg',
+  '/catalog-seed/labyrinth.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2822,7 +2822,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '65a56e26-6a97-4d6d-98c2-a68c05675fff',
+  '275f74ac-cdbd-45c7-9455-15a39eacfcfd',
   'larks-ebbe',
   'Lark''s Ebbe',
   'DAH-NEW-123',
@@ -2834,11 +2834,11 @@ INSERT INTO varieties (
   '["peach","salmon"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2873,7 +2873,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '22008c8e-02f5-4ca5-a827-6f75acb38e60',
+  'ab5483bc-cc67-4ca9-adf9-7b40a1cb8957',
   'last-dance',
   'Last Dance',
   'DAH-LSD-020',
@@ -2885,11 +2885,11 @@ INSERT INTO varieties (
   '["lavender","purple"]',
   '5-6 inches',
   '4-5 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/last-dance.jpg',
-  'varieties/legacy/last-dance.jpg',
+  '/catalog-seed/last-dance.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2924,7 +2924,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '436dec2a-afff-4768-b980-e058c5e5e3f4',
+  'f4257f44-5b0e-4224-97ae-49c3d95b355a',
   'miss-sarah',
   'Miss Sarah',
   'DAH-MSS-017',
@@ -2936,11 +2936,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '3-4 inches',
   '4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/miss-sarah.jpg',
-  'varieties/legacy/miss-sarah.jpg',
+  '/catalog-seed/miss-sarah.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2975,7 +2975,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '1d8c5707-cd88-47f5-96c1-be8bb04f0c89',
+  'cff02086-ff28-4a06-8e59-4bd521995c20',
   'mystique',
   'Mystique',
   'DAH-MYS-021',
@@ -2987,11 +2987,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '5-6 inches',
   '4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/mystique.jpg',
-  'varieties/legacy/mystique.jpg',
+  '/catalog-seed/mystique.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3026,7 +3026,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '746df410-4bd7-4a91-8ee6-0bf54aa28128',
+  '5be9fc8f-dfc0-4823-9e63-74a4c581f387',
   'nuit-dete',
   'N''uit D''ete',
   'DAH-NDE-043',
@@ -3038,11 +3038,11 @@ INSERT INTO varieties (
   '["red","dark-red"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/nuit-dete.jpg',
-  'varieties/legacy/nuit-dete.jpg',
+  '/catalog-seed/nuit-dete.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3077,7 +3077,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'c270290e-09d8-4515-bc51-66712f3f68fa',
+  '7d5b7b06-f80f-4e51-be38-3dc66c8561ac',
   'orange-globe',
   'Orange Globe',
   'DAH-ORG-044',
@@ -3089,11 +3089,11 @@ INSERT INTO varieties (
   '["orange","bronze"]',
   '3-4 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/orange-globe.jpg',
-  'varieties/legacy/orange-globe.jpg',
+  '/catalog-seed/orange-globe.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3128,7 +3128,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '31e84f22-a6ae-4dd5-ba3b-72009a8a716a',
+  'd79f4aeb-4bbf-4a61-84d4-6a787c20d302',
   'parkland-tribute',
   'Parkland Tribute',
   'DAH-NEW-125',
@@ -3140,11 +3140,11 @@ INSERT INTO varieties (
   '["peach","salmon"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3179,7 +3179,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '7c4089c9-4c65-4c27-9cd5-44caee93c7ae',
+  '225be973-a59f-4ff6-b9f6-0d90ca3c3fd8',
   'penhill-dark-monarch',
   'Penhill Dark Monarch',
   'DAH-PDM-014',
@@ -3191,11 +3191,11 @@ INSERT INTO varieties (
   '["red","dark-red"]',
   '8-10 inches',
   '4-5 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/penhill-dark-monarch.jpg',
-  'varieties/legacy/penhill-dark-monarch.jpg',
+  '/catalog-seed/penhill-dark-monarch.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3230,7 +3230,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '83e54c41-94bf-45f4-a941-f44a5d0917d7',
+  '80e1846d-d580-41ad-9161-289d91c80826',
   'petras-wedding',
   'Petra''s Wedding',
   'DAH-PTW-015',
@@ -3242,11 +3242,11 @@ INSERT INTO varieties (
   '["white"]',
   '2-3 inches',
   '4-5 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/petras-wedding.jpg',
-  'varieties/legacy/petras-wedding.jpg',
+  '/catalog-seed/petras-wedding.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3281,7 +3281,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'f41c060f-bf40-47d3-a502-cd27fd42c9a7',
+  '97ca4d88-0960-40e8-96a9-9dbb8342da6b',
   'pink-pearl',
   'Pink Pearl',
   'DAH-PKP-045',
@@ -3293,11 +3293,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/pink-pearl.jpg',
-  'varieties/legacy/pink-pearl.jpg',
+  '/catalog-seed/pink-pearl.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3332,7 +3332,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '473eab55-2692-410e-a78a-83ef1aa8fa06',
+  'b69cbbd1-c28b-4bcd-af86-9288f3940262',
   'platinum-blonde',
   'Platinum Blonde',
   'DAH-PLB-046',
@@ -3344,11 +3344,11 @@ INSERT INTO varieties (
   '["white"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/platinum blonde.jpg',
-  'varieties/legacy/platinum blonde.jpg',
+  '/catalog-seed/platinum blonde.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3383,7 +3383,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'c5908a98-1f8b-41da-9d8c-84433157d7f3',
+  'd32e75bf-7d94-4084-af9d-d98a6ab11d1e',
   'polka',
   'Polka',
   'DAH-NEW-127',
@@ -3395,11 +3395,11 @@ INSERT INTO varieties (
   '["bi-color","variegated"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3434,7 +3434,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'f10cff86-12c8-475d-9cd1-b9bcd22a6535',
+  '5337b493-b7ea-4772-bf5c-5297945b9da9',
   'pooh',
   'Pooh',
   'DAH-POH-047',
@@ -3446,11 +3446,11 @@ INSERT INTO varieties (
   '["bi-color","variegated"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/pooh.jpg',
-  'varieties/legacy/pooh.jpg',
+  '/catalog-seed/pooh.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3485,7 +3485,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '6cc70a9f-aa94-42eb-8819-a59c440a2072',
+  '94f11da0-40ce-4647-bdc3-5bd231e28d9b',
   'r-joan',
   'R Joan',
   'DAH-NEW-128',
@@ -3497,11 +3497,11 @@ INSERT INTO varieties (
   '["peach","salmon"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3536,7 +3536,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '70df57ec-aa6c-4ffa-9a26-158293ec4bdd',
+  '3e71c580-78fc-49d9-a85a-7d26a044086a',
   'rock-run-ashley',
   'Rock Run Ashley',
   'DAH-RRA-048',
@@ -3548,11 +3548,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/rock-run-ashley.jpg',
-  'varieties/legacy/rock-run-ashley.jpg',
+  '/catalog-seed/rock-run-ashley.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3587,7 +3587,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '32342b2f-7b36-4e09-993e-b4086f8f8124',
+  '1a45f6ce-854f-4bd9-80d6-6088527e24ca',
   'rossendale-peach',
   'Rossendale Peach',
   'DAH-NEW-129',
@@ -3599,11 +3599,11 @@ INSERT INTO varieties (
   '["orange","bronze"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3638,7 +3638,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '97c3f57f-ec3d-415a-ab67-6c2b04adb4d2',
+  '55afbe57-ab48-4974-af16-f7b19ce8bb45',
   'salish-twilight-girl',
   'Salish Twilight Girl',
   'DAH-NEW-130',
@@ -3650,11 +3650,11 @@ INSERT INTO varieties (
   '["lavender","purple"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3689,7 +3689,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '2da32f65-5731-450b-bfc1-65691f43e894',
+  'a95903f7-7be7-4b2c-ad6b-3b22b0931426',
   'seniors-hope',
   'Senior''s Hope',
   'DAH-SNH-049',
@@ -3701,11 +3701,11 @@ INSERT INTO varieties (
   '["lavender","purple"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/seniors-hope.jpg',
-  'varieties/legacy/seniors-hope.jpg',
+  '/catalog-seed/seniors-hope.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3740,7 +3740,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'ae47c827-29d9-47b3-9d12-e1d808b5971a',
+  'e7f8555b-a3ec-43d4-96fc-48ca0091caae',
   'sheer-heaven',
   'Sheer Heaven',
   'DAH-SHH-050',
@@ -3752,11 +3752,11 @@ INSERT INTO varieties (
   '["peach","salmon"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/sheer-heaven.jpg',
-  'varieties/legacy/sheer-heaven.jpg',
+  '/catalog-seed/sheer-heaven.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3791,7 +3791,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '334c07c3-6b26-44be-abd0-82ef9c8fbf03',
+  'c00695f1-fe19-45d5-8eeb-6d601269c0cb',
   'snoho-doris',
   'Snoho Doris',
   'DAH-SND-051',
@@ -3803,11 +3803,11 @@ INSERT INTO varieties (
   '["orange","bronze"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/snoho-doris.jpg',
-  'varieties/legacy/snoho-doris.jpg',
+  '/catalog-seed/snoho-doris.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3842,7 +3842,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'ec0ace62-afdd-410f-bcd3-0072225d4006',
+  'f59c3afe-29af-4b2c-9539-5a5e4f02620b',
   'snoho-sonia',
   'Snoho Sonia',
   'DAH-NEW-131',
@@ -3854,11 +3854,11 @@ INSERT INTO varieties (
   '["lavender","purple"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/snoho-sonia.jpg',
-  'varieties/legacy/snoho-sonia.jpg',
+  '/catalog-seed/snoho-sonia.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3893,7 +3893,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'fa6b8ad4-adbe-4c05-801c-554a445277d5',
+  '1a8b5b76-ea24-48d2-9c41-92d61d4fea81',
   'strawberries-n-cream',
   'Strawberries n Cream',
   'DAH-SNC-022',
@@ -3905,11 +3905,11 @@ INSERT INTO varieties (
   '["bi-color","variegated"]',
   '3-4 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/strawberry-cream.jpg',
-  'varieties/legacy/strawberry-cream.jpg',
+  '/catalog-seed/strawberry-cream.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3944,7 +3944,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'e63a784a-ddd8-4baf-be5b-53993daebda1',
+  '4b358779-7b8d-4996-9ec1-51c2f7176eb7',
   'sweet-natalie',
   'Sweet Nathalie',
   'DAH-SWN-016',
@@ -3956,11 +3956,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '4-5 inches',
   '3.5 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/sweet-natalie.jpg',
-  'varieties/legacy/sweet-natalie.jpg',
+  '/catalog-seed/sweet-natalie.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3995,7 +3995,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'e30a98fa-a612-40b9-bcdd-1aa1c2e04050',
+  'cd2888c4-cb5a-4217-823f-09140b375798',
   'tempest',
   'Tempest',
   'DAH-NEW-132',
@@ -4007,11 +4007,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -4046,7 +4046,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '1700fa0a-9b2e-4268-83f3-c005c764f20e',
+  'e1beafc5-8f79-4a4d-87ca-08b039b87312',
   'terra-cotta',
   'Terra Cotta',
   'DAH-NEW-133',
@@ -4058,11 +4058,11 @@ INSERT INTO varieties (
   '["orange","bronze"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -4097,7 +4097,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'c24ca00b-255f-4352-810d-d98f131aa45d',
+  '3553710a-899b-4c39-ba65-1e03011551a0',
   'tiny-treasure',
   'Tiny Treasure',
   'DAH-NEW-134',
@@ -4109,11 +4109,11 @@ INSERT INTO varieties (
   '["white"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/placeholder-variety.jpg',
-  'varieties/legacy/placeholder-variety.jpg',
+  '/catalog-seed/placeholder-variety.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -4148,7 +4148,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '09439f77-1188-49ad-a35a-035c37879a9e',
+  'b60eb6aa-505f-4ecb-a54d-14ff360f23d4',
   'valley-rust-bucket',
   'Valley Rust Bucket',
   'DAH-VRB-052',
@@ -4160,11 +4160,11 @@ INSERT INTO varieties (
   '["orange","bronze"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/valley-rust-bucket.jpg',
-  'varieties/legacy/valley-rust-bucket.jpg',
+  '/catalog-seed/valley-rust-bucket.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -4199,7 +4199,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'f8b0b16f-c0d6-4f9d-8065-7d98fdc501ac',
+  '8e1bc601-3e68-4f39-89ae-2f7855a6263c',
   'valley-tawney',
   'Valley Tawney',
   'DAH-NEW-135',
@@ -4211,11 +4211,11 @@ INSERT INTO varieties (
   '["peach","salmon"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/valley-tawney.jpg',
-  'varieties/legacy/valley-tawney.jpg',
+  '/catalog-seed/valley-tawney.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -4250,7 +4250,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '42b54bd5-529c-40c2-bee8-413dae416b52',
+  'cf937f16-a0a0-4098-93c6-e7f7b05ebe69',
   'venus',
   'Venus',
   'DAH-VEN-023',
@@ -4262,11 +4262,11 @@ INSERT INTO varieties (
   '["peach","salmon"]',
   '5-6 inches',
   '4-5 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/venus.jpg',
-  'varieties/legacy/venus.jpg',
+  '/catalog-seed/venus.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -4301,7 +4301,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '75762df9-3670-412f-935c-bdcbc652f38d',
+  'c4c4ced1-8715-4000-8273-8fef3b7006a4',
   'wd-brittany',
   'WD Brittany',
   'DAH-WDB-053',
@@ -4313,11 +4313,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/wd-brittany.jpg',
-  'varieties/legacy/wd-brittany.jpg',
+  '/catalog-seed/wd-brittany.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -4352,7 +4352,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'a5c77296-0baf-4267-8637-3d3af577cb6a',
+  '0d7ed296-0139-4d98-9f17-3f97a14fa9b3',
   'wine-eyed-jill',
   'Wine Eyed Jill',
   'DAH-WEJ-024',
@@ -4364,11 +4364,11 @@ INSERT INTO varieties (
   '["peach","salmon"]',
   '4-5 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/win-eyed-jill.jpg',
-  'varieties/legacy/win-eyed-jill.jpg',
+  '/catalog-seed/win-eyed-jill.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -4403,7 +4403,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'db9efc83-a1f7-4ebf-a367-9f70a16bde27',
+  '5490f288-a50f-4534-95c2-066650e4266c',
   'yelno-harmony',
   'Yelno Harmony',
   'DAH-YEH-025',
@@ -4415,11 +4415,11 @@ INSERT INTO varieties (
   '["peach","salmon"]',
   '4-5 inches',
   '4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/yelno-harmony.jpg',
-  'varieties/legacy/yelno-harmony.jpg',
+  '/catalog-seed/yelno-harmony.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -4454,7 +4454,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '24da37bc-95b8-4cfb-ba92-9419c7481e31',
+  '09746dc8-9cbe-4c36-82c4-6085eb1aeb3f',
   'yvonne',
   'Yvonne',
   'DAH-YVN-054',
@@ -4466,11 +4466,11 @@ INSERT INTO varieties (
   '["pink","blush"]',
   '4-6 inches',
   '3-4 feet',
-  'https://opheliasflowers.ca/catalog-images/varieties/legacy/yvonne.jpg',
-  'varieties/legacy/yvonne.jpg',
+  '/catalog-seed/yvonne.jpg',
+  NULL,
   0,
-  '2026-03-20T00:22:59.131Z',
-  '2026-03-20T00:22:59.131Z'
+  '2026-03-20T00:34:38.592Z',
+  '2026-03-20T00:34:38.592Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,

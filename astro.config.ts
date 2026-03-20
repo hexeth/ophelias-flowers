@@ -8,6 +8,10 @@ export default defineConfig({
   output: "server",
   adapter: cloudflare({
     imageService: "compile",
+    platformProxy: {
+      configPath: "./wrangler.local.toml",
+      remoteBindings: false,
+    },
   }),
   integrations: [tailwind(), react(), clerk()],
 });

@@ -12,6 +12,8 @@ import {
   writeSeedSql,
 } from "./lib/catalog-bootstrap.mjs";
 
+const localWranglerConfigPath = path.join(rootDir, "wrangler.local.toml");
+
 function hasFlag(args, flag) {
   return args.includes(flag);
 }
@@ -184,9 +186,14 @@ if (persistTo && local) {
   d1ModeArgs.push("--persist-to", persistTo);
 }
 
-const d1ConfigOverride = needsIsolatedRemoteD1Config
-  ? await createWranglerConfigWithoutD1()
-  : null;
+const d1ConfigOverride = local
+  ? {
+      configPath: localWranglerConfigPath,
+      cleanup: async () => {},
+    }
+  : needsIsolatedRemoteD1Config
+    ? await createWranglerConfigWithoutD1()
+    : null;
 
 if (dryRun) {
   await d1ConfigOverride?.cleanup();
