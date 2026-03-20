@@ -154,7 +154,9 @@ async function getVarietyById(db: D1Database, id: string) {
 
 export async function listAdminVarieties(db: D1Database) {
   const result = await db
-    .prepare("SELECT * FROM varieties ORDER BY updated_at DESC, name ASC")
+    .prepare(
+      "SELECT * FROM varieties WHERE deleted_at IS NULL ORDER BY updated_at DESC, name ASC",
+    )
     .all<VarietyRow>();
 
   return (result.results ?? []).map(rowToVariety);
@@ -162,7 +164,9 @@ export async function listAdminVarieties(db: D1Database) {
 
 export async function listPublicVarieties(db: D1Database) {
   const result = await db
-    .prepare("SELECT * FROM varieties WHERE hidden = 0 ORDER BY name ASC")
+    .prepare(
+      "SELECT * FROM varieties WHERE hidden = 0 AND deleted_at IS NULL ORDER BY name ASC",
+    )
     .all<VarietyRow>();
 
   return (result.results ?? []).map(rowToVariety);
@@ -170,7 +174,9 @@ export async function listPublicVarieties(db: D1Database) {
 
 export async function getPublicVarietyBySlug(db: D1Database, slug: string) {
   const result = await db
-    .prepare("SELECT * FROM varieties WHERE slug = ? AND hidden = 0 LIMIT 1")
+    .prepare(
+      "SELECT * FROM varieties WHERE slug = ? AND hidden = 0 AND deleted_at IS NULL LIMIT 1",
+    )
     .bind(slug)
     .first<VarietyRow>();
 
@@ -285,4 +291,35 @@ export async function upsertVariety(db: D1Database, input: VarietyInput) {
   }
 
   return saved;
+}
+
+export async function softDeleteVariety(db: D1Database, id: string) {
+  const existing = await db
+    .prepare("SELECT name FROM varieties WHERE id = ? AND deleted_at IS NULL LIMIT 1")
+    .bind(id)
+    .first<{ name: string }>();
+
+  if (!existing) {
+    return null;
+  }
+
+  const now = new Date().toISOString();
+
+  await db
+    .prepare(
+      `
+        UPDATE varieties
+        SET deleted_at = ?,
+            updated_at = ?
+        WHERE id = ?
+      `,
+    )
+    .bind(now, now, id)
+    .run();
+
+  return {
+    id,
+    name: existing.name,
+    deletedAt: now,
+  };
 }

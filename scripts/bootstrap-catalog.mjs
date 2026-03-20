@@ -1,10 +1,10 @@
 import { spawn } from "node:child_process";
 import path from "node:path";
 import {
-  catalogMigrationFile,
   createWranglerConfigWithoutD1,
   defaultSeedOutputFile,
   legacyImagesDir,
+  listCatalogMigrationFiles,
   listLegacyImageFiles,
   readWranglerCatalogConfig,
   rootDir,
@@ -203,12 +203,16 @@ if (dryRun) {
 
 try {
   if (!skipMigration) {
-    await runD1Execute(
-      d1Target,
-      catalogMigrationFile,
-      d1ModeArgs,
-      d1ConfigOverride?.configPath,
-    );
+    const migrationFiles = await listCatalogMigrationFiles();
+
+    for (const migrationFile of migrationFiles) {
+      await runD1Execute(
+        d1Target,
+        migrationFile,
+        d1ModeArgs,
+        d1ConfigOverride?.configPath,
+      );
+    }
   }
 
   if (!skipSeed) {

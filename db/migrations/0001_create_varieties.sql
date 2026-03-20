@@ -25,12 +25,16 @@ CREATE TABLE IF NOT EXISTS varieties (
   image_url TEXT,
   image_key TEXT,
   hidden INTEGER NOT NULL DEFAULT 0,
+  deleted_at TEXT,
   created_at TEXT NOT NULL,
   updated_at TEXT NOT NULL
 );
 
 CREATE INDEX IF NOT EXISTS idx_varieties_hidden_name
   ON varieties(hidden, name);
+
+CREATE INDEX IF NOT EXISTS idx_varieties_deleted_at
+  ON varieties(deleted_at);
 
 CREATE INDEX IF NOT EXISTS idx_varieties_slug
   ON varieties(slug);

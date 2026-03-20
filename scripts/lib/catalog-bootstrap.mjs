@@ -32,12 +32,7 @@ export const defaultSeedOutputFile = path.join(
   seedOutputDir,
   "0001_seed_varieties.sql",
 );
-export const catalogMigrationFile = path.join(
-  rootDir,
-  "db",
-  "migrations",
-  "0001_create_varieties.sql",
-);
+export const catalogMigrationsDir = path.join(rootDir, "db", "migrations");
 
 function trimSlashes(value) {
   return value.replace(/^\/+|\/+$/g, "");
@@ -81,6 +76,14 @@ export async function listLegacyImageFiles() {
   return entries
     .filter((entry) => entry.isFile())
     .map((entry) => entry.name)
+    .sort();
+}
+
+export async function listCatalogMigrationFiles() {
+  const entries = await readdir(catalogMigrationsDir, { withFileTypes: true });
+  return entries
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".sql"))
+    .map((entry) => path.join(catalogMigrationsDir, entry.name))
     .sort();
 }
 
