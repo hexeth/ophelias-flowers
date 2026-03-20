@@ -15,6 +15,7 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "check": "astro check",
+    "bootstrap:cloudflare": "node scripts/bootstrap-cloudflare.mjs",
     "catalog:sync-images": "node scripts/sync-variety-images.mjs",
     "catalog:seed-sql": "node scripts/generate-variety-seed-sql.mjs",
     "catalog:bootstrap": "node scripts/bootstrap-catalog.mjs"
