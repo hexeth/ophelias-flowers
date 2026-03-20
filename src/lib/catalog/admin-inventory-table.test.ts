@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   applyInventoryTableControls,
   getInventoryRowSearchScore,
+  getVisibleInventoryRows,
   type InventoryRow,
   type InventoryTableFilters,
   type InventoryTableSort,
@@ -136,5 +137,54 @@ describe("applyInventoryTableControls", () => {
       "Bracken Rose",
       "Cafe au Lait",
     ]);
+  });
+});
+
+describe("getVisibleInventoryRows", () => {
+  it("keeps a new draft row pinned to the top while it is being edited", () => {
+    const draftRow: InventoryRow = {
+      ...rows[0],
+      id: "draft-1",
+      slug: "",
+      name: "Zulu Ray",
+      sku: "",
+      isNew: true,
+    };
+
+    const visibleRows = getVisibleInventoryRows(
+      [draftRow, ...rows],
+      baseFilters,
+      baseSort,
+      { [draftRow.id]: true },
+      {},
+    );
+
+    expect(visibleRows.map((row) => row.id)).toEqual(["draft-1", "3", "1", "2"]);
+  });
+
+  it("uses the original saved values for sorting and filtering while editing", () => {
+    const editedRows: InventoryRow[] = rows.map((row) =>
+      row.id === "1"
+        ? {
+            ...row,
+            name: "Zulu Ray",
+            category: "ball",
+          }
+        : row,
+    );
+
+    const visibleRows = getVisibleInventoryRows(
+      editedRows,
+      {
+        ...baseFilters,
+        category: "decorative",
+      },
+      baseSort,
+      { "1": true },
+      { "1": rows[0] },
+    );
+
+    expect(visibleRows.map((row) => row.id)).toEqual(["3", "1"]);
+    expect(visibleRows[1]?.name).toBe("Zulu Ray");
   });
 });

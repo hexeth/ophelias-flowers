@@ -28,6 +28,9 @@ export interface InventoryTableSort {
   field: InventorySortField;
 }
 
+export type InventoryEditingRowMap = Record<string, boolean>;
+export type InventoryOriginalRowMap = Record<string, InventoryRow>;
+
 const stockSortOrder = {
   available: 0,
   low: 1,
@@ -231,4 +234,35 @@ export function applyInventoryTableControls(
       return compareStrings(left.row.name, right.row.name);
     })
     .map(({ row }) => row);
+}
+
+export function getVisibleInventoryRows(
+  rows: InventoryRow[],
+  filters: InventoryTableFilters,
+  sort: InventoryTableSort,
+  editingRowIds: InventoryEditingRowMap,
+  originalRows: InventoryOriginalRowMap,
+) {
+  const pinnedDraftRows = rows.filter(
+    (row) => row.isNew && editingRowIds[row.id] === true,
+  );
+  const pinnedDraftRowIds = new Set(pinnedDraftRows.map((row) => row.id));
+  const latestRowsById = new Map(rows.map((row) => [row.id, row]));
+
+  const sortableRows = rows
+    .filter((row) => !pinnedDraftRowIds.has(row.id))
+    .map((row) => {
+      if (editingRowIds[row.id] && originalRows[row.id]) {
+        return originalRows[row.id];
+      }
+
+      return row;
+    });
+
+  return [
+    ...pinnedDraftRows,
+    ...applyInventoryTableControls(sortableRows, filters, sort).map(
+      (row) => latestRowsById.get(row.id) ?? row,
+    ),
+  ];
 }

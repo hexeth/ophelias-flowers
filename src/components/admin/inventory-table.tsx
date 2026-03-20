@@ -14,7 +14,7 @@ import {
   stockLabels,
 } from "../../lib/catalog/constants";
 import {
-  applyInventoryTableControls,
+  getVisibleInventoryRows,
   type InventoryRow,
   type InventorySortField,
   type InventoryTableFilters,
@@ -173,8 +173,15 @@ export default function InventoryTable({
     [deferredSearchQuery, filters],
   );
   const visibleRows = useMemo(
-    () => applyInventoryTableControls(rows, activeFilters, sort),
-    [activeFilters, rows, sort],
+    () =>
+      getVisibleInventoryRows(
+        rows,
+        activeFilters,
+        sort,
+        editingRowIds,
+        originalRows,
+      ),
+    [activeFilters, editingRowIds, originalRows, rows, sort],
   );
   const isFiltering = searchQuery !== deferredSearchQuery;
 
