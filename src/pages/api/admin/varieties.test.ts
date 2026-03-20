@@ -1,6 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const deleteVarietyMock = vi.fn();
+const { deleteVarietyMock } = vi.hoisted(() => ({
+  deleteVarietyMock: vi.fn(),
+}));
 
 vi.mock("../../../lib/varieties", () => ({
   deleteVariety: deleteVarietyMock,
