@@ -1,0 +1,297 @@
+<script>
+  import { categoryLabels, stockLabels } from "../lib/catalog/constants";
+
+  interface VarietySearchSuggestion {
+    category: string;
+    imageUrl: string;
+    name: string;
+    slug: string;
+    sku: string;
+    stock: string;
+  }
+
+  function getSuggestionHref(suggestion: VarietySearchSuggestion) {
+    return `/varieties/${suggestion.slug}`;
+  }
+
+  function getCategoryLabel(category: string) {
+    return categoryLabels[category as keyof typeof categoryLabels] ?? category;
+  }
+
+  function getStockLabel(stock: string) {
+    return stockLabels[stock as keyof typeof stockLabels] ?? stock;
+  }
+
+  function getStockClassName(stock: string) {
+    if (stock === "available") {
+      return "text-botanical";
+    }
+
+    if (stock === "low") {
+      return "text-dahlia-wine";
+    }
+
+    return "text-stone-300";
+  }
+
+  function setPanelOpenState(
+    input: HTMLInputElement,
+    panel: HTMLElement,
+    isOpen: boolean,
+  ) {
+    input.setAttribute("aria-expanded", String(isOpen));
+    panel.classList.toggle("hidden", !isOpen);
+  }
+
+  function clearActiveDescendant(input: HTMLInputElement) {
+    input.removeAttribute("aria-activedescendant");
+  }
+
+  function updateActiveSuggestion(
+    input: HTMLInputElement,
+    optionElements: HTMLAnchorElement[],
+    activeIndex: number,
+  ) {
+    optionElements.forEach((optionElement, index) => {
+      const isActive = index === activeIndex;
+      optionElement.dataset.active = String(isActive);
+      optionElement.classList.toggle("bg-ink", isActive);
+      optionElement.classList.toggle("text-cream", isActive);
+      optionElement.classList.toggle("bg-cream", !isActive);
+    });
+
+    if (activeIndex >= 0 && optionElements[activeIndex]) {
+      input.setAttribute(
+        "aria-activedescendant",
+        optionElements[activeIndex].id,
+      );
+      optionElements[activeIndex].scrollIntoView({ block: "nearest" });
+      return;
+    }
+
+    clearActiveDescendant(input);
+  }
+
+  function initSiteSearchAutocomplete() {
+    const forms = document.querySelectorAll("[data-site-search-form]");
+
+    forms.forEach((form) => {
+      const formEl = form as HTMLFormElement;
+      if (formEl.dataset.autocompleteInitialized === "true") {
+        return;
+      }
+
+      const input = formEl.querySelector("[data-site-search-input]") as HTMLInputElement | null;
+      const panel = formEl.querySelector("[data-site-search-panel]") as HTMLElement | null;
+      const results = formEl.querySelector("[data-site-search-results]") as HTMLElement | null;
+      const status = formEl.querySelector("[data-site-search-status]") as HTMLElement | null;
+      const viewAllLink = formEl.querySelector("[data-site-search-view-all]") as HTMLAnchorElement | null;
+      const viewAllQuery = formEl.querySelector("[data-site-search-view-all-query]") as HTMLElement | null;
+
+      if (!input || !panel || !results || !status || !viewAllLink || !viewAllQuery) {
+        return;
+      }
+
+      const inputEl = input;
+      const panelEl = panel;
+      const resultsEl = results;
+      const statusEl = status;
+      const viewAllLinkEl = viewAllLink;
+      const viewAllQueryEl = viewAllQuery;
+
+      let timeoutId: number | undefined;
+      let activeController: AbortController | null = null;
+      let activeIndex = -1;
+      let currentSuggestions: VarietySearchSuggestion[] = [];
+
+      function resetSuggestions() {
+        currentSuggestions = [];
+        activeIndex = -1;
+        resultsEl.replaceChildren();
+        viewAllLinkEl.classList.add("hidden");
+        viewAllLinkEl.removeAttribute("aria-label");
+        statusEl.textContent = "";
+        clearActiveDescendant(inputEl);
+        setPanelOpenState(inputEl, panelEl, false);
+      }
+
+      function renderSuggestions(query: string) {
+        const items = currentSuggestions.map((suggestion, index) => {
+          const link = document.createElement("a");
+          link.id = `${inputEl.id}-suggestion-${index}`;
+          link.href = getSuggestionHref(suggestion);
+          link.role = "option";
+          link.className = "grid min-h-14 grid-cols-[3.5rem_minmax(0,1fr)] gap-3 px-4 py-3 no-underline transition-colors hover:bg-ink hover:text-cream focus:bg-ink focus:text-cream focus:outline-none bg-cream sm:grid-cols-[3rem_minmax(0,1fr)] sm:px-3";
+          link.innerHTML = `
+            <img
+              src="${suggestion.imageUrl}"
+              alt=""
+              class="h-14 w-14 border border-ink object-cover sm:h-12 sm:w-12"
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="min-w-0 space-y-1">
+              <span class="block truncate font-serif text-[1.05rem] sm:text-base">${suggestion.name}</span>
+              <span class="block text-xs uppercase tracking-[0.18em] opacity-75 sm:text-[11px]">${getCategoryLabel(suggestion.category)} • ${suggestion.sku}</span>
+              <span class="block text-xs uppercase tracking-[0.18em] ${getStockClassName(suggestion.stock)} sm:text-[11px]">${getStockLabel(suggestion.stock)}</span>
+            </span>
+          `;
+          link.addEventListener("mouseenter", () => {
+            activeIndex = index;
+            updateActiveSuggestion(
+              inputEl,
+              Array.from(
+                resultsEl.querySelectorAll("a[role='option']"),
+              ) as HTMLAnchorElement[],
+              activeIndex,
+            );
+          });
+          return link;
+        });
+
+        if (items.length === 0) {
+          const emptyState = document.createElement("p");
+          emptyState.className = "px-4 py-5 text-sm leading-relaxed text-stone-500";
+          emptyState.textContent = `No quick matches for "${query}".`;
+          resultsEl.replaceChildren(emptyState);
+          statusEl.textContent = `No quick matches found for ${query}.`;
+        } else {
+          resultsEl.replaceChildren(...items);
+          statusEl.textContent = `${items.length} suggestions available.`;
+        }
+
+        viewAllLinkEl.href = `/varieties?q=${encodeURIComponent(query)}`;
+        viewAllLinkEl.setAttribute(
+          "aria-label",
+          `View all results for ${query}`,
+        );
+        viewAllLinkEl.title = `View all results for “${query}”`;
+        viewAllQueryEl.textContent = `“${query}”`;
+        viewAllLinkEl.classList.remove("hidden");
+        setPanelOpenState(inputEl, panelEl, true);
+        updateActiveSuggestion(
+          inputEl,
+          Array.from(resultsEl.querySelectorAll("a[role='option']")),
+          activeIndex,
+        );
+      }
+
+      async function loadSuggestions(query: string) {
+        activeController?.abort();
+        const controller = new AbortController();
+        activeController = controller;
+
+        try {
+          const response = await fetch(
+            `/api/varieties/search?q=${encodeURIComponent(query)}`,
+            { signal: controller.signal },
+          );
+          const payload = (await response.json()) as {
+            suggestions?: VarietySearchSuggestion[];
+          };
+
+          if (!response.ok || !payload.suggestions) {
+            resetSuggestions();
+            return;
+          }
+
+          currentSuggestions = payload.suggestions;
+          activeIndex = -1;
+          renderSuggestions(query);
+        } catch (error) {
+          if (controller.signal.aborted) {
+            return;
+          }
+
+          console.error("Unable to load search suggestions", error);
+          resetSuggestions();
+        }
+      }
+
+      inputEl.addEventListener("input", () => {
+        const query = inputEl.value.trim();
+
+        if (timeoutId) {
+          window.clearTimeout(timeoutId);
+        }
+
+        if (query.length < 2) {
+          activeController?.abort();
+          resetSuggestions();
+          return;
+        }
+
+        timeoutId = window.setTimeout(() => {
+          void loadSuggestions(query);
+        }, 150);
+      });
+
+      inputEl.addEventListener("focus", () => {
+        if (currentSuggestions.length > 0) {
+          setPanelOpenState(inputEl, panelEl, true);
+        }
+      });
+
+      inputEl.addEventListener("keydown", (event) => {
+        const optionElements = Array.from(
+          resultsEl.querySelectorAll("a[role='option']"),
+        ) as HTMLAnchorElement[];
+
+        if (event.key === "Escape") {
+          resetSuggestions();
+          return;
+        }
+
+        if (event.key === "ArrowDown") {
+          if (optionElements.length === 0) {
+            return;
+          }
+
+          event.preventDefault();
+          activeIndex = (activeIndex + 1 + optionElements.length) % optionElements.length;
+          setPanelOpenState(inputEl, panelEl, true);
+          updateActiveSuggestion(inputEl, optionElements, activeIndex);
+          return;
+        }
+
+        if (event.key === "ArrowUp") {
+          if (optionElements.length === 0) {
+            return;
+          }
+
+          event.preventDefault();
+          activeIndex =
+            activeIndex <= 0 ? optionElements.length - 1 : activeIndex - 1;
+          setPanelOpenState(inputEl, panelEl, true);
+          updateActiveSuggestion(inputEl, optionElements, activeIndex);
+          return;
+        }
+
+        if (event.key === "Enter" && activeIndex >= 0 && optionElements[activeIndex]) {
+          event.preventDefault();
+          window.location.assign(optionElements[activeIndex].href);
+        }
+      });
+
+      formEl.addEventListener("focusout", (event) => {
+        const nextTarget = event.relatedTarget as Node | null;
+
+        if (nextTarget && formEl.contains(nextTarget)) {
+          return;
+        }
+
+        window.setTimeout(() => {
+          if (!formEl.contains(document.activeElement)) {
+            setPanelOpenState(inputEl, panelEl, false);
+            clearActiveDescendant(inputEl);
+          }
+        }, 0);
+      });
+
+      formEl.dataset.autocompleteInitialized = "true";
+    });
+  }
+
+  initSiteSearchAutocomplete();
+  document.addEventListener("astro:after-swap", initSiteSearchAutocomplete);
+</script>

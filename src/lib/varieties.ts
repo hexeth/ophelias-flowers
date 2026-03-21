@@ -2,6 +2,9 @@ import {
   getPublicVarietyBySlug as getPublicVarietyBySlugFromDb,
   listAdminVarieties as listAdminVarietiesFromDb,
   listPublicVarieties as listPublicVarietiesFromDb,
+  searchAdminVarieties as searchAdminVarietiesFromDb,
+  searchPublicVarietySuggestions as searchPublicVarietySuggestionsFromDb,
+  searchPublicVarieties as searchPublicVarietiesFromDb,
   softDeleteVariety,
   upsertVariety,
 } from "./catalog/repository";
@@ -12,6 +15,12 @@ import {
   stockLabels,
 } from "./catalog/constants";
 import { parseVarietyInput } from "./catalog/schema";
+import type {
+  AdminVarietySearchParams,
+  PaginatedSearchResult,
+  PublicVarietySearchParams,
+  VarietySearchSuggestion,
+} from "./catalog/search";
 import type { Variety } from "./catalog/types";
 
 function getCatalogDb(locals: App.Locals) {
@@ -26,6 +35,12 @@ function getCatalogDb(locals: App.Locals) {
 
 export type { Variety } from "./catalog/types";
 export { categoryLabels, stockClasses, stockDetailLabels, stockLabels };
+export type {
+  AdminVarietySearchParams,
+  PaginatedSearchResult,
+  PublicVarietySearchParams,
+  VarietySearchSuggestion,
+} from "./catalog/search";
 
 export function getDisplayPrice(variety: Variety) {
   return variety.salePrice ?? variety.price;
@@ -37,6 +52,32 @@ export async function listPublicVarieties(locals: App.Locals) {
 
 export async function listAdminVarieties(locals: App.Locals) {
   return listAdminVarietiesFromDb(getCatalogDb(locals));
+}
+
+export async function searchPublicVarieties(
+  locals: App.Locals,
+  params: PublicVarietySearchParams,
+): Promise<PaginatedSearchResult<Variety>> {
+  return searchPublicVarietiesFromDb(getCatalogDb(locals), params);
+}
+
+export async function searchPublicVarietySuggestions(
+  locals: App.Locals,
+  query: string,
+  limit?: number,
+): Promise<VarietySearchSuggestion[]> {
+  return searchPublicVarietySuggestionsFromDb(
+    getCatalogDb(locals),
+    query,
+    limit,
+  );
+}
+
+export async function searchAdminVarieties(
+  locals: App.Locals,
+  params: AdminVarietySearchParams,
+): Promise<PaginatedSearchResult<Variety>> {
+  return searchAdminVarietiesFromDb(getCatalogDb(locals), params);
 }
 
 export async function getPublicVarietyBySlug(locals: App.Locals, slug: string) {

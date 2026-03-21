@@ -14,4 +14,12 @@ export default defineConfig({
     },
   }),
   integrations: [tailwind(), react(), clerk()],
+  vite: {
+    optimizeDeps: {
+      include: ["@tanstack/react-table"],
+    },
+    ssr: {
+      noExternal: ["@tanstack/react-table"],
+    },
+  },
 });

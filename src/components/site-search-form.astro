@@ -1,0 +1,81 @@
+---
+interface Props {
+  inputClassName: string;
+  inputId: string;
+  inputWrapperClassName: string;
+  layoutClassName: string;
+  panelClassName?: string;
+  panelId: string;
+  submitButtonClassName: string;
+}
+
+const {
+  inputClassName,
+  inputId,
+  inputWrapperClassName,
+  layoutClassName,
+  panelClassName = "",
+  panelId,
+  submitButtonClassName,
+} = Astro.props;
+---
+
+<form
+  action="/varieties"
+  method="get"
+  role="search"
+  aria-label="Search varieties"
+  class={layoutClassName}
+  data-site-search-form
+>
+  <div class={inputWrapperClassName}>
+    <label for={inputId} class="sr-only">Search varieties</label>
+    <input
+      id={inputId}
+      name="q"
+      type="search"
+      autocomplete="off"
+      placeholder="Search varieties"
+      class={inputClassName}
+      role="combobox"
+      aria-autocomplete="list"
+      aria-controls={panelId}
+      aria-expanded="false"
+      data-site-search-input
+    />
+    <div
+      id={panelId}
+      class:list={[
+        "absolute left-0 right-0 top-full z-30 mt-px hidden overflow-y-auto border border-ink bg-cream overscroll-contain",
+        "max-h-[min(24rem,calc(100vh-9rem))] sm:max-h-[28rem]",
+        panelClassName,
+      ]}
+      role="listbox"
+      data-site-search-panel
+    >
+      <div data-site-search-results></div>
+      <a
+        href="/varieties"
+        class="hidden box-border block w-full border-t border-stone-300 px-4 py-4 text-ink no-underline transition-colors hover:bg-ink hover:text-cream"
+        data-site-search-view-all
+      >
+        <span class="block text-[11px] uppercase tracking-widest opacity-75">
+          View all results for
+        </span>
+        <span
+          class="mt-1 block overflow-hidden text-ellipsis whitespace-nowrap text-sm uppercase tracking-widest"
+          data-site-search-view-all-query
+        >
+          Search term
+        </span>
+      </a>
+    </div>
+    <p class="sr-only" aria-live="polite" data-site-search-status></p>
+  </div>
+  <button
+    type="submit"
+    class={submitButtonClassName}
+  >
+    Search
+  </button>
+</form>

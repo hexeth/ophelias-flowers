@@ -1,0 +1,194 @@
+<script>
+  function getSelectedFilterValues(groupId: string): string[] {
+    const group = document.querySelector(`[data-filter-group="${groupId}"]`);
+    if (!group) {
+      return [];
+    }
+
+    const checked = group.querySelectorAll(
+      'input[type="checkbox"]:checked',
+    ) as NodeListOf<HTMLInputElement>;
+
+    return Array.from(checked).map((checkbox) => checkbox.value);
+  }
+
+  function buildVarietiesUrl(page: number) {
+    const searchParams = new URLSearchParams(window.location.search);
+    const inStockCheckbox = document.getElementById(
+      "in-stock",
+    ) as HTMLInputElement | null;
+    const sortBySelect = document.getElementById(
+      "sort-by",
+    ) as HTMLSelectElement | null;
+    const resultsPerPageSelect = document.getElementById(
+      "results-per-page",
+    ) as HTMLSelectElement | null;
+    const viewSizeSelect = document.getElementById(
+      "view-size",
+    ) as HTMLSelectElement | null;
+
+    ["category", "color", "stock", "sort", "perPage", "page"].forEach((key) => {
+      searchParams.delete(key);
+    });
+
+    getSelectedFilterValues("category").forEach((category) => {
+      searchParams.append("category", category);
+    });
+
+    getSelectedFilterValues("color").forEach((color) => {
+      searchParams.append("color", color);
+    });
+
+    if (inStockCheckbox?.checked) {
+      searchParams.set("stock", "in");
+    }
+
+    if (sortBySelect?.value) {
+      searchParams.set("sort", sortBySelect.value);
+    }
+
+    if (resultsPerPageSelect?.value) {
+      searchParams.set("perPage", resultsPerPageSelect.value);
+    }
+
+    if (viewSizeSelect?.value && viewSizeSelect.value !== "comfortable") {
+      searchParams.set("view", viewSizeSelect.value);
+    } else {
+      searchParams.delete("view");
+    }
+
+    if (page > 1) {
+      searchParams.set("page", String(page));
+    }
+
+    const queryString = searchParams.toString();
+    return `${window.location.pathname}${queryString ? `?${queryString}` : ""}`;
+  }
+
+  function setSelectIfValid(selectEl: HTMLSelectElement, value: string | undefined) {
+    if (!value) {
+      return;
+    }
+
+    const hasOption = Array.from(selectEl.options).some(
+      (option) => option.value === value,
+    );
+    if (hasOption) {
+      selectEl.value = value;
+    }
+  }
+
+  function setSelected(groupId: string, values: string[]) {
+    const group = document.querySelector(`[data-filter-group="${groupId}"]`);
+    if (!group) {
+      return;
+    }
+
+    const selectedValues = new Set(values);
+    const checkboxes = group.querySelectorAll(
+      'input[type="checkbox"]',
+    ) as NodeListOf<HTMLInputElement>;
+
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = selectedValues.has(checkbox.value);
+    });
+  }
+
+  function setViewSize(viewSize: string) {
+    const grid = document.getElementById("variety-grid") as HTMLElement | null;
+    if (!grid) {
+      return;
+    }
+
+    const gridViewClasses = [
+      "grid-cols-1",
+      "grid-cols-2",
+      "sm:grid-cols-2",
+      "sm:grid-cols-3",
+      "lg:grid-cols-3",
+      "lg:grid-cols-4",
+      "xl:grid-cols-4",
+      "xl:grid-cols-5",
+      "2xl:grid-cols-6",
+    ];
+    const viewSizeClassMap: Record<string, string[]> = {
+      comfortable: ["grid-cols-1", "sm:grid-cols-2", "lg:grid-cols-3", "xl:grid-cols-4"],
+      compact: ["grid-cols-2", "sm:grid-cols-3", "lg:grid-cols-4", "xl:grid-cols-5", "2xl:grid-cols-6"],
+    };
+
+    grid.classList.remove(...gridViewClasses);
+    grid.classList.add(...(viewSizeClassMap[viewSize] ?? viewSizeClassMap.comfortable));
+  }
+
+  function initVarietiesPageBehavior() {
+    const root = document.getElementById("filters");
+    if (root?.dataset.searchBehaviorInitialized === "true") {
+      return;
+    }
+
+    const filterGroups = document.querySelectorAll("[data-filter-group]");
+    const inStockCheckbox = document.getElementById(
+      "in-stock",
+    ) as HTMLInputElement | null;
+    const resultsPerPageSelect = document.getElementById(
+      "results-per-page",
+    ) as HTMLSelectElement | null;
+    const sortBySelect = document.getElementById(
+      "sort-by",
+    ) as HTMLSelectElement | null;
+    const viewSizeSelect = document.getElementById(
+      "view-size",
+    ) as HTMLSelectElement | null;
+    const navSearchDesktop = document.getElementById(
+      "nav-search-desktop",
+    ) as HTMLInputElement | null;
+    const navSearchMobile = document.getElementById(
+      "nav-search-mobile",
+    ) as HTMLInputElement | null;
+
+    if (!inStockCheckbox || !resultsPerPageSelect || !sortBySelect || !viewSizeSelect) {
+      return;
+    }
+
+    const searchParams = new URLSearchParams(window.location.search);
+    const searchInputs = [navSearchDesktop, navSearchMobile].filter(
+      (input): input is HTMLInputElement => input !== null,
+    );
+
+    setSelected("category", searchParams.getAll("category"));
+    setSelected("color", searchParams.getAll("color"));
+    inStockCheckbox.checked = searchParams.get("stock") === "in";
+    setSelectIfValid(sortBySelect, searchParams.get("sort") ?? "name-asc");
+    setSelectIfValid(resultsPerPageSelect, searchParams.get("perPage") ?? "24");
+    setSelectIfValid(viewSizeSelect, searchParams.get("view") ?? "comfortable");
+    setViewSize(viewSizeSelect.value);
+
+    const query = (searchParams.get("q") ?? "").trim();
+    searchInputs.forEach((input) => {
+      input.value = query;
+    });
+
+    function submitSearch(page = 1) {
+      window.location.assign(buildVarietiesUrl(page));
+    }
+
+    filterGroups.forEach((group) => {
+      group.addEventListener("change", () => submitSearch(1));
+    });
+
+    inStockCheckbox.addEventListener("change", () => submitSearch(1));
+    sortBySelect.addEventListener("change", () => submitSearch(1));
+    resultsPerPageSelect.addEventListener("change", () => submitSearch(1));
+    viewSizeSelect.addEventListener("change", () => {
+      setViewSize(viewSizeSelect.value);
+      window.history.replaceState(null, "", buildVarietiesUrl(1));
+    });
+
+    if (root) {
+      root.dataset.searchBehaviorInitialized = "true";
+    }
+  }
+
+  initVarietiesPageBehavior();
+  document.addEventListener("astro:after-swap", initVarietiesPageBehavior);
+</script>

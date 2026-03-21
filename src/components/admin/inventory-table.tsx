@@ -6,39 +6,35 @@ import React, {
   useState,
 } from "react";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { EditableCell } from "./editable-cell";
+import { InventoryDeleteDialog } from "./inventory-delete-dialog";
+import { InventoryTableFiltersPanel } from "./inventory-table-filters";
+import { InventoryTablePagination } from "./inventory-table-pagination";
+import { InventoryTableRow } from "./inventory-table-row";
 import {
-  inventoryFilterFieldClassName,
-  inventoryFilterLabelClassName,
-  inventoryFilterLabelTextClassName,
-} from "./inventory-table-controls";
-import { RowActions } from "./row-actions";
-import {
-  VARIETY_CATEGORIES,
-  categoryLabels,
-  STOCK_STATUSES,
-  stockLabels,
-} from "../../lib/catalog/constants";
+  createDraftRow,
+  getColorOptions,
+  omitRowSnapshot,
+  updateRow,
+} from "./inventory-table-state";
 import {
   getVisibleInventoryRows,
   type InventoryRow,
+} from "../../lib/catalog/admin-inventory-table";
+import {
+  defaultInventoryTableFilters,
   type InventorySortField,
   type InventoryTableFilters,
   type InventoryTableSort,
-} from "../../lib/catalog/admin-inventory-table";
+} from "../../lib/catalog/search";
 import { varietyInputSchema } from "../../lib/catalog/schema";
 import type { Variety } from "../../lib/varieties";
 
 interface InventoryTableProps {
+  initialPage?: number;
+  initialPageSize?: number;
+  initialTotalCount?: number;
   initialVarieties: Variety[];
 }
-
-const defaultFilters: InventoryTableFilters = {
-  category: "all",
-  stock: "all",
-  visibility: "all",
-  query: "",
-};
 
 const sortableHeaders: Array<{
   field: InventorySortField;
@@ -86,73 +82,21 @@ function SortIcon(props: {
   );
 }
 
-function createDraftRow(): InventoryRow {
-  const id = `draft-${crypto.randomUUID()}`;
-  return {
-    id,
-    slug: "",
-    name: "",
-    sku: "",
-    description: "",
-    price: 0,
-    salePrice: null,
-    stock: "available",
-    category: "decorative",
-    color: ["blush"],
-    bloomSize: "",
-    height: "",
-    imageUrl: "/catalog-seed/placeholder-variety.jpg",
-    imageKey: null,
-    hidden: false,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    isNew: true,
-  };
-}
-
-function updateRow(
-  rows: InventoryRow[],
-  rowId: string,
-  updater: (row: InventoryRow) => InventoryRow,
-) {
-  return rows.map((row) => (row.id === rowId ? updater(row) : row));
-}
-
-function normalizeColorValue(value: string) {
-  return value.trim().toLowerCase();
-}
-
-function omitRowSnapshot(rows: Record<string, InventoryRow>, rowIds: string[]) {
-  const next = { ...rows };
-
-  for (const rowId of rowIds) {
-    delete next[rowId];
-  }
-
-  return next;
-}
-
-function getColorOptions(rows: InventoryRow[]) {
-  return Array.from(
-    new Set(
-      rows
-        .flatMap((row) => row.color)
-        .map(normalizeColorValue)
-        .filter(Boolean),
-    ),
-  ).sort((left, right) => left.localeCompare(right));
-}
-
 export default function InventoryTable({
+  initialPage = 1,
+  initialPageSize = 25,
   initialVarieties,
 }: InventoryTableProps) {
   const [rows, setRows] = useState<InventoryRow[]>(initialVarieties);
-  const [filters, setFilters] = useState<InventoryTableFilters>(defaultFilters);
+  const [filters, setFilters] = useState<InventoryTableFilters>(
+    defaultInventoryTableFilters,
+  );
   const [searchQuery, setSearchQuery] = useState("");
   const [sort, setSort] = useState<InventoryTableSort>({
     direction: "asc",
     field: "name",
   });
+  const [page, setPage] = useState(initialPage);
   const [originalRows, setOriginalRows] = useState<
     Record<string, InventoryRow>
   >({});
@@ -166,15 +110,19 @@ export default function InventoryTable({
   const [savingRowId, setSavingRowId] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [knownColors, setKnownColors] = useState<string[]>(() =>
+    getColorOptions(initialVarieties),
+  );
   const deleteDialogRef = useRef<HTMLDialogElement | null>(null);
   const deferredSearchQuery = useDeferredValue(searchQuery);
+
   const colorOptions = useMemo(
     () =>
-      getColorOptions(rows).map((color) => ({
+      knownColors.map((color) => ({
         value: color,
         label: color,
       })),
-    [rows],
+    [knownColors],
   );
   const activeFilters = useMemo(
     () => ({
@@ -195,6 +143,18 @@ export default function InventoryTable({
     [activeFilters, editingRowIds, originalRows, rows, sort],
   );
   const isFiltering = searchQuery !== deferredSearchQuery;
+  const totalCount = visibleRows.length;
+  const totalPages = Math.max(1, Math.ceil(totalCount / initialPageSize));
+  const paginatedRows = useMemo(() => {
+    const startIndex = (page - 1) * initialPageSize;
+
+    return visibleRows.slice(startIndex, startIndex + initialPageSize);
+  }, [initialPageSize, page, visibleRows]);
+  const rangeStart = totalCount === 0 ? 0 : (page - 1) * initialPageSize + 1;
+  const rangeEnd =
+    totalCount === 0
+      ? 0
+      : Math.min(rangeStart + paginatedRows.length - 1, totalCount);
 
   useEffect(() => {
     const dialog = deleteDialogRef.current;
@@ -215,10 +175,17 @@ export default function InventoryTable({
     }
   }, [confirmDeleteRow]);
 
+  useEffect(() => {
+    if (page > totalPages) {
+      setPage(totalPages);
+    }
+  }, [page, totalPages]);
+
   function setFilter<K extends Exclude<keyof InventoryTableFilters, "query">>(
     key: K,
     value: InventoryTableFilters[K],
   ) {
+    setPage(1);
     setFilters((current) => ({
       ...current,
       [key]: value,
@@ -226,6 +193,7 @@ export default function InventoryTable({
   }
 
   function toggleSort(field: InventorySortField) {
+    setPage(1);
     setSort((current) => ({
       field,
       direction:
@@ -380,6 +348,15 @@ export default function InventoryTable({
     setOriginalRows((current) =>
       omitRowSnapshot(current, [row.id, savedRow.id]),
     );
+    setKnownColors((current) => {
+      const colorSet = new Set(current);
+      for (const color of savedRow.color) {
+        colorSet.add(color.trim().toLowerCase());
+      }
+      return Array.from(colorSet).sort((left, right) =>
+        left.localeCompare(right),
+      );
+    });
     setNotice(`${savedRow.name} saved.`);
   }
 
@@ -427,103 +404,37 @@ export default function InventoryTable({
     setNotice(`${result.variety.name} deleted.`);
   }
 
-  const table = useReactTable({
-    data: visibleRows,
+  const table = useReactTable<InventoryRow>({
+    data: paginatedRows,
     columns: [],
     getCoreRowModel: getCoreRowModel(),
   });
 
   return (
     <section className="space-y-6">
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-        <div>
-          <p className="text-xs uppercase tracking-widest text-stone-500 mb-2">
-            Catalog rows
-          </p>
-        </div>
-        <button
-          type="button"
-          onClick={() => {
-            const draft = createDraftRow();
-            setRows((current) => [draft, ...current]);
-            setFilters(defaultFilters);
-            setSearchQuery("");
-            beginEdit(draft);
-          }}
-          className="border border-ink bg-ink px-4 py-3 text-xs uppercase tracking-widest text-white hover:bg-white hover:text-ink transition-colors"
-        >
-          Add Variety
-        </button>
-      </div>
-
-      <div className="grid gap-3 border border-ink bg-cream p-4 md:grid-cols-2 xl:grid-cols-[minmax(0,2fr)_repeat(3,minmax(0,1fr))]">
-        <label className={inventoryFilterLabelClassName}>
-          <span className={inventoryFilterLabelTextClassName}>Filter</span>
-          <input
-            type="search"
-            value={searchQuery}
-            onChange={(event) => setSearchQuery(event.target.value)}
-            placeholder="Search name, SKU, colors, description"
-            className={inventoryFilterFieldClassName}
-          />
-        </label>
-
-        <label className={inventoryFilterLabelClassName}>
-          <span className={inventoryFilterLabelTextClassName}>Category</span>
-          <select
-            value={filters.category}
-            onChange={(event) => setFilter("category", event.target.value)}
-            className={inventoryFilterFieldClassName}
-          >
-            <option value="all">All Categories</option>
-            {VARIETY_CATEGORIES.map((category) => (
-              <option key={category} value={category}>
-                {categoryLabels[category]}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <label className={inventoryFilterLabelClassName}>
-          <span className={inventoryFilterLabelTextClassName}>Stock</span>
-          <select
-            value={filters.stock}
-            onChange={(event) => setFilter("stock", event.target.value)}
-            className={inventoryFilterFieldClassName}
-          >
-            <option value="all">All Stock</option>
-            {STOCK_STATUSES.map((status) => (
-              <option key={status} value={status}>
-                {stockLabels[status]}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <label className={inventoryFilterLabelClassName}>
-          <span className={inventoryFilterLabelTextClassName}>Visibility</span>
-          <select
-            value={filters.visibility}
-            onChange={(event) =>
-              setFilter(
-                "visibility",
-                event.target.value as InventoryTableFilters["visibility"],
-              )
-            }
-            className={inventoryFilterFieldClassName}
-          >
-            <option value="all">All Rows</option>
-            <option value="visible">Visible</option>
-            <option value="hidden">Hidden</option>
-          </select>
-        </label>
-      </div>
-
-      <p className="text-xs uppercase tracking-widest text-stone-500">
-        {isFiltering
-          ? `Updating search over ${rows.length} varieties...`
-          : `Showing ${visibleRows.length} of ${rows.length} varieties.`}
-      </p>
+      <InventoryTableFiltersPanel
+        filters={filters}
+        isFiltering={isFiltering}
+        isLoading={false}
+        onAddVariety={() => {
+          const draft = createDraftRow();
+          setRows((current) => [draft, ...current]);
+          setFilters(defaultInventoryTableFilters);
+          setSearchQuery("");
+          setPage(1);
+          beginEdit(draft);
+        }}
+        onFilterChange={setFilter}
+        onSearchQueryChange={(value) => {
+          setPage(1);
+          setSearchQuery(value);
+        }}
+        page={page}
+        rangeEnd={rangeEnd}
+        rangeStart={rangeStart}
+        searchQuery={searchQuery}
+        totalCount={totalCount}
+      />
 
       {error ? (
         <p className="border border-dahlia-wine px-4 py-3 text-sm text-dahlia-wine">
@@ -552,7 +463,7 @@ export default function InventoryTable({
                     <button
                       type="button"
                       onClick={() => toggleSort(header.field)}
-                      className="inline-flex items-center gap-2 text-left hover:text-ink transition-colors"
+                      className="inline-flex items-center gap-2 text-left transition-colors hover:text-ink"
                       aria-label={`${header.label}: ${getSortIndicator(header.field)}`}
                       title={getSortIndicator(header.field)}
                     >
@@ -573,228 +484,27 @@ export default function InventoryTable({
               </tr>
             </thead>
             <tbody>
-              {table.getRowModel().rows.map((row) => {
-                const isEditing = Boolean(editingRowIds[row.original.id]);
+              {table.getRowModel().rows.map((tableRow) => {
+                const row = tableRow.original;
+                const isEditing = Boolean(editingRowIds[row.id]);
 
                 return (
-                  <tr
-                    key={row.id}
-                    className="border-b border-stone-300 align-top last:border-b-0"
-                  >
-                    <td className="px-2 py-2 align-top">
-                      <EditableCell
-                        label={row.original.name || "Variety image"}
-                        value={row.original.imageUrl}
-                        type="image"
-                        isEditing={isEditing}
-                        compact
-                        onValueChange={(value) =>
-                          setRowValue(
-                            row.original.id,
-                            "imageUrl",
-                            String(value),
-                          )
-                        }
-                        onImageUpload={(file) =>
-                          uploadImage(row.original.id, file)
-                        }
-                      />
-                    </td>
-
-                    <td className="px-2 py-2 align-top">
-                      <EditableCell
-                        label="Name"
-                        value={row.original.name}
-                        type="text"
-                        isEditing={isEditing}
-                        compact
-                        onValueChange={(value) =>
-                          setRowValue(row.original.id, "name", String(value))
-                        }
-                      />
-                    </td>
-
-                    <td className="px-2 py-2 align-top">
-                      <EditableCell
-                        label="Category"
-                        value={row.original.category}
-                        type="select"
-                        isEditing={isEditing}
-                        compact
-                        options={VARIETY_CATEGORIES.map((category) => ({
-                          value: category,
-                          label: categoryLabels[category],
-                        }))}
-                        onValueChange={(value) =>
-                          setRowValue(
-                            row.original.id,
-                            "category",
-                            String(value) as InventoryRow["category"],
-                          )
-                        }
-                      />
-                    </td>
-
-                    <td className="px-2 py-2 align-top">
-                      <EditableCell
-                        label="Stock"
-                        value={row.original.stock}
-                        type="select"
-                        isEditing={isEditing}
-                        compact
-                        options={STOCK_STATUSES.map((status) => ({
-                          value: status,
-                          label: stockLabels[status],
-                        }))}
-                        onValueChange={(value) =>
-                          setRowValue(
-                            row.original.id,
-                            "stock",
-                            String(value) as InventoryRow["stock"],
-                          )
-                        }
-                      />
-                    </td>
-
-                    <td className="px-2 py-2 align-top">
-                      <EditableCell
-                        label="Price"
-                        value={row.original.price}
-                        type="number"
-                        isEditing={isEditing}
-                        compact
-                        step={1}
-                        onValueChange={(value) =>
-                          setRowValue(row.original.id, "price", Number(value))
-                        }
-                      />
-                    </td>
-
-                    <td className="px-2 py-2 align-top">
-                      <EditableCell
-                        label="Sale price"
-                        value={row.original.salePrice ?? ""}
-                        type="number"
-                        isEditing={isEditing}
-                        compact
-                        step={1}
-                        onValueChange={(value) => {
-                          const nextValue = String(value).trim();
-                          setRowValue(
-                            row.original.id,
-                            "salePrice",
-                            nextValue.length > 0 ? Number(nextValue) : null,
-                          );
-                        }}
-                      />
-                    </td>
-
-                    <td className="px-2 py-2 align-top">
-                      <EditableCell
-                        label="Colors"
-                        value={row.original.color}
-                        type="multi-combobox"
-                        isEditing={isEditing}
-                        compact
-                        options={colorOptions}
-                        onValueChange={(value) =>
-                          setRowValue(
-                            row.original.id,
-                            "color",
-                            Array.isArray(value) ? value : [],
-                          )
-                        }
-                      />
-                    </td>
-
-                    <td className="px-2 py-2 align-top">
-                      <EditableCell
-                        label="Bloom size"
-                        value={row.original.bloomSize}
-                        type="text"
-                        isEditing={isEditing}
-                        compact
-                        onValueChange={(value) =>
-                          setRowValue(
-                            row.original.id,
-                            "bloomSize",
-                            String(value),
-                          )
-                        }
-                      />
-                    </td>
-
-                    <td className="px-2 py-2 align-top">
-                      <EditableCell
-                        label="Height"
-                        value={row.original.height}
-                        type="text"
-                        isEditing={isEditing}
-                        compact
-                        onValueChange={(value) =>
-                          setRowValue(row.original.id, "height", String(value))
-                        }
-                      />
-                    </td>
-
-                    <td className="px-2 py-2 align-top">
-                      <EditableCell
-                        label="Hide page"
-                        value={row.original.hidden}
-                        type="checkbox"
-                        isEditing={isEditing}
-                        compact
-                        onValueChange={(value) =>
-                          setRowValue(row.original.id, "hidden", Boolean(value))
-                        }
-                      />
-                    </td>
-
-                    <td className="px-2 py-2 align-top">
-                      {isEditing ? (
-                        <EditableCell
-                          label="Description"
-                          value={row.original.description}
-                          type="textarea"
-                          isEditing={isEditing}
-                          compact
-                          onValueChange={(value) =>
-                            setRowValue(
-                              row.original.id,
-                              "description",
-                              String(value),
-                            )
-                          }
-                        />
-                      ) : (
-                        <div className="space-y-2">
-                          <span className="block text-xs leading-snug text-ink">
-                            {row.original.description || "—"}
-                          </span>
-                          <span className="block text-[11px] uppercase tracking-widest text-stone-500">
-                            Updated{" "}
-                            {new Date(
-                              row.original.updatedAt,
-                            ).toLocaleDateString()}
-                          </span>
-                        </div>
-                      )}
-                    </td>
-
-                    <td className="px-2 py-2 align-top">
-                      <div className="flex justify-end">
-                        <RowActions
-                          isEditing={isEditing}
-                          isDeleting={deletingRowId === row.original.id}
-                          isSaving={savingRowId === row.original.id}
-                          onEdit={() => beginEdit(row.original)}
-                          onCancel={() => cancelEdit(row.original)}
-                          onDelete={() => requestDeleteRow(row.original)}
-                          onSave={() => saveRow(row.original)}
-                        />
-                      </div>
-                    </td>
-                  </tr>
+                  <InventoryTableRow
+                    key={tableRow.id}
+                    row={row}
+                    colorOptions={colorOptions}
+                    isDeleting={deletingRowId === row.id}
+                    isEditing={isEditing}
+                    isSaving={savingRowId === row.id}
+                    onCancel={() => cancelEdit(row)}
+                    onDelete={() => requestDeleteRow(row)}
+                    onEdit={() => beginEdit(row)}
+                    onImageUpload={(file) => uploadImage(row.id, file)}
+                    onSave={() => saveRow(row)}
+                    onValueChange={(field, value) =>
+                      setRowValue(row.id, field, value)
+                    }
+                  />
                 );
               })}
             </tbody>
@@ -802,55 +512,29 @@ export default function InventoryTable({
         </div>
       </div>
 
-      <dialog
-        ref={deleteDialogRef}
-        className="w-full max-w-lg border border-ink bg-cream p-0 text-ink backdrop:bg-ink/40"
-        aria-labelledby="delete-variety-title"
-        onClose={closeDeleteDialog}
-      >
-        <form method="dialog" className="space-y-6 p-6">
-          <div className="space-y-3">
-            <p className="text-xs uppercase tracking-widest text-dahlia-wine">
-              Confirm deletion
-            </p>
-            <h2
-              id="delete-variety-title"
-              className="font-display text-3xl tracking-tight text-ink"
-            >
-              Delete {confirmDeleteRow?.name.trim() || "this variety"}?
-            </h2>
-            <p className="max-w-md text-sm leading-relaxed text-stone-500">
-              This removes the variety from the catalog and the admin inventory
-              table. This action cannot be undone.
-            </p>
-          </div>
+      <InventoryTablePagination
+        onNextPage={() =>
+          setPage((current) => Math.min(current + 1, totalPages))
+        }
+        onPreviousPage={() => setPage((current) => Math.max(current - 1, 1))}
+        page={page}
+        rangeEnd={rangeEnd}
+        rangeStart={rangeStart}
+        totalCount={totalCount}
+        totalPages={totalPages}
+      />
 
-          <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
-            <button
-              type="submit"
-              className="border border-stone-300 px-4 py-3 text-xs uppercase tracking-widest text-stone-500 hover:border-ink hover:text-ink transition-colors"
-            >
-              Cancel
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                if (confirmDeleteRow) {
-                  void deleteRow(confirmDeleteRow);
-                }
-              }}
-              disabled={
-                !confirmDeleteRow || deletingRowId === confirmDeleteRow.id
-              }
-              className="border border-dahlia-wine bg-dahlia-wine px-4 py-3 text-xs uppercase tracking-widest text-white hover:bg-cream hover:text-dahlia-wine transition-colors disabled:border-stone-300 disabled:bg-white disabled:text-stone-300"
-            >
-              {confirmDeleteRow && deletingRowId === confirmDeleteRow.id
-                ? "Deleting"
-                : "Delete variety"}
-            </button>
-          </div>
-        </form>
-      </dialog>
+      <InventoryDeleteDialog
+        confirmDeleteRow={confirmDeleteRow}
+        deleteDialogRef={deleteDialogRef}
+        deletingRowId={deletingRowId}
+        onClose={closeDeleteDialog}
+        onConfirmDelete={() => {
+          if (confirmDeleteRow) {
+            void deleteRow(confirmDeleteRow);
+          }
+        }}
+      />
     </section>
   );
 }
