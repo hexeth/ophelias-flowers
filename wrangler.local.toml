@@ -12,6 +12,7 @@ preview_id = "local-session-kv"
 binding = "CATALOG_DB"
 database_name = "ophelias-flowers-catalog"
 database_id = "local-catalog-db"
+migrations_dir = "db/migrations"
 
 [[r2_buckets]]
 binding = "VARIETY_IMAGES"

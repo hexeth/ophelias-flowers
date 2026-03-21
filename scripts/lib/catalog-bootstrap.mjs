@@ -79,14 +79,6 @@ export async function listLegacyImageFiles() {
     .sort();
 }
 
-export async function listCatalogMigrationFiles() {
-  const entries = await readdir(catalogMigrationsDir, { withFileTypes: true });
-  return entries
-    .filter((entry) => entry.isFile() && entry.name.endsWith(".sql"))
-    .map((entry) => path.join(catalogMigrationsDir, entry.name))
-    .sort();
-}
-
 export async function syncLegacyImagesToPublic() {
   await mkdir(publicCatalogSeedDir, { recursive: true });
 
@@ -248,8 +240,8 @@ export async function createWranglerConfigWithoutD1() {
   const originalConfigPath = path.join(rootDir, "wrangler.toml");
   const originalConfig = await readFile(originalConfigPath, "utf8");
   const sanitizedConfig = originalConfig.replace(
-    /\n\[\[d1_databases\]\][\s\S]*?(?=\n\[\[|\n\[|$)/,
-    "\n",
+    /(\n\[\[d1_databases\]\][\s\S]*?\ndatabase_id\s*=\s*")[^"]+("[\s\S]*?(?=\n\[\[|\n\[|$))/, 
+    `$100000000-0000-4000-8000-000000000000$2`,
   );
 
   const tempDir = await mkdtemp(
