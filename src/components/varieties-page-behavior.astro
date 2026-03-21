@@ -51,7 +51,8 @@
       searchParams.set("perPage", resultsPerPageSelect.value);
     }
 
-    if (viewSizeSelect?.value && viewSizeSelect.value !== "comfortable") {
+    const viewportDefault = window.matchMedia("(max-width: 639px)").matches ? "compact" : "comfortable";
+    if (viewSizeSelect?.value && viewSizeSelect.value !== viewportDefault) {
       searchParams.set("view", viewSizeSelect.value);
     } else {
       searchParams.delete("view");
@@ -160,7 +161,8 @@
     inStockCheckbox.checked = searchParams.get("stock") === "in";
     setSelectIfValid(sortBySelect, searchParams.get("sort") ?? "name-asc");
     setSelectIfValid(resultsPerPageSelect, searchParams.get("perPage") ?? "24");
-    setSelectIfValid(viewSizeSelect, searchParams.get("view") ?? "comfortable");
+    const isMobile = window.matchMedia("(max-width: 639px)").matches;
+    setSelectIfValid(viewSizeSelect, searchParams.get("view") ?? (isMobile ? "compact" : "comfortable"));
     setViewSize(viewSizeSelect.value);
 
     const query = (searchParams.get("q") ?? "").trim();
