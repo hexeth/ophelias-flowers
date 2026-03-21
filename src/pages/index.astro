@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 import heroImage from "../assets/hero.jpg";
 import logo from "../assets/logo.png";
 import BaseLayout from "../layouts/base-layout.astro";
@@ -8,27 +8,32 @@ import { listPublicVarieties } from "../lib/varieties";
 
 const varieties = await listPublicVarieties(Astro.locals);
 const featured = varieties.slice(0, 3);
+
+const optimizedHero = await getImage({
+  src: heroImage,
+  width: 1920,
+  height: 1080,
+});
 ---
 
 <BaseLayout title="Home">
-
+  <Fragment slot="head">
+    <link rel="preload" as="image" href={optimizedHero.src} />
+  </Fragment>
 
   <!-- Hero Section -->
   <section class="relative w-full overflow-hidden h-[70vh] sm:h-auto sm:aspect-video sm:max-h-[80vh]">
-    {
-      heroImage && (
-        <Image
-          src={heroImage}
-          alt=""
-          width={1920}
-          height={1080}
-          loading="eager"
-          fetchpriority="high"
-          sizes="100vw"
-          class="absolute inset-0 w-full h-full object-cover"
-        />
-      )
-    }
+    <img
+      src={optimizedHero.src}
+      width="1920"
+      height="1080"
+      alt=""
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      sizes="100vw"
+      class="absolute inset-0 w-full h-full object-cover"
+    />
     <div
       class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-ink/90 via-ink/40 to-transparent"
     >
