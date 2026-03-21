@@ -1,4 +1,10 @@
 import type { APIRoute } from "astro";
+import {
+  MAX_IMAGE_QUALITY,
+  MAX_IMAGE_WIDTH,
+  MIN_IMAGE_QUALITY,
+  MIN_IMAGE_WIDTH,
+} from "../../lib/catalog/image-urls";
 
 export const prerender = false;
 
@@ -60,8 +66,16 @@ function parseFormat(value: string | null): SupportedFormat | undefined {
 
 function getVariantOptions(url: URL): VariantOptions {
   return {
-    width: parseIntegerParam(url.searchParams.get("w"), 64, 2400),
-    quality: parseIntegerParam(url.searchParams.get("q"), 30, 95),
+    width: parseIntegerParam(
+      url.searchParams.get("w"),
+      MIN_IMAGE_WIDTH,
+      MAX_IMAGE_WIDTH,
+    ),
+    quality: parseIntegerParam(
+      url.searchParams.get("q"),
+      MIN_IMAGE_QUALITY,
+      MAX_IMAGE_QUALITY,
+    ),
     fit: parseFit(url.searchParams.get("fit")),
     format: parseFormat(url.searchParams.get("format")),
   };
@@ -224,6 +238,7 @@ async function getVariantResponse(
 ) {
   const sourceUrl = buildVariantSourceUrl(request, objectKey);
   const cfImage: CfImageRequest["image"] = {};
+  const acceptHeader = request.headers.get("accept") ?? "image/*,*/*;q=0.8";
 
   if (options.width) {
     cfImage.width = options.width;
@@ -237,13 +252,24 @@ async function getVariantResponse(
     cfImage.fit = options.fit;
   }
 
-  if (options.format && options.format !== "auto") {
+  if (
+    options.format === "avif" ||
+    options.format === "webp" ||
+    options.format === "jpeg" ||
+    options.format === "png"
+  ) {
     cfImage.format = options.format;
+  } else if (options.format === "auto") {
+    if (acceptHeader.includes("image/avif")) {
+      cfImage.format = "avif";
+    } else if (acceptHeader.includes("image/webp")) {
+      cfImage.format = "webp";
+    }
   }
 
   const transformed = await fetch(sourceUrl, {
     headers: {
-      accept: request.headers.get("accept") ?? "image/*,*/*;q=0.8",
+      accept: acceptHeader,
     },
     cf: {
       image: cfImage,
@@ -252,6 +278,7 @@ async function getVariantResponse(
 
   const headers = new Headers(responseHeaders);
   setVariantVaryHeader(headers, true);
+  headers.delete("etag");
 
   const contentType = transformed.headers.get("content-type");
   if (contentType) {
@@ -298,13 +325,13 @@ async function handleRequest(
   const variantOptions = getVariantOptions(new URL(request.url));
   setVariantVaryHeader(headers, hasVariants(variantOptions));
 
+  if (hasVariants(variantOptions)) {
+    return getVariantResponse(request, objectKey, variantOptions, headers);
+  }
+
   const notModified = await maybeRespondNotModified(request, object, headers);
   if (notModified) {
     return notModified;
-  }
-
-  if (hasVariants(variantOptions)) {
-    return getVariantResponse(request, objectKey, variantOptions, headers);
   }
 
   return new Response(object.body, {
@@ -336,7 +363,11 @@ async function handleHeadRequest(
   const variantOptions = getVariantOptions(new URL(request.url));
   setVariantVaryHeader(headers, hasVariants(variantOptions));
   if (hasVariants(variantOptions)) {
+    headers.delete("etag");
     headers.delete("content-length");
+    return new Response(null, {
+      headers,
+    });
   }
 
   const notModified = await maybeRespondNotModified(request, object, headers);

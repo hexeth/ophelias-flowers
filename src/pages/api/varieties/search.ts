@@ -7,7 +7,8 @@ function json(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
     headers: {
-      "cache-control": "public, max-age=60",
+      "cache-control":
+        "public, max-age=60, s-maxage=300, stale-while-revalidate=600",
       "content-type": "application/json",
     },
   });

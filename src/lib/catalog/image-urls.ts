@@ -6,6 +6,10 @@ export interface CatalogImageVariantOptions {
 }
 
 const CATALOG_IMAGE_PREFIX = "/catalog-images/";
+export const MIN_IMAGE_WIDTH = 64;
+export const MAX_IMAGE_WIDTH = 2400;
+export const MIN_IMAGE_QUALITY = 30;
+export const MAX_IMAGE_QUALITY = 95;
 
 function clampInteger(value: number, min: number, max: number) {
   const rounded = Math.round(value);
@@ -28,11 +32,19 @@ export function buildCatalogImageUrl(
   const searchParams = new URLSearchParams(rawQuery ?? "");
 
   if (typeof options.width === "number") {
-    searchParams.set("w", String(clampInteger(options.width, 64, 2400)));
+    searchParams.set(
+      "w",
+      String(clampInteger(options.width, MIN_IMAGE_WIDTH, MAX_IMAGE_WIDTH)),
+    );
   }
 
   if (typeof options.quality === "number") {
-    searchParams.set("q", String(clampInteger(options.quality, 30, 95)));
+    searchParams.set(
+      "q",
+      String(
+        clampInteger(options.quality, MIN_IMAGE_QUALITY, MAX_IMAGE_QUALITY),
+      ),
+    );
   }
 
   if (options.fit) {
@@ -57,7 +69,7 @@ export function buildCatalogImageSrcSet(
   }
 
   const candidates = widths
-    .map((width) => clampInteger(width, 64, 2400))
+    .map((width) => clampInteger(width, MIN_IMAGE_WIDTH, MAX_IMAGE_WIDTH))
     .filter((width, index, arr) => arr.indexOf(width) === index)
     .sort((a, b) => a - b)
     .map(
