@@ -17,7 +17,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '6ca07943-5d08-4358-a33b-d2a4ecfc70b6',
+  '1a68ae80-8077-4990-9faa-daebdf4b5a91',
   '20th-avenue-memory',
   '20th Avenue Memory',
   'DAH-TAM-028',
@@ -32,8 +32,8 @@ INSERT INTO varieties (
   '/catalog-seed/20th-avenue-memory.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -71,7 +71,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'b676d409-5f77-4b19-acaf-07f36e48b2b4',
+  '2c9f9edc-ecf1-4680-909d-659b0d149c87',
   'a-la-mode',
   'A La Mode',
   'DAH-ALM-029',
@@ -86,8 +86,8 @@ INSERT INTO varieties (
   '/catalog-seed/a-la-mode.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -125,7 +125,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '9b200fb9-f44d-4708-a6f9-8d8f9c958ce2',
+  'bde41b23-2cd1-42be-8e65-19a15fdfcd98',
   'american-dawn',
   'American Dawn',
   'DAH-AMD-030',
@@ -140,8 +140,8 @@ INSERT INTO varieties (
   '/catalog-seed/american-dawn.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -179,7 +179,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'a6a80b4d-eaca-4842-a556-b6cd542306f7',
+  'a47d4af0-1e35-4209-8e65-7da78ab9d28b',
   'apple-blossom',
   'Apple Blossom',
   'DAH-APB-001',
@@ -194,8 +194,8 @@ INSERT INTO varieties (
   '/catalog-seed/apple-blossom.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -233,7 +233,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '0ca1e8e0-c3c8-4565-b0ec-5edd79d7c215',
+  'c9aa445e-ec20-465c-94ab-c8f57f3e152f',
   'blizzard',
   'Blizzard',
   'DAH-NEW-101',
@@ -248,8 +248,8 @@ INSERT INTO varieties (
   '/catalog-seed/blizzard.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -287,7 +287,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '20a10975-6856-410d-9ee6-9fb9abc9e839',
+  'f162a940-98c2-4fc8-a89a-e7a920d7a5ff',
   'bloomquist-alan',
   'Bloomquist Alan',
   'DAH-BQA-002',
@@ -302,8 +302,8 @@ INSERT INTO varieties (
   '/catalog-seed/bq-alan.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -341,7 +341,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '7a2bbd01-6cb6-4dc1-9e71-8413ffbc5147',
+  'e47b074f-1376-48c1-a218-aa356fef608c',
   'bloomquist-jean',
   'Bloomquist Jean',
   'DAH-BJN-032',
@@ -356,8 +356,8 @@ INSERT INTO varieties (
   '/catalog-seed/bq-jean.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -395,7 +395,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '9b9f446e-fe2a-4e52-8aed-8a783a3a9ed9',
+  '9b22a696-5323-4112-868d-2dbd8e010cc3',
   'bloomquist-mojo',
   'Bloomquist Mojo',
   'DAH-BQM-003',
@@ -410,8 +410,8 @@ INSERT INTO varieties (
   '/catalog-seed/bq-mojo.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -449,7 +449,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'cac8fa01-751d-4292-8e9b-5aeac07795a6',
+  '88f2e63b-f32b-4ec0-9cff-8189e78aa3b4',
   'bloomquist-tory-p',
   'Bloomquist Tory P',
   'DAH-BTP-033',
@@ -464,8 +464,8 @@ INSERT INTO varieties (
   '/catalog-seed/bq-tory-p.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -503,7 +503,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '8e541ae4-2b09-4892-b68e-72212ff4ef5e',
+  '63c8b592-33e6-465e-9674-e538243e24c7',
   'bocherell',
   'Bocherell',
   'DAH-BOC-114',
@@ -518,8 +518,8 @@ INSERT INTO varieties (
   '/catalog-seed/bocherell.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -557,7 +557,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'c08913e3-168a-4395-9938-7d94266ca33c',
+  '2578b496-835e-4ed5-a77d-c58acd114797',
   'boom-boom-white',
   'Boom Boom White',
   'DAH-BBW-031',
@@ -572,8 +572,8 @@ INSERT INTO varieties (
   '/catalog-seed/boom-boom-white.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -611,7 +611,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '27f209fb-d5a8-4520-b939-1fe7a131d317',
+  'd4175002-72e0-4e01-b58a-36c13a787d7c',
   'bracken-palomino',
   'Bracken Palomino',
   'DAH-NEW-102',
@@ -626,8 +626,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -665,7 +665,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '67b949f6-d6df-4097-99e5-4ee0dfe5924f',
+  'c6c3f5a7-9392-4898-a240-795647e9c2ec',
   'bracken-rose',
   'Bracken Rose',
   'DAH-BKR-004',
@@ -680,8 +680,8 @@ INSERT INTO varieties (
   '/catalog-seed/bracken-rose.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -719,7 +719,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'cbf256b2-3b34-433a-aadb-84b2433f801c',
+  'f6370c53-f57e-4ef5-8480-1972c966ff04',
   'bracken-sarah',
   'Bracken Sarah',
   'DAH-NEW-103',
@@ -734,8 +734,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -773,7 +773,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'b1d1dcb0-076d-4ede-b260-396798d954f0',
+  '78eb7ca3-898b-4565-a4b6-afdef09a1a1d',
   'bride-to-be',
   'Bride to Be',
   'DAH-NEW-104',
@@ -788,8 +788,8 @@ INSERT INTO varieties (
   '/catalog-seed/bride-to-be.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -827,7 +827,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '78576e7b-1a1a-469b-9517-0ce0be34c8e6',
+  'a0bbb1e0-8f2e-4448-a5c8-6e5b85aadbbb',
   'brown-sugar',
   'Brown Sugar',
   'DAH-NEW-105',
@@ -842,8 +842,8 @@ INSERT INTO varieties (
   '/catalog-seed/brown-sugar.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -881,7 +881,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '3b045a8a-dfb9-494e-86fa-1d4ff7d6032f',
+  'fcd2a460-7c10-4cd4-ab22-5bb1f8e5ff7f',
   'budapest-blush',
   'Budapest Blush',
   'DAH-NEW-106',
@@ -896,8 +896,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -935,7 +935,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '1a74989c-ea46-4067-98b3-7287a27d6e4f',
+  'f0f8e762-5600-4738-b32e-b0250e9935e7',
   'cafe-au-lait',
   'Cafe Au Lait',
   'DAH-NEW-107',
@@ -950,8 +950,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -989,7 +989,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '1957833d-4b03-49ea-a390-d0fd0f0d71f7',
+  '1ab2e9a5-3073-48ae-91af-cacde48c75fe',
   'caitlynns-joy',
   'Caitlynns Joy',
   'DAH-NEW-108',
@@ -1004,8 +1004,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1043,7 +1043,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'e9c60b7c-eb91-4339-a10a-8027b0497a97',
+  '8965fa2f-1008-4f9a-b345-58ebccd98bda',
   'cal-mini',
   'Café au Lait Mini',
   'DAH-CLM-005',
@@ -1058,8 +1058,8 @@ INSERT INTO varieties (
   '/catalog-seed/CAL-mini.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1097,7 +1097,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '4eed230f-404d-4446-a0a3-cd6fe4d4faf4',
+  '471b0cd2-8013-4c64-bec0-41cce9080360',
   'castle-drive',
   'Castle Drive',
   'DAH-CSD-007',
@@ -1112,8 +1112,8 @@ INSERT INTO varieties (
   '/catalog-seed/castle-drive.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1151,7 +1151,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '2247cf7c-449a-4bc2-a86c-58801806fb13',
+  'ed52220a-3481-4a8a-88a6-63e8265ce12d',
   'chewy',
   'Chewy',
   'DAH-CHW-034',
@@ -1166,8 +1166,8 @@ INSERT INTO varieties (
   '/catalog-seed/chewy.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1205,7 +1205,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'd5e71cd0-5845-4459-8ae4-e2e518285cac',
+  '6e606320-45fa-4099-9cde-fa37ca22ff10',
   'clearview-peachy',
   'Clearview Peachy',
   'DAH-CLP-035',
@@ -1220,8 +1220,8 @@ INSERT INTO varieties (
   '/catalog-seed/clearview-peachy.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1259,7 +1259,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'd0871c9b-0ad4-4032-91bf-85d1d95b1dfc',
+  '19ff87ac-9767-490a-99e6-35ae5b1dfe52',
   'colorado-classic',
   'Colorado Classic',
   'DAH-NEW-109',
@@ -1274,8 +1274,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1313,7 +1313,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'e9ffec84-519d-400e-a1d7-bdf60c9c327c',
+  'adcb7403-574f-4598-b5d6-de78d7917ae5',
   'copper-boy',
   'Copper Boy',
   'DAH-NEW-110',
@@ -1328,8 +1328,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1367,7 +1367,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '51f539ee-1264-4d62-8e2f-4a1e152504c8',
+  'c7d27ab4-7894-4622-8572-55aa7c4ba4c9',
   'coralie',
   'Coralie',
   'DAH-COR-008',
@@ -1382,8 +1382,8 @@ INSERT INTO varieties (
   '/catalog-seed/coralie.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1421,7 +1421,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '9580755f-079a-4950-b802-a8749e2d0273',
+  '7533378c-447a-4850-8ed1-334a676240b6',
   'cornel-bronze',
   'Cornel Bronze',
   'DAH-NEW-112',
@@ -1436,8 +1436,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1475,7 +1475,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '71ead0ad-f600-48eb-9c72-1de664525d4b',
+  '86173dc4-2353-4097-98e2-00f254bae30a',
   'cornel',
   'Cornel',
   'DAH-NEW-111',
@@ -1490,8 +1490,8 @@ INSERT INTO varieties (
   '/catalog-seed/cornel.png',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1529,7 +1529,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '5895db2c-6744-45f5-b4a3-8bbd23ab3ac7',
+  '6bc66a41-8deb-47c6-a589-149524150356',
   'coseytown-bounty',
   'Coseytown Bounty',
   'DAH-NEW-113',
@@ -1544,8 +1544,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1583,7 +1583,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'ad8101c9-772e-49b5-82ed-f4af8d9b205e',
+  'd0519d80-82a2-4be8-9655-d53b86c8b8fc',
   'creamy',
   'Creamy',
   'DAH-CRM-026',
@@ -1598,8 +1598,8 @@ INSERT INTO varieties (
   '/catalog-seed/creamy.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1637,7 +1637,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '9ce8ea21-2079-44f8-afae-17ac54ae89c8',
+  '63415a58-f238-4023-8e21-e91654003be0',
   'creme-de-cassis',
   'Crème De Cassis',
   'DAH-CDK-036',
@@ -1652,8 +1652,8 @@ INSERT INTO varieties (
   '/catalog-seed/creme-de-cassis.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1691,7 +1691,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '8174bae9-8401-41cd-b7c9-ae0f96fc82af',
+  '3cdf80c6-d568-4d57-ab5f-65e8e010a028',
   'crighton-honey',
   'Crichton Honey',
   'DAH-CRH-037',
@@ -1706,8 +1706,8 @@ INSERT INTO varieties (
   '/catalog-seed/crighton-honey.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1745,7 +1745,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '6e77d1e7-25ff-486d-9962-1b3c347a062a',
+  '79c087a6-1ea7-41f1-88a4-2dccd5f17c6a',
   'diva',
   'Diva',
   'DAH-DIV-114',
@@ -1760,8 +1760,8 @@ INSERT INTO varieties (
   '/catalog-seed/diva.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1799,7 +1799,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'da3b8f69-ae14-4530-bada-1d49bb978fc6',
+  'e254ebc4-090c-42bf-a10b-d475d4d00b3b',
   'eveline',
   'Eveline',
   'DAH-NEW-114',
@@ -1814,8 +1814,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1853,7 +1853,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '5cff7525-56fd-487e-949b-b5112cddde32',
+  '87c10531-d7b6-4487-9af6-d64e1daa1b43',
   'ferncliff-copper',
   'Ferncliff Copper',
   'DAH-NEW-115',
@@ -1868,8 +1868,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1907,7 +1907,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'ef4df3e7-a592-4d49-9134-6b05d0ee9ce0',
+  'e57dc3d6-f0de-452a-9ddd-b7520fc8814a',
   'ferncliff-rusty',
   'Ferncliff Rusty',
   'DAH-FCR-009',
@@ -1922,8 +1922,8 @@ INSERT INTO varieties (
   '/catalog-seed/fc-rusty.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -1961,7 +1961,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '17f3ba17-31a8-4d72-afa2-aa849abce050',
+  'aa5e0d4e-d754-46a6-b8ae-8c70719ebf3f',
   'ferncliff-spice',
   'Ferncliff Spice',
   'DAH-FCS-010',
@@ -1976,8 +1976,8 @@ INSERT INTO varieties (
   '/catalog-seed/fc-spice.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2015,7 +2015,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'a6d25611-cbd7-4b9c-a4d1-03dccda2adb4',
+  '06f0c03e-7342-463d-babc-09bafe0bb42e',
   'fidalgo-blacky',
   'Fidalgo Blacky',
   'DAH-FDB-038',
@@ -2030,8 +2030,8 @@ INSERT INTO varieties (
   '/catalog-seed/fidalgo-blacky.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2069,7 +2069,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'ae70a7dc-7508-4c11-b1b8-33b4134fcf51',
+  '9f667a12-0083-4d06-a42f-e05da8dbd492',
   'fluffles',
   'Fluffles',
   'DAH-FLF-027',
@@ -2084,8 +2084,8 @@ INSERT INTO varieties (
   '/catalog-seed/fluffles.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2123,7 +2123,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '27664c8d-00c2-4eac-9fbf-849a07d3f301',
+  'd9337865-5d8f-4d27-83ce-bac71922c2c6',
   'gabbies-wish',
   'Gabby''s Wish',
   'DAH-GBW-039',
@@ -2138,8 +2138,8 @@ INSERT INTO varieties (
   '/catalog-seed/gabbies-wish.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2177,7 +2177,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '12a5325b-0dcf-42fe-b5bb-b95517fcb104',
+  'e65a087b-074c-4a29-b767-090f48fe97a5',
   'gitts-attention',
   'Gitts Attention',
   'DAH-NEW-116',
@@ -2192,8 +2192,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2231,7 +2231,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '20dfb73a-48cf-4ba3-a3c0-cd8e3cff3cc2',
+  'f128b6fe-20be-4ab2-a9f4-a0c3ea4527f4',
   'ice-tea',
   'Ice Tea',
   'DAH-ICT-040',
@@ -2246,8 +2246,8 @@ INSERT INTO varieties (
   '/catalog-seed/ice-tea.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2285,7 +2285,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'd4f1eaef-f518-42c9-9200-2b1af5a9ccd1',
+  'b3e1119f-a1a1-4edc-9784-5f5447f2c7ae',
   'irish-d-porter',
   'Irish D. Porter',
   'DAH-IDP-018',
@@ -2300,8 +2300,8 @@ INSERT INTO varieties (
   '/catalog-seed/irish-d-porter.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2339,7 +2339,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'e346565c-5257-42eb-8f21-2729381fbcfb',
+  '76c547e0-5f45-4987-80c8-5317690d3938',
   'irish-ruffles',
   'Irish Ruffles',
   'DAH-NEW-117',
@@ -2354,8 +2354,8 @@ INSERT INTO varieties (
   '/catalog-seed/irish-ruffles.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2393,7 +2393,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'f12678c1-8303-4987-b801-9b74576cf58a',
+  'e6c9bcb3-4d8d-49d7-821d-f25d1846a9f4',
   'isabel',
   'Isabel',
   'DAH-ISB-019',
@@ -2408,8 +2408,8 @@ INSERT INTO varieties (
   '/catalog-seed/isabel.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2447,7 +2447,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '0fde7a39-a72e-4a73-825c-64243c7095e4',
+  '401302fe-22db-4f8a-9ee3-23a59fd10bad',
   'jowey-linda',
   'Jowey Linda',
   'DAH-JWL-006',
@@ -2462,8 +2462,8 @@ INSERT INTO varieties (
   '/catalog-seed/jowey-linda.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2501,7 +2501,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '42c17e11-542c-4014-8d45-0f5790ae078d',
+  '1b7b95e2-97db-45e2-87b0-ddb557e09799',
   'jowey-nicky',
   'Jowey Nicky',
   'DAH-JWN-041',
@@ -2516,8 +2516,8 @@ INSERT INTO varieties (
   '/catalog-seed/jowey-nicky.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2555,7 +2555,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '46373290-c8f3-4908-a55f-a50148be2baa',
+  '4b274a2c-5942-4237-a57b-e869e0aec300',
   'just-peachy',
   'Just Peachy',
   'DAH-JSP-042',
@@ -2570,8 +2570,8 @@ INSERT INTO varieties (
   '/catalog-seed/just-peachy.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2609,7 +2609,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'c4a6ab0a-d9ed-4bf5-af29-55223b4192c5',
+  '4d051fa6-b26b-4ac2-8d66-31f3a69f740a',
   'ka-cloud',
   'KA Cloud',
   'DAH-NEW-119',
@@ -2624,8 +2624,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2663,7 +2663,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'b322c939-1474-489f-a52a-a1b8460eeeab',
+  '9756e8f4-4777-438d-8e89-1ba8e1b3474b',
   'ka-mocha-katie',
   'KA Mocha Katie',
   'DAH-KMK-011',
@@ -2678,8 +2678,8 @@ INSERT INTO varieties (
   '/catalog-seed/ka-mocha-katie.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2717,7 +2717,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '6fd830b8-ba3d-40b7-b023-465cb0d6a949',
+  '5ec76415-7dde-407b-95d6-5dacf0be4db6',
   'ka-rosie-jo',
   'KA Rosie Jo',
   'DAH-NEW-120',
@@ -2732,8 +2732,8 @@ INSERT INTO varieties (
   '/catalog-seed/ka-rosie-jo.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2771,7 +2771,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '766e4104-b1ae-46e4-9276-01d631a689c5',
+  '3a6b93f6-d81d-43ee-836b-06d69c021040',
   'karma-chocolate',
   'Karma Chocolate',
   'DAH-KCH-012',
@@ -2786,8 +2786,8 @@ INSERT INTO varieties (
   '/catalog-seed/karma-chocolate.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2825,7 +2825,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '9794490b-0935-4b7a-abec-7c01b08078fa',
+  '4b91ba93-c952-4fbb-b7da-f4f8007d128e',
   'kelgai-ann',
   'Kelgai Ann',
   'DAH-NEW-121',
@@ -2840,8 +2840,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2879,7 +2879,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '2df50011-1417-449e-8e35-040e69cf94f7',
+  'acebd4de-8f3f-4bd8-abe5-9811fbdf2840',
   'koko-puff',
   'Koko Puff',
   'DAH-NEW-122',
@@ -2894,8 +2894,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2933,7 +2933,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '26ae10d8-b45f-4303-bc3c-a2a6f7775466',
+  'd6f44bbf-5a90-4c2a-a4fc-33030d9e4c8c',
   'labyrinth',
   'Labyrinth',
   'DAH-LAB-013',
@@ -2948,8 +2948,8 @@ INSERT INTO varieties (
   '/catalog-seed/labyrinth.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -2987,7 +2987,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '0e847688-6475-40bb-8fd2-72dcda30886a',
+  '958b9eb4-70d2-4e01-8da5-913912161513',
   'larks-ebbe',
   'Lark''s Ebbe',
   'DAH-NEW-123',
@@ -3002,8 +3002,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3041,7 +3041,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '28af88fa-24fa-46a9-82b9-f145bc9d30b1',
+  '234a2144-8ca7-4097-bba1-0a8cd1a7623f',
   'last-dance',
   'Last Dance',
   'DAH-LSD-020',
@@ -3056,8 +3056,8 @@ INSERT INTO varieties (
   '/catalog-seed/last-dance.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3095,7 +3095,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'e7c1e5a3-9a19-4703-8863-2453e48dbe90',
+  '9fbfd019-ba42-45c5-b869-61e66094c7e4',
   'miss-sarah',
   'Miss Sarah',
   'DAH-MSS-017',
@@ -3110,8 +3110,8 @@ INSERT INTO varieties (
   '/catalog-seed/miss-sarah.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3149,7 +3149,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '5d484555-87d5-4a7f-9f72-cdbc45cd9a38',
+  'dede1255-9956-4475-81d9-229a175cc8aa',
   'mystique',
   'Mystique',
   'DAH-MYS-021',
@@ -3164,8 +3164,8 @@ INSERT INTO varieties (
   '/catalog-seed/mystique.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3203,7 +3203,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '417ac40f-f921-45d2-99d6-bd378d4529e4',
+  'fb1fcb6a-d4fe-4c1c-9d23-793ce7141f53',
   'nuit-dete',
   'N''uit D''ete',
   'DAH-NDE-043',
@@ -3218,8 +3218,8 @@ INSERT INTO varieties (
   '/catalog-seed/nuit-dete.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3257,7 +3257,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '2c7e6a9f-71af-421b-9ed2-9a240e74b976',
+  '58845599-bbd6-4f9c-af23-affccdb32457',
   'orange-globe',
   'Orange Globe',
   'DAH-ORG-044',
@@ -3272,8 +3272,8 @@ INSERT INTO varieties (
   '/catalog-seed/orange-globe.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3311,7 +3311,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '958b46e0-b368-4e51-bdca-7bb4da9d08f8',
+  '561f5d1f-db1b-4621-84a3-7f63e98037b4',
   'parkland-tribute',
   'Parkland Tribute',
   'DAH-NEW-125',
@@ -3326,8 +3326,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3365,7 +3365,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '0e542c76-b608-48d0-8c71-a1bec45446b8',
+  '4cc5285d-9337-4ade-bc9e-a2d25508070d',
   'penhill-dark-monarch',
   'Penhill Dark Monarch',
   'DAH-PDM-014',
@@ -3380,8 +3380,8 @@ INSERT INTO varieties (
   '/catalog-seed/penhill-dark-monarch.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3419,7 +3419,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'e4859c07-dc2c-447c-9bf8-7345b6e4a78d',
+  '20d6d34e-bbda-41a8-aaf4-9792f8d51645',
   'petras-wedding',
   'Petra''s Wedding',
   'DAH-PTW-015',
@@ -3434,8 +3434,8 @@ INSERT INTO varieties (
   '/catalog-seed/petras-wedding.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3473,7 +3473,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'a7c9cf42-92ff-4c4b-896b-fe4b3a97d8c6',
+  'ac752e1a-ef12-4219-bada-a09e7dd0de86',
   'pink-pearl',
   'Pink Pearl',
   'DAH-PKP-045',
@@ -3488,8 +3488,8 @@ INSERT INTO varieties (
   '/catalog-seed/pink-pearl.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3527,7 +3527,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'ce62aa0f-b2f6-4f82-8835-f1dd9d6d3e86',
+  'f7b9195b-6aa9-4dfc-9945-e215ce3d1974',
   'platinum-blonde',
   'Platinum Blonde',
   'DAH-PLB-046',
@@ -3542,8 +3542,8 @@ INSERT INTO varieties (
   '/catalog-seed/platinum blonde.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3581,7 +3581,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '96edca7e-d386-43af-ac64-580fcd9c50b9',
+  'ce09d7f8-f72c-4a9e-9a46-2f778cada521',
   'polka',
   'Polka',
   'DAH-NEW-127',
@@ -3596,8 +3596,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3635,7 +3635,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '75bc83f0-36d1-4baf-a00d-847822484006',
+  'd02599f9-48da-468e-aeab-cf0018d17bf8',
   'pooh',
   'Pooh',
   'DAH-POH-047',
@@ -3650,8 +3650,8 @@ INSERT INTO varieties (
   '/catalog-seed/pooh.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3689,7 +3689,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'b75d0522-a854-41d9-be30-f98cab4795ed',
+  '7bfd366d-e177-4a46-b30b-f3e48ca65593',
   'r-joan',
   'R Joan',
   'DAH-NEW-128',
@@ -3704,8 +3704,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3743,7 +3743,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '5bbb82b0-8304-46b5-a7c8-0775b2b0c55a',
+  '3e4e4c3f-05f3-4111-9574-155e25a7774f',
   'rock-run-ashley',
   'Rock Run Ashley',
   'DAH-RRA-048',
@@ -3758,8 +3758,8 @@ INSERT INTO varieties (
   '/catalog-seed/rock-run-ashley.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3797,7 +3797,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '9c2af188-150a-490d-9372-ee204b0ee65a',
+  '52b7330d-43b3-41d4-8ffd-1e165b64c1cb',
   'rossendale-peach',
   'Rossendale Peach',
   'DAH-NEW-129',
@@ -3812,8 +3812,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3851,7 +3851,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'e2ea86e0-f130-4da6-b984-a33049dc5c2c',
+  '8fd72231-81bc-4199-9f51-be5cd94238c5',
   'salish-twilight-girl',
   'Salish Twilight Girl',
   'DAH-NEW-130',
@@ -3866,8 +3866,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3905,7 +3905,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'd75e50fa-b230-4c44-b89a-36ba96c1bdab',
+  '5985e176-cd23-4847-9f10-7cf98c1949d7',
   'seniors-hope',
   'Senior''s Hope',
   'DAH-SNH-049',
@@ -3920,8 +3920,8 @@ INSERT INTO varieties (
   '/catalog-seed/seniors-hope.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -3959,7 +3959,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '64a6861c-5dee-40e2-9bba-d38f4795adbc',
+  '68a39537-c8c4-4123-b493-e77a4f5996a7',
   'sheer-heaven',
   'Sheer Heaven',
   'DAH-SHH-050',
@@ -3974,8 +3974,8 @@ INSERT INTO varieties (
   '/catalog-seed/sheer-heaven.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -4013,7 +4013,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '8c2e880f-7a2c-4b7f-8cf1-8c6013471544',
+  'ea230e26-011a-400c-a558-0c757e22404d',
   'snoho-doris',
   'Snoho Doris',
   'DAH-SND-051',
@@ -4028,8 +4028,8 @@ INSERT INTO varieties (
   '/catalog-seed/snoho-doris.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -4067,7 +4067,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'e2311d2d-f9a3-460b-8e81-f7df33489107',
+  'c9cfc93c-702f-4051-a609-58a39aafd24e',
   'snoho-sonia',
   'Snoho Sonia',
   'DAH-NEW-131',
@@ -4082,8 +4082,8 @@ INSERT INTO varieties (
   '/catalog-seed/snoho-sonia.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -4121,7 +4121,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '0801d999-e571-4b17-a644-fe1604154480',
+  'e297a391-a1a3-4cc8-aca7-a385e7930e20',
   'strawberries-n-cream',
   'Strawberries n Cream',
   'DAH-SNC-022',
@@ -4136,8 +4136,8 @@ INSERT INTO varieties (
   '/catalog-seed/strawberry-cream.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -4175,7 +4175,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '71ff70af-b1fc-4f4b-8775-6fa1a0f281a3',
+  '1d1e641d-2efd-481c-bfaa-ddc8fa9c9aa8',
   'sweet-natalie',
   'Sweet Nathalie',
   'DAH-SWN-016',
@@ -4190,8 +4190,8 @@ INSERT INTO varieties (
   '/catalog-seed/sweet-natalie.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -4229,7 +4229,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'a3e9286c-f2c6-4cbf-b14a-21b20263485d',
+  '416b8431-7c03-47bb-8506-6de1daac933b',
   'tempest',
   'Tempest',
   'DAH-NEW-132',
@@ -4244,8 +4244,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -4283,7 +4283,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '315b9269-c4bf-474d-8b50-e5f647d106bf',
+  'e179b26b-2c9c-49cd-b352-fd8ce0931e23',
   'terra-cotta',
   'Terra Cotta',
   'DAH-NEW-133',
@@ -4298,8 +4298,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -4337,7 +4337,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'c6dfbbd4-e5d2-49a8-ae8d-3a96b50f1a48',
+  '2e2de867-4f2f-492b-a8e9-b95326f8cabc',
   'tiny-treasure',
   'Tiny Treasure',
   'DAH-NEW-134',
@@ -4352,8 +4352,8 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -4391,7 +4391,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '00487937-cd42-4069-a185-e9bfe6ed1db4',
+  '850a55b3-b356-4923-92c4-14f013375079',
   'valley-rust-bucket',
   'Valley Rust Bucket',
   'DAH-VRB-052',
@@ -4406,8 +4406,8 @@ INSERT INTO varieties (
   '/catalog-seed/valley-rust-bucket.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -4445,7 +4445,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'fd8c8f69-cac7-4d6a-b102-2e698d10de49',
+  '65a67498-40d5-449c-9cb9-725df3177b90',
   'valley-tawney',
   'Valley Tawney',
   'DAH-NEW-135',
@@ -4460,8 +4460,8 @@ INSERT INTO varieties (
   '/catalog-seed/valley-tawney.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -4499,7 +4499,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '992b47ba-345c-4301-9cd6-579e6c24627e',
+  'd6984d56-492d-4a87-bd64-105a5f84465f',
   'venus',
   'Venus',
   'DAH-VEN-023',
@@ -4514,8 +4514,8 @@ INSERT INTO varieties (
   '/catalog-seed/venus.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -4553,7 +4553,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'ff91a5df-85ba-41e3-bb70-3c9600526a64',
+  'b14c83cf-a616-4667-8a09-f4ebedba7fa2',
   'wd-brittany',
   'WD Brittany',
   'DAH-WDB-053',
@@ -4568,8 +4568,8 @@ INSERT INTO varieties (
   '/catalog-seed/wd-brittany.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -4607,7 +4607,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'c7d4d628-6d1e-49e3-89e7-0d1f1271797e',
+  'a5a83ed6-ed87-4436-9102-738acb19ac5c',
   'wine-eyed-jill',
   'Wine Eyed Jill',
   'DAH-WEJ-024',
@@ -4622,8 +4622,8 @@ INSERT INTO varieties (
   '/catalog-seed/win-eyed-jill.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -4661,7 +4661,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'c58ac50d-049c-45a0-b171-e980b58e7095',
+  'c7850aa4-6c7f-4650-8d53-46a8fc9f86fa',
   'yelno-harmony',
   'Yelno Harmony',
   'DAH-YEH-025',
@@ -4676,8 +4676,8 @@ INSERT INTO varieties (
   '/catalog-seed/yelno-harmony.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
@@ -4715,7 +4715,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '4cd70799-9ddc-4bac-9fe1-ee0240df7508',
+  'dd6071e9-5fc0-4212-b243-1de22e089c4f',
   'yvonne',
   'Yvonne',
   'DAH-YVN-054',
@@ -4730,8 +4730,8 @@ INSERT INTO varieties (
   '/catalog-seed/yvonne.jpg',
   NULL,
   0,
-  '2026-03-21T03:11:47.503Z',
-  '2026-03-21T03:11:47.503Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,

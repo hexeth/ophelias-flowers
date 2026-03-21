@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from "vitest";
 import { RowActions } from "./row-actions";
 
 describe("RowActions", () => {
-  it("shows a delete action for saved rows", () => {
+  it("shows edit before an icon-only delete action for saved rows", () => {
     const html = renderToStaticMarkup(
       createElement(RowActions, {
         isEditing: false,
@@ -17,8 +17,11 @@ describe("RowActions", () => {
       }),
     );
 
-    expect(html).toContain(">Delete<");
     expect(html).toContain(">Edit<");
+    expect(html).toContain('aria-label="Delete variety"');
+    expect(html.indexOf(">Edit<")).toBeLessThan(
+      html.indexOf('aria-label="Delete variety"'),
+    );
   });
 
   it("shows a busy delete state while a row is being removed", () => {
@@ -34,7 +37,7 @@ describe("RowActions", () => {
       }),
     );
 
-    expect(html).toContain(">Deleting<");
+    expect(html).toContain('aria-label="Deleting variety"');
     expect(html).toContain('disabled=""');
   });
 });

@@ -32,9 +32,22 @@ describe("InventoryTable filter controls", () => {
         initialVarieties: [sampleVariety],
       }),
     );
-    const classOccurrences = html.split(inventoryFilterFieldClassName).length - 1;
+    const classOccurrences =
+      html.split(inventoryFilterFieldClassName).length - 1;
 
     expect(classOccurrences).toBe(4);
     expect(html).toContain("Filter");
+  });
+
+  it("renders a native delete confirmation dialog", () => {
+    const html = renderToStaticMarkup(
+      createElement(InventoryTable, {
+        initialVarieties: [sampleVariety],
+      }),
+    );
+
+    expect(html).toContain("<dialog");
+    expect(html).toContain("Confirm deletion");
+    expect(html).toContain("Delete variety");
   });
 });

@@ -3,6 +3,7 @@ import path from "node:path";
 import { rootDir } from "./lib/catalog-bootstrap.mjs";
 
 const localWranglerConfigPath = path.join(rootDir, "wrangler.local.toml");
+const deletedAtMigrationName = "0002_add_deleted_at_to_varieties.sql";
 
 function runCommand(command, args) {
   return new Promise((resolve, reject) => {
@@ -39,6 +40,16 @@ function runCommand(command, args) {
   });
 }
 
+function parseWranglerJson(stdout, description) {
+  const trimmed = stdout.trim();
+
+  if (!trimmed) {
+    throw new Error(`Missing JSON output from ${description}.`);
+  }
+
+  return JSON.parse(trimmed);
+}
+
 async function getLocalVarietiesColumns() {
   try {
     const { stdout } = await runCommand("npx", [
@@ -51,14 +62,66 @@ async function getLocalVarietiesColumns() {
       localWranglerConfigPath,
       "--command",
       "PRAGMA table_info(varieties);",
+      "--json",
     ]);
 
-    return Array.from(stdout.matchAll(/│\s*\d+\s*│\s*([^│]+?)\s*│/g), (match) =>
-      match[1].trim(),
-    );
+    const parsed = parseWranglerJson(stdout, "PRAGMA table_info(varieties)");
+    const results = Array.isArray(parsed) ? parsed[0]?.results : [];
+
+    if (!Array.isArray(results)) {
+      return [];
+    }
+
+    return results
+      .map((row) => (typeof row?.name === "string" ? row.name : null))
+      .filter((name) => name !== null);
   } catch {
     return [];
   }
+}
+
+async function getAppliedMigrationNames() {
+  try {
+    const { stdout } = await runCommand("npx", [
+      "wrangler",
+      "d1",
+      "execute",
+      "CATALOG_DB",
+      "--local",
+      "--config",
+      localWranglerConfigPath,
+      "--command",
+      "SELECT name FROM d1_migrations ORDER BY id;",
+      "--json",
+    ]);
+
+    const parsed = parseWranglerJson(stdout, "SELECT name FROM d1_migrations");
+    const results = Array.isArray(parsed) ? parsed[0]?.results : [];
+
+    if (!Array.isArray(results)) {
+      return [];
+    }
+
+    return results
+      .map((row) => (typeof row?.name === "string" ? row.name : null))
+      .filter((name) => name !== null);
+  } catch {
+    return [];
+  }
+}
+
+async function markDeletedAtMigrationApplied() {
+  await runCommand("npx", [
+    "wrangler",
+    "d1",
+    "execute",
+    "CATALOG_DB",
+    "--local",
+    "--config",
+    localWranglerConfigPath,
+    "--command",
+    `INSERT INTO d1_migrations (name, applied_at) VALUES ('${deletedAtMigrationName}', datetime('now'))`,
+  ]);
 }
 
 async function bootstrapLocalCatalog() {
@@ -69,8 +132,16 @@ async function bootstrapLocalCatalog() {
 }
 
 const columns = await getLocalVarietiesColumns();
+const appliedMigrationNames = await getAppliedMigrationNames();
 
 if (columns.includes("deleted_at")) {
+  if (!appliedMigrationNames.includes(deletedAtMigrationName)) {
+    console.log(
+      "Local catalog schema already has deleted_at; recording migration 0002 in local d1_migrations.",
+    );
+    await markDeletedAtMigrationApplied();
+  }
+
   process.exit(0);
 }
 
