@@ -2,6 +2,8 @@
 import Breadcrumbs from "../components/breadcrumbs.astro";
 import SiteSearchAutocomplete from "../components/site-search-autocomplete.astro";
 import SiteSearchForm from "../components/site-search-form.astro";
+import "@fontsource/playfair-display/400.css";
+import "@fontsource/playfair-display/700.css";
 
 interface Props {
   title: string;
@@ -22,12 +24,6 @@ const {
     <meta name="description" content={description} />
     <slot name="head" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
     <title>{title} | Ophelia's Flowers</title>
   </head>
   <body>
