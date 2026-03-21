@@ -1,6 +1,10 @@
 import type { APIRoute } from "astro";
 import { ZodError } from "zod";
-import { listAdminVarieties, saveVariety } from "../../../lib/varieties";
+import {
+  deleteVariety,
+  listAdminVarieties,
+  saveVariety,
+} from "../../../lib/varieties";
 
 export const prerender = false;
 
@@ -56,5 +60,28 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return json({ variety });
   } catch (error) {
     return handleAdminVarietiesError(error);
+  }
+};
+
+export const DELETE: APIRoute = async ({ request, locals }) => {
+  if (!locals.auth().userId) {
+    return unauthorized();
+  }
+
+  const id = new URL(request.url).searchParams.get("id")?.trim();
+  if (!id) {
+    return json({ error: "A variety id is required." }, 400);
+  }
+
+  try {
+    const variety = await deleteVariety(locals, id);
+    if (!variety) {
+      return json({ error: "Variety not found." }, 404);
+    }
+
+    return json({ variety });
+  } catch (error) {
+    console.error("Admin variety delete failed", error);
+    return json({ error: "Unable to delete variety right now." }, 500);
   }
 };

@@ -2,6 +2,7 @@ import {
   getPublicVarietyBySlug as getPublicVarietyBySlugFromDb,
   listAdminVarieties as listAdminVarietiesFromDb,
   listPublicVarieties as listPublicVarietiesFromDb,
+  softDeleteVariety,
   upsertVariety,
 } from "./catalog/repository";
 import {
@@ -45,6 +46,10 @@ export async function getPublicVarietyBySlug(locals: App.Locals, slug: string) {
 export async function saveVariety(locals: App.Locals, payload: unknown) {
   const input = parseVarietyInput(payload);
   return upsertVariety(getCatalogDb(locals), input);
+}
+
+export async function deleteVariety(locals: App.Locals, id: string) {
+  return softDeleteVariety(getCatalogDb(locals), id);
 }
 
 export function getCatalogImageBaseUrl(locals: App.Locals) {

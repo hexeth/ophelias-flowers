@@ -1,4 +1,10 @@
-import React, { useDeferredValue, useMemo, useState } from "react";
+import React, {
+  useDeferredValue,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { EditableCell } from "./editable-cell";
 import {
@@ -153,9 +159,14 @@ export default function InventoryTable({
   const [editingRowIds, setEditingRowIds] = useState<Record<string, boolean>>(
     {},
   );
+  const [deletingRowId, setDeletingRowId] = useState<string | null>(null);
+  const [confirmDeleteRow, setConfirmDeleteRow] = useState<InventoryRow | null>(
+    null,
+  );
   const [savingRowId, setSavingRowId] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const deleteDialogRef = useRef<HTMLDialogElement | null>(null);
   const deferredSearchQuery = useDeferredValue(searchQuery);
   const colorOptions = useMemo(
     () =>
@@ -184,6 +195,25 @@ export default function InventoryTable({
     [activeFilters, editingRowIds, originalRows, rows, sort],
   );
   const isFiltering = searchQuery !== deferredSearchQuery;
+
+  useEffect(() => {
+    const dialog = deleteDialogRef.current;
+
+    if (!dialog) {
+      return;
+    }
+
+    if (confirmDeleteRow) {
+      if (!dialog.open) {
+        dialog.showModal();
+      }
+      return;
+    }
+
+    if (dialog.open) {
+      dialog.close();
+    }
+  }, [confirmDeleteRow]);
 
   function setFilter<K extends Exclude<keyof InventoryTableFilters, "query">>(
     key: K,
@@ -351,6 +381,50 @@ export default function InventoryTable({
       omitRowSnapshot(current, [row.id, savedRow.id]),
     );
     setNotice(`${savedRow.name} saved.`);
+  }
+
+  function requestDeleteRow(row: InventoryRow) {
+    setConfirmDeleteRow(row);
+    setError(null);
+    setNotice(null);
+  }
+
+  function closeDeleteDialog() {
+    setConfirmDeleteRow(null);
+  }
+
+  async function deleteRow(row: InventoryRow) {
+    setDeletingRowId(row.id);
+    setError(null);
+    setNotice(null);
+
+    const response = await fetch(
+      `/api/admin/varieties?id=${encodeURIComponent(row.id)}`,
+      {
+        method: "DELETE",
+      },
+    );
+
+    const result = (await response.json()) as {
+      error?: string;
+      variety?: { id: string; name: string };
+    };
+    setDeletingRowId(null);
+    setConfirmDeleteRow((current) => (current?.id === row.id ? null : current));
+
+    if (!response.ok || !result.variety) {
+      setError(result.error ?? "Unable to delete variety.");
+      return;
+    }
+
+    setRows((current) => current.filter((item) => item.id !== row.id));
+    setEditingRowIds((current) => {
+      const next = { ...current };
+      delete next[row.id];
+      return next;
+    });
+    setOriginalRows((current) => omitRowSnapshot(current, [row.id]));
+    setNotice(`${result.variety.name} deleted.`);
   }
 
   const table = useReactTable({
@@ -589,6 +663,7 @@ export default function InventoryTable({
                         type="number"
                         isEditing={isEditing}
                         compact
+                        step={1}
                         onValueChange={(value) =>
                           setRowValue(row.original.id, "price", Number(value))
                         }
@@ -602,6 +677,7 @@ export default function InventoryTable({
                         type="number"
                         isEditing={isEditing}
                         compact
+                        step={1}
                         onValueChange={(value) => {
                           const nextValue = String(value).trim();
                           setRowValue(
@@ -709,9 +785,11 @@ export default function InventoryTable({
                       <div className="flex justify-end">
                         <RowActions
                           isEditing={isEditing}
+                          isDeleting={deletingRowId === row.original.id}
                           isSaving={savingRowId === row.original.id}
                           onEdit={() => beginEdit(row.original)}
                           onCancel={() => cancelEdit(row.original)}
+                          onDelete={() => requestDeleteRow(row.original)}
                           onSave={() => saveRow(row.original)}
                         />
                       </div>
@@ -723,6 +801,56 @@ export default function InventoryTable({
           </table>
         </div>
       </div>
+
+      <dialog
+        ref={deleteDialogRef}
+        className="w-full max-w-lg border border-ink bg-cream p-0 text-ink backdrop:bg-ink/40"
+        aria-labelledby="delete-variety-title"
+        onClose={closeDeleteDialog}
+      >
+        <form method="dialog" className="space-y-6 p-6">
+          <div className="space-y-3">
+            <p className="text-xs uppercase tracking-widest text-dahlia-wine">
+              Confirm deletion
+            </p>
+            <h2
+              id="delete-variety-title"
+              className="font-display text-3xl tracking-tight text-ink"
+            >
+              Delete {confirmDeleteRow?.name.trim() || "this variety"}?
+            </h2>
+            <p className="max-w-md text-sm leading-relaxed text-stone-500">
+              This removes the variety from the catalog and the admin inventory
+              table. This action cannot be undone.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
+            <button
+              type="submit"
+              className="border border-stone-300 px-4 py-3 text-xs uppercase tracking-widest text-stone-500 hover:border-ink hover:text-ink transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                if (confirmDeleteRow) {
+                  void deleteRow(confirmDeleteRow);
+                }
+              }}
+              disabled={
+                !confirmDeleteRow || deletingRowId === confirmDeleteRow.id
+              }
+              className="border border-dahlia-wine bg-dahlia-wine px-4 py-3 text-xs uppercase tracking-widest text-white hover:bg-cream hover:text-dahlia-wine transition-colors disabled:border-stone-300 disabled:bg-white disabled:text-stone-300"
+            >
+              {confirmDeleteRow && deletingRowId === confirmDeleteRow.id
+                ? "Deleting"
+                : "Delete variety"}
+            </button>
+          </div>
+        </form>
+      </dialog>
     </section>
   );
 }

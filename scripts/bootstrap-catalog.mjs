@@ -1,7 +1,6 @@
 import { spawn } from "node:child_process";
 import path from "node:path";
 import {
-  catalogMigrationFile,
   createWranglerConfigWithoutD1,
   defaultSeedOutputFile,
   legacyImagesDir,
@@ -70,6 +69,7 @@ function runCommand(command, args, options = {}) {
       cwd: rootDir,
       stdio: "inherit",
       shell: false,
+      env: process.env,
       ...options,
     });
 
@@ -107,6 +107,21 @@ async function runD1Execute(target, file, modeArgs, configOverride) {
   }
 
   await runCommand("npx", args);
+}
+
+async function runD1MigrationsApply(target, modeArgs, configOverride) {
+  const args = ["wrangler", "d1", "migrations", "apply", target, ...modeArgs];
+
+  if (configOverride) {
+    args.push("--config", configOverride);
+  }
+
+  await runCommand("npx", args, {
+    env: {
+      ...process.env,
+      CI: "1",
+    },
+  });
 }
 
 const args = process.argv.slice(2);
@@ -203,9 +218,8 @@ if (dryRun) {
 
 try {
   if (!skipMigration) {
-    await runD1Execute(
+    await runD1MigrationsApply(
       d1Target,
-      catalogMigrationFile,
       d1ModeArgs,
       d1ConfigOverride?.configPath,
     );

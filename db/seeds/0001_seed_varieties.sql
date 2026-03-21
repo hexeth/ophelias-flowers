@@ -17,7 +17,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'c175175e-0058-47e0-9651-7ef932e878d2',
+  '1a68ae80-8077-4990-9faa-daebdf4b5a91',
   '20th-avenue-memory',
   '20th Avenue Memory',
   'DAH-TAM-028',
@@ -32,14 +32,15 @@ INSERT INTO varieties (
   '/catalog-seed/20th-avenue-memory.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -47,6 +48,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -68,7 +71,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '9f1ebc4d-057f-440d-a707-c63ccdbea26a',
+  '2c9f9edc-ecf1-4680-909d-659b0d149c87',
   'a-la-mode',
   'A La Mode',
   'DAH-ALM-029',
@@ -83,14 +86,15 @@ INSERT INTO varieties (
   '/catalog-seed/a-la-mode.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -98,6 +102,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -119,7 +125,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'a8cc1501-28d2-4438-8fbe-e161c9228d3a',
+  'bde41b23-2cd1-42be-8e65-19a15fdfcd98',
   'american-dawn',
   'American Dawn',
   'DAH-AMD-030',
@@ -134,14 +140,15 @@ INSERT INTO varieties (
   '/catalog-seed/american-dawn.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -149,6 +156,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -170,7 +179,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '626169fd-161c-4da5-a70c-07d76b2148b7',
+  'a47d4af0-1e35-4209-8e65-7da78ab9d28b',
   'apple-blossom',
   'Apple Blossom',
   'DAH-APB-001',
@@ -185,14 +194,15 @@ INSERT INTO varieties (
   '/catalog-seed/apple-blossom.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -200,6 +210,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -221,7 +233,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '3c71fa48-fe5e-4c55-b7d4-b9fa31b3a1fd',
+  'c9aa445e-ec20-465c-94ab-c8f57f3e152f',
   'blizzard',
   'Blizzard',
   'DAH-NEW-101',
@@ -236,14 +248,15 @@ INSERT INTO varieties (
   '/catalog-seed/blizzard.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -251,6 +264,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -272,7 +287,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'd5bf6f40-a65b-4a61-b078-06c86879b5cf',
+  'f162a940-98c2-4fc8-a89a-e7a920d7a5ff',
   'bloomquist-alan',
   'Bloomquist Alan',
   'DAH-BQA-002',
@@ -287,14 +302,15 @@ INSERT INTO varieties (
   '/catalog-seed/bq-alan.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -302,6 +318,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -323,7 +341,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '2a73c605-550a-45c9-9d96-3fbefba9fa3b',
+  'e47b074f-1376-48c1-a218-aa356fef608c',
   'bloomquist-jean',
   'Bloomquist Jean',
   'DAH-BJN-032',
@@ -338,14 +356,15 @@ INSERT INTO varieties (
   '/catalog-seed/bq-jean.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -353,6 +372,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -374,7 +395,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '3c456231-b230-4c47-ae3c-9e4caab87ae0',
+  '9b22a696-5323-4112-868d-2dbd8e010cc3',
   'bloomquist-mojo',
   'Bloomquist Mojo',
   'DAH-BQM-003',
@@ -389,14 +410,15 @@ INSERT INTO varieties (
   '/catalog-seed/bq-mojo.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -404,6 +426,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -425,7 +449,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '26b346d6-9486-4779-af97-324cfc387d67',
+  '88f2e63b-f32b-4ec0-9cff-8189e78aa3b4',
   'bloomquist-tory-p',
   'Bloomquist Tory P',
   'DAH-BTP-033',
@@ -440,14 +464,15 @@ INSERT INTO varieties (
   '/catalog-seed/bq-tory-p.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -455,6 +480,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -476,7 +503,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'b2fc627b-52a4-4885-8424-9f2b4e3894d5',
+  '63c8b592-33e6-465e-9674-e538243e24c7',
   'bocherell',
   'Bocherell',
   'DAH-BOC-114',
@@ -491,14 +518,15 @@ INSERT INTO varieties (
   '/catalog-seed/bocherell.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -506,6 +534,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -527,7 +557,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'b101851b-55b2-473e-a605-4513414bba17',
+  '2578b496-835e-4ed5-a77d-c58acd114797',
   'boom-boom-white',
   'Boom Boom White',
   'DAH-BBW-031',
@@ -542,14 +572,15 @@ INSERT INTO varieties (
   '/catalog-seed/boom-boom-white.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -557,6 +588,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -578,7 +611,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'f15aae65-4187-4167-bee3-cb8dddc5e8a1',
+  'd4175002-72e0-4e01-b58a-36c13a787d7c',
   'bracken-palomino',
   'Bracken Palomino',
   'DAH-NEW-102',
@@ -593,14 +626,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -608,6 +642,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -629,7 +665,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '31d45359-4980-4e97-8f40-0c960d0c3d69',
+  'c6c3f5a7-9392-4898-a240-795647e9c2ec',
   'bracken-rose',
   'Bracken Rose',
   'DAH-BKR-004',
@@ -644,14 +680,15 @@ INSERT INTO varieties (
   '/catalog-seed/bracken-rose.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -659,6 +696,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -680,7 +719,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '1ebfd22c-5a60-465d-8ce5-df2ea6fcf353',
+  'f6370c53-f57e-4ef5-8480-1972c966ff04',
   'bracken-sarah',
   'Bracken Sarah',
   'DAH-NEW-103',
@@ -695,14 +734,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -710,6 +750,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -731,7 +773,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '301199b2-11c1-484f-8aa0-0269778f05f8',
+  '78eb7ca3-898b-4565-a4b6-afdef09a1a1d',
   'bride-to-be',
   'Bride to Be',
   'DAH-NEW-104',
@@ -746,14 +788,15 @@ INSERT INTO varieties (
   '/catalog-seed/bride-to-be.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -761,6 +804,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -782,7 +827,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'dcc18f2e-238a-4c82-b510-7ae4a209ee1b',
+  'a0bbb1e0-8f2e-4448-a5c8-6e5b85aadbbb',
   'brown-sugar',
   'Brown Sugar',
   'DAH-NEW-105',
@@ -797,14 +842,15 @@ INSERT INTO varieties (
   '/catalog-seed/brown-sugar.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -812,6 +858,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -833,7 +881,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'cf365ce0-d352-458f-aa23-830c1d3a9026',
+  'fcd2a460-7c10-4cd4-ab22-5bb1f8e5ff7f',
   'budapest-blush',
   'Budapest Blush',
   'DAH-NEW-106',
@@ -848,14 +896,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -863,6 +912,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -884,7 +935,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '6c26f90d-1a0c-470d-a6e1-4f7f72763bdb',
+  'f0f8e762-5600-4738-b32e-b0250e9935e7',
   'cafe-au-lait',
   'Cafe Au Lait',
   'DAH-NEW-107',
@@ -899,14 +950,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -914,6 +966,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -935,7 +989,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'd1d05ac8-1d7c-4e74-b5a2-911a1266d087',
+  '1ab2e9a5-3073-48ae-91af-cacde48c75fe',
   'caitlynns-joy',
   'Caitlynns Joy',
   'DAH-NEW-108',
@@ -950,14 +1004,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -965,6 +1020,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -986,7 +1043,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'f503b2cf-2207-47b1-9223-d93b5bdf468d',
+  '8965fa2f-1008-4f9a-b345-58ebccd98bda',
   'cal-mini',
   'Café au Lait Mini',
   'DAH-CLM-005',
@@ -1001,14 +1058,15 @@ INSERT INTO varieties (
   '/catalog-seed/CAL-mini.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -1016,6 +1074,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -1037,7 +1097,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'd22fc3b9-83c6-4a50-a5c7-e2c927b7f9a4',
+  '471b0cd2-8013-4c64-bec0-41cce9080360',
   'castle-drive',
   'Castle Drive',
   'DAH-CSD-007',
@@ -1052,14 +1112,15 @@ INSERT INTO varieties (
   '/catalog-seed/castle-drive.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -1067,6 +1128,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -1088,7 +1151,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'c0654cc4-6564-47e8-bd6b-74cd58088c7d',
+  'ed52220a-3481-4a8a-88a6-63e8265ce12d',
   'chewy',
   'Chewy',
   'DAH-CHW-034',
@@ -1103,14 +1166,15 @@ INSERT INTO varieties (
   '/catalog-seed/chewy.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -1118,6 +1182,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -1139,7 +1205,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'b4521ce0-250b-44fb-ba25-0ee9c2520658',
+  '6e606320-45fa-4099-9cde-fa37ca22ff10',
   'clearview-peachy',
   'Clearview Peachy',
   'DAH-CLP-035',
@@ -1154,14 +1220,15 @@ INSERT INTO varieties (
   '/catalog-seed/clearview-peachy.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -1169,6 +1236,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -1190,7 +1259,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '90e33caa-635c-43d3-af16-5764f466d8b0',
+  '19ff87ac-9767-490a-99e6-35ae5b1dfe52',
   'colorado-classic',
   'Colorado Classic',
   'DAH-NEW-109',
@@ -1205,14 +1274,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -1220,6 +1290,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -1241,7 +1313,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '1393fa3e-d054-4d07-9175-b5f88096a3ea',
+  'adcb7403-574f-4598-b5d6-de78d7917ae5',
   'copper-boy',
   'Copper Boy',
   'DAH-NEW-110',
@@ -1256,14 +1328,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -1271,6 +1344,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -1292,7 +1367,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'af8f0959-cbef-4313-832f-5aa030d7dd0d',
+  'c7d27ab4-7894-4622-8572-55aa7c4ba4c9',
   'coralie',
   'Coralie',
   'DAH-COR-008',
@@ -1307,14 +1382,15 @@ INSERT INTO varieties (
   '/catalog-seed/coralie.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -1322,6 +1398,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -1343,7 +1421,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '271acf89-1e89-4e58-9bab-2f05aa2d25c9',
+  '7533378c-447a-4850-8ed1-334a676240b6',
   'cornel-bronze',
   'Cornel Bronze',
   'DAH-NEW-112',
@@ -1358,14 +1436,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -1373,6 +1452,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -1394,7 +1475,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'a50ed58e-07da-4c29-98b1-6624fb6ebfdb',
+  '86173dc4-2353-4097-98e2-00f254bae30a',
   'cornel',
   'Cornel',
   'DAH-NEW-111',
@@ -1409,14 +1490,15 @@ INSERT INTO varieties (
   '/catalog-seed/cornel.png',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -1424,6 +1506,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -1445,7 +1529,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'f5b196a4-f9eb-4c35-8e0f-a93c5cedb644',
+  '6bc66a41-8deb-47c6-a589-149524150356',
   'coseytown-bounty',
   'Coseytown Bounty',
   'DAH-NEW-113',
@@ -1460,14 +1544,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -1475,6 +1560,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -1496,7 +1583,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '752c3e0d-74ea-4289-89a0-2280b42c5470',
+  'd0519d80-82a2-4be8-9655-d53b86c8b8fc',
   'creamy',
   'Creamy',
   'DAH-CRM-026',
@@ -1511,14 +1598,15 @@ INSERT INTO varieties (
   '/catalog-seed/creamy.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -1526,6 +1614,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -1547,7 +1637,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '86b3aa63-d78b-4606-9010-5677dc5c64ef',
+  '63415a58-f238-4023-8e21-e91654003be0',
   'creme-de-cassis',
   'Crème De Cassis',
   'DAH-CDK-036',
@@ -1562,14 +1652,15 @@ INSERT INTO varieties (
   '/catalog-seed/creme-de-cassis.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -1577,6 +1668,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -1598,7 +1691,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'c0d94507-d0d8-444e-9ba5-4c51a5a3994f',
+  '3cdf80c6-d568-4d57-ab5f-65e8e010a028',
   'crighton-honey',
   'Crichton Honey',
   'DAH-CRH-037',
@@ -1613,14 +1706,15 @@ INSERT INTO varieties (
   '/catalog-seed/crighton-honey.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -1628,6 +1722,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -1649,7 +1745,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'b20961a4-9d5a-44fe-9e28-1d4550cc103a',
+  '79c087a6-1ea7-41f1-88a4-2dccd5f17c6a',
   'diva',
   'Diva',
   'DAH-DIV-114',
@@ -1664,14 +1760,15 @@ INSERT INTO varieties (
   '/catalog-seed/diva.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -1679,6 +1776,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -1700,7 +1799,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'a71eb249-1124-4cbf-aa11-c0e6ebb7a605',
+  'e254ebc4-090c-42bf-a10b-d475d4d00b3b',
   'eveline',
   'Eveline',
   'DAH-NEW-114',
@@ -1715,14 +1814,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -1730,6 +1830,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -1751,7 +1853,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'a8493852-c6b8-4d36-8f0e-cc834bc27e08',
+  '87c10531-d7b6-4487-9af6-d64e1daa1b43',
   'ferncliff-copper',
   'Ferncliff Copper',
   'DAH-NEW-115',
@@ -1766,14 +1868,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -1781,6 +1884,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -1802,7 +1907,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '18e45040-d265-41b0-918b-24134bc04c81',
+  'e57dc3d6-f0de-452a-9ddd-b7520fc8814a',
   'ferncliff-rusty',
   'Ferncliff Rusty',
   'DAH-FCR-009',
@@ -1817,14 +1922,15 @@ INSERT INTO varieties (
   '/catalog-seed/fc-rusty.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -1832,6 +1938,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -1853,7 +1961,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '94db4bea-0266-414e-815e-ad41fc5c0214',
+  'aa5e0d4e-d754-46a6-b8ae-8c70719ebf3f',
   'ferncliff-spice',
   'Ferncliff Spice',
   'DAH-FCS-010',
@@ -1868,14 +1976,15 @@ INSERT INTO varieties (
   '/catalog-seed/fc-spice.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -1883,6 +1992,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -1904,7 +2015,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'f8d31702-d1be-4b43-9aa3-bebef163f414',
+  '06f0c03e-7342-463d-babc-09bafe0bb42e',
   'fidalgo-blacky',
   'Fidalgo Blacky',
   'DAH-FDB-038',
@@ -1919,14 +2030,15 @@ INSERT INTO varieties (
   '/catalog-seed/fidalgo-blacky.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -1934,6 +2046,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -1955,7 +2069,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'e95aba4c-751c-4754-bc83-97f5b930f5c2',
+  '9f667a12-0083-4d06-a42f-e05da8dbd492',
   'fluffles',
   'Fluffles',
   'DAH-FLF-027',
@@ -1970,14 +2084,15 @@ INSERT INTO varieties (
   '/catalog-seed/fluffles.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -1985,6 +2100,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -2006,7 +2123,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'a85f2ba1-d862-4519-94d3-897803bde684',
+  'd9337865-5d8f-4d27-83ce-bac71922c2c6',
   'gabbies-wish',
   'Gabby''s Wish',
   'DAH-GBW-039',
@@ -2021,14 +2138,15 @@ INSERT INTO varieties (
   '/catalog-seed/gabbies-wish.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -2036,6 +2154,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -2057,7 +2177,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '66d8299a-48be-4443-a433-9e5fa2828b62',
+  'e65a087b-074c-4a29-b767-090f48fe97a5',
   'gitts-attention',
   'Gitts Attention',
   'DAH-NEW-116',
@@ -2072,14 +2192,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -2087,6 +2208,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -2108,7 +2231,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '81dd528f-ef22-4c4c-9dc5-4fe459c40a21',
+  'f128b6fe-20be-4ab2-a9f4-a0c3ea4527f4',
   'ice-tea',
   'Ice Tea',
   'DAH-ICT-040',
@@ -2123,14 +2246,15 @@ INSERT INTO varieties (
   '/catalog-seed/ice-tea.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -2138,6 +2262,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -2159,7 +2285,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '689f6e91-c656-4ecb-a891-28c3c83d8d3c',
+  'b3e1119f-a1a1-4edc-9784-5f5447f2c7ae',
   'irish-d-porter',
   'Irish D. Porter',
   'DAH-IDP-018',
@@ -2174,14 +2300,15 @@ INSERT INTO varieties (
   '/catalog-seed/irish-d-porter.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -2189,6 +2316,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -2210,7 +2339,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'a0aec64a-e215-4f83-9648-29e0523d5b54',
+  '76c547e0-5f45-4987-80c8-5317690d3938',
   'irish-ruffles',
   'Irish Ruffles',
   'DAH-NEW-117',
@@ -2225,14 +2354,15 @@ INSERT INTO varieties (
   '/catalog-seed/irish-ruffles.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -2240,6 +2370,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -2261,7 +2393,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'cc960301-2f2a-4bad-9a16-b1b141da3c93',
+  'e6c9bcb3-4d8d-49d7-821d-f25d1846a9f4',
   'isabel',
   'Isabel',
   'DAH-ISB-019',
@@ -2276,14 +2408,15 @@ INSERT INTO varieties (
   '/catalog-seed/isabel.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -2291,6 +2424,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -2312,7 +2447,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '4738878a-d2f5-4be2-9d86-69ac6bbb6f1e',
+  '401302fe-22db-4f8a-9ee3-23a59fd10bad',
   'jowey-linda',
   'Jowey Linda',
   'DAH-JWL-006',
@@ -2327,14 +2462,15 @@ INSERT INTO varieties (
   '/catalog-seed/jowey-linda.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -2342,6 +2478,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -2363,7 +2501,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '3bc5d886-e3f5-458e-a9f9-be2aa480c6ec',
+  '1b7b95e2-97db-45e2-87b0-ddb557e09799',
   'jowey-nicky',
   'Jowey Nicky',
   'DAH-JWN-041',
@@ -2378,14 +2516,15 @@ INSERT INTO varieties (
   '/catalog-seed/jowey-nicky.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -2393,6 +2532,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -2414,7 +2555,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '8ad9590f-a870-4dee-afe1-336d365ba0ac',
+  '4b274a2c-5942-4237-a57b-e869e0aec300',
   'just-peachy',
   'Just Peachy',
   'DAH-JSP-042',
@@ -2429,14 +2570,15 @@ INSERT INTO varieties (
   '/catalog-seed/just-peachy.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -2444,6 +2586,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -2465,7 +2609,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'c5011547-646f-4721-ae4b-bf0800395503',
+  '4d051fa6-b26b-4ac2-8d66-31f3a69f740a',
   'ka-cloud',
   'KA Cloud',
   'DAH-NEW-119',
@@ -2480,14 +2624,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -2495,6 +2640,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -2516,7 +2663,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'c55316d2-027b-4d8b-b9d6-942a1aaf78e5',
+  '9756e8f4-4777-438d-8e89-1ba8e1b3474b',
   'ka-mocha-katie',
   'KA Mocha Katie',
   'DAH-KMK-011',
@@ -2531,14 +2678,15 @@ INSERT INTO varieties (
   '/catalog-seed/ka-mocha-katie.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -2546,6 +2694,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -2567,7 +2717,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'de6a6451-2524-482a-a452-7e3d777457ed',
+  '5ec76415-7dde-407b-95d6-5dacf0be4db6',
   'ka-rosie-jo',
   'KA Rosie Jo',
   'DAH-NEW-120',
@@ -2582,14 +2732,15 @@ INSERT INTO varieties (
   '/catalog-seed/ka-rosie-jo.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -2597,6 +2748,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -2618,7 +2771,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '27685a6c-1cc1-4800-af6f-dd5313c03c65',
+  '3a6b93f6-d81d-43ee-836b-06d69c021040',
   'karma-chocolate',
   'Karma Chocolate',
   'DAH-KCH-012',
@@ -2633,14 +2786,15 @@ INSERT INTO varieties (
   '/catalog-seed/karma-chocolate.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -2648,6 +2802,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -2669,7 +2825,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '656167ed-e06d-4996-be00-575631ee6ed1',
+  '4b91ba93-c952-4fbb-b7da-f4f8007d128e',
   'kelgai-ann',
   'Kelgai Ann',
   'DAH-NEW-121',
@@ -2684,14 +2840,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -2699,6 +2856,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -2720,7 +2879,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'f3d27031-7b82-4eca-bfe1-d23cd814fe1f',
+  'acebd4de-8f3f-4bd8-abe5-9811fbdf2840',
   'koko-puff',
   'Koko Puff',
   'DAH-NEW-122',
@@ -2735,14 +2894,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -2750,6 +2910,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -2771,7 +2933,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '970e1170-08b8-49f4-b5e7-7e278385195c',
+  'd6f44bbf-5a90-4c2a-a4fc-33030d9e4c8c',
   'labyrinth',
   'Labyrinth',
   'DAH-LAB-013',
@@ -2786,14 +2948,15 @@ INSERT INTO varieties (
   '/catalog-seed/labyrinth.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -2801,6 +2964,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -2822,7 +2987,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '275f74ac-cdbd-45c7-9455-15a39eacfcfd',
+  '958b9eb4-70d2-4e01-8da5-913912161513',
   'larks-ebbe',
   'Lark''s Ebbe',
   'DAH-NEW-123',
@@ -2837,14 +3002,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -2852,6 +3018,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -2873,7 +3041,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'ab5483bc-cc67-4ca9-adf9-7b40a1cb8957',
+  '234a2144-8ca7-4097-bba1-0a8cd1a7623f',
   'last-dance',
   'Last Dance',
   'DAH-LSD-020',
@@ -2888,14 +3056,15 @@ INSERT INTO varieties (
   '/catalog-seed/last-dance.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -2903,6 +3072,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -2924,7 +3095,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'f4257f44-5b0e-4224-97ae-49c3d95b355a',
+  '9fbfd019-ba42-45c5-b869-61e66094c7e4',
   'miss-sarah',
   'Miss Sarah',
   'DAH-MSS-017',
@@ -2939,14 +3110,15 @@ INSERT INTO varieties (
   '/catalog-seed/miss-sarah.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -2954,6 +3126,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -2975,7 +3149,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'cff02086-ff28-4a06-8e59-4bd521995c20',
+  'dede1255-9956-4475-81d9-229a175cc8aa',
   'mystique',
   'Mystique',
   'DAH-MYS-021',
@@ -2990,14 +3164,15 @@ INSERT INTO varieties (
   '/catalog-seed/mystique.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -3005,6 +3180,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -3026,7 +3203,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '5be9fc8f-dfc0-4823-9e63-74a4c581f387',
+  'fb1fcb6a-d4fe-4c1c-9d23-793ce7141f53',
   'nuit-dete',
   'N''uit D''ete',
   'DAH-NDE-043',
@@ -3041,14 +3218,15 @@ INSERT INTO varieties (
   '/catalog-seed/nuit-dete.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -3056,6 +3234,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -3077,7 +3257,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '7d5b7b06-f80f-4e51-be38-3dc66c8561ac',
+  '58845599-bbd6-4f9c-af23-affccdb32457',
   'orange-globe',
   'Orange Globe',
   'DAH-ORG-044',
@@ -3092,14 +3272,15 @@ INSERT INTO varieties (
   '/catalog-seed/orange-globe.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -3107,6 +3288,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -3128,7 +3311,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'd79f4aeb-4bbf-4a61-84d4-6a787c20d302',
+  '561f5d1f-db1b-4621-84a3-7f63e98037b4',
   'parkland-tribute',
   'Parkland Tribute',
   'DAH-NEW-125',
@@ -3143,14 +3326,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -3158,6 +3342,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -3179,7 +3365,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '225be973-a59f-4ff6-b9f6-0d90ca3c3fd8',
+  '4cc5285d-9337-4ade-bc9e-a2d25508070d',
   'penhill-dark-monarch',
   'Penhill Dark Monarch',
   'DAH-PDM-014',
@@ -3194,14 +3380,15 @@ INSERT INTO varieties (
   '/catalog-seed/penhill-dark-monarch.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -3209,6 +3396,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -3230,7 +3419,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '80e1846d-d580-41ad-9161-289d91c80826',
+  '20d6d34e-bbda-41a8-aaf4-9792f8d51645',
   'petras-wedding',
   'Petra''s Wedding',
   'DAH-PTW-015',
@@ -3245,14 +3434,15 @@ INSERT INTO varieties (
   '/catalog-seed/petras-wedding.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -3260,6 +3450,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -3281,7 +3473,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '97ca4d88-0960-40e8-96a9-9dbb8342da6b',
+  'ac752e1a-ef12-4219-bada-a09e7dd0de86',
   'pink-pearl',
   'Pink Pearl',
   'DAH-PKP-045',
@@ -3296,14 +3488,15 @@ INSERT INTO varieties (
   '/catalog-seed/pink-pearl.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -3311,6 +3504,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -3332,7 +3527,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'b69cbbd1-c28b-4bcd-af86-9288f3940262',
+  'f7b9195b-6aa9-4dfc-9945-e215ce3d1974',
   'platinum-blonde',
   'Platinum Blonde',
   'DAH-PLB-046',
@@ -3347,14 +3542,15 @@ INSERT INTO varieties (
   '/catalog-seed/platinum blonde.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -3362,6 +3558,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -3383,7 +3581,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'd32e75bf-7d94-4084-af9d-d98a6ab11d1e',
+  'ce09d7f8-f72c-4a9e-9a46-2f778cada521',
   'polka',
   'Polka',
   'DAH-NEW-127',
@@ -3398,14 +3596,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -3413,6 +3612,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -3434,7 +3635,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '5337b493-b7ea-4772-bf5c-5297945b9da9',
+  'd02599f9-48da-468e-aeab-cf0018d17bf8',
   'pooh',
   'Pooh',
   'DAH-POH-047',
@@ -3449,14 +3650,15 @@ INSERT INTO varieties (
   '/catalog-seed/pooh.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -3464,6 +3666,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -3485,7 +3689,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '94f11da0-40ce-4647-bdc3-5bd231e28d9b',
+  '7bfd366d-e177-4a46-b30b-f3e48ca65593',
   'r-joan',
   'R Joan',
   'DAH-NEW-128',
@@ -3500,14 +3704,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -3515,6 +3720,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -3536,7 +3743,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '3e71c580-78fc-49d9-a85a-7d26a044086a',
+  '3e4e4c3f-05f3-4111-9574-155e25a7774f',
   'rock-run-ashley',
   'Rock Run Ashley',
   'DAH-RRA-048',
@@ -3551,14 +3758,15 @@ INSERT INTO varieties (
   '/catalog-seed/rock-run-ashley.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -3566,6 +3774,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -3587,7 +3797,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '1a45f6ce-854f-4bd9-80d6-6088527e24ca',
+  '52b7330d-43b3-41d4-8ffd-1e165b64c1cb',
   'rossendale-peach',
   'Rossendale Peach',
   'DAH-NEW-129',
@@ -3602,14 +3812,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -3617,6 +3828,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -3638,7 +3851,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '55afbe57-ab48-4974-af16-f7b19ce8bb45',
+  '8fd72231-81bc-4199-9f51-be5cd94238c5',
   'salish-twilight-girl',
   'Salish Twilight Girl',
   'DAH-NEW-130',
@@ -3653,14 +3866,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -3668,6 +3882,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -3689,7 +3905,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'a95903f7-7be7-4b2c-ad6b-3b22b0931426',
+  '5985e176-cd23-4847-9f10-7cf98c1949d7',
   'seniors-hope',
   'Senior''s Hope',
   'DAH-SNH-049',
@@ -3704,14 +3920,15 @@ INSERT INTO varieties (
   '/catalog-seed/seniors-hope.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -3719,6 +3936,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -3740,7 +3959,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'e7f8555b-a3ec-43d4-96fc-48ca0091caae',
+  '68a39537-c8c4-4123-b493-e77a4f5996a7',
   'sheer-heaven',
   'Sheer Heaven',
   'DAH-SHH-050',
@@ -3755,14 +3974,15 @@ INSERT INTO varieties (
   '/catalog-seed/sheer-heaven.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -3770,6 +3990,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -3791,7 +4013,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'c00695f1-fe19-45d5-8eeb-6d601269c0cb',
+  'ea230e26-011a-400c-a558-0c757e22404d',
   'snoho-doris',
   'Snoho Doris',
   'DAH-SND-051',
@@ -3806,14 +4028,15 @@ INSERT INTO varieties (
   '/catalog-seed/snoho-doris.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -3821,6 +4044,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -3842,7 +4067,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'f59c3afe-29af-4b2c-9539-5a5e4f02620b',
+  'c9cfc93c-702f-4051-a609-58a39aafd24e',
   'snoho-sonia',
   'Snoho Sonia',
   'DAH-NEW-131',
@@ -3857,14 +4082,15 @@ INSERT INTO varieties (
   '/catalog-seed/snoho-sonia.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -3872,6 +4098,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -3893,7 +4121,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '1a8b5b76-ea24-48d2-9c41-92d61d4fea81',
+  'e297a391-a1a3-4cc8-aca7-a385e7930e20',
   'strawberries-n-cream',
   'Strawberries n Cream',
   'DAH-SNC-022',
@@ -3908,14 +4136,15 @@ INSERT INTO varieties (
   '/catalog-seed/strawberry-cream.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -3923,6 +4152,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -3944,7 +4175,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '4b358779-7b8d-4996-9ec1-51c2f7176eb7',
+  '1d1e641d-2efd-481c-bfaa-ddc8fa9c9aa8',
   'sweet-natalie',
   'Sweet Nathalie',
   'DAH-SWN-016',
@@ -3959,14 +4190,15 @@ INSERT INTO varieties (
   '/catalog-seed/sweet-natalie.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -3974,6 +4206,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -3995,7 +4229,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'cd2888c4-cb5a-4217-823f-09140b375798',
+  '416b8431-7c03-47bb-8506-6de1daac933b',
   'tempest',
   'Tempest',
   'DAH-NEW-132',
@@ -4010,14 +4244,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -4025,6 +4260,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -4046,7 +4283,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'e1beafc5-8f79-4a4d-87ca-08b039b87312',
+  'e179b26b-2c9c-49cd-b352-fd8ce0931e23',
   'terra-cotta',
   'Terra Cotta',
   'DAH-NEW-133',
@@ -4061,14 +4298,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -4076,6 +4314,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -4097,7 +4337,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '3553710a-899b-4c39-ba65-1e03011551a0',
+  '2e2de867-4f2f-492b-a8e9-b95326f8cabc',
   'tiny-treasure',
   'Tiny Treasure',
   'DAH-NEW-134',
@@ -4112,14 +4352,15 @@ INSERT INTO varieties (
   '/catalog-seed/placeholder-variety.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -4127,6 +4368,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -4148,7 +4391,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'b60eb6aa-505f-4ecb-a54d-14ff360f23d4',
+  '850a55b3-b356-4923-92c4-14f013375079',
   'valley-rust-bucket',
   'Valley Rust Bucket',
   'DAH-VRB-052',
@@ -4163,14 +4406,15 @@ INSERT INTO varieties (
   '/catalog-seed/valley-rust-bucket.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -4178,6 +4422,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -4199,7 +4445,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '8e1bc601-3e68-4f39-89ae-2f7855a6263c',
+  '65a67498-40d5-449c-9cb9-725df3177b90',
   'valley-tawney',
   'Valley Tawney',
   'DAH-NEW-135',
@@ -4214,14 +4460,15 @@ INSERT INTO varieties (
   '/catalog-seed/valley-tawney.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -4229,6 +4476,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -4250,7 +4499,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'cf937f16-a0a0-4098-93c6-e7f7b05ebe69',
+  'd6984d56-492d-4a87-bd64-105a5f84465f',
   'venus',
   'Venus',
   'DAH-VEN-023',
@@ -4265,14 +4514,15 @@ INSERT INTO varieties (
   '/catalog-seed/venus.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -4280,6 +4530,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -4301,7 +4553,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  'c4c4ced1-8715-4000-8273-8fef3b7006a4',
+  'b14c83cf-a616-4667-8a09-f4ebedba7fa2',
   'wd-brittany',
   'WD Brittany',
   'DAH-WDB-053',
@@ -4316,14 +4568,15 @@ INSERT INTO varieties (
   '/catalog-seed/wd-brittany.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -4331,6 +4584,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -4352,7 +4607,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '0d7ed296-0139-4d98-9f17-3f97a14fa9b3',
+  'a5a83ed6-ed87-4436-9102-738acb19ac5c',
   'wine-eyed-jill',
   'Wine Eyed Jill',
   'DAH-WEJ-024',
@@ -4367,14 +4622,15 @@ INSERT INTO varieties (
   '/catalog-seed/win-eyed-jill.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -4382,6 +4638,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -4403,7 +4661,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '5490f288-a50f-4534-95c2-066650e4266c',
+  'c7850aa4-6c7f-4650-8d53-46a8fc9f86fa',
   'yelno-harmony',
   'Yelno Harmony',
   'DAH-YEH-025',
@@ -4418,14 +4676,15 @@ INSERT INTO varieties (
   '/catalog-seed/yelno-harmony.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -4433,6 +4692,8 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;
 
 INSERT INTO varieties (
@@ -4454,7 +4715,7 @@ INSERT INTO varieties (
   created_at,
   updated_at
 ) VALUES (
-  '09746dc8-9cbe-4c36-82c4-6085eb1aeb3f',
+  'dd6071e9-5fc0-4212-b243-1de22e089c4f',
   'yvonne',
   'Yvonne',
   'DAH-YVN-054',
@@ -4469,14 +4730,15 @@ INSERT INTO varieties (
   '/catalog-seed/yvonne.jpg',
   NULL,
   0,
-  '2026-03-20T00:34:38.592Z',
-  '2026-03-20T00:34:38.592Z'
+  '2026-03-21T03:26:19.153Z',
+  '2026-03-21T03:26:19.153Z'
 )
 ON CONFLICT(slug) DO UPDATE SET
   name = excluded.name,
   sku = excluded.sku,
   description = excluded.description,
   price_cents = excluded.price_cents,
+  sale_price_cents = excluded.sale_price_cents,
   stock = excluded.stock,
   category = excluded.category,
   color_json = excluded.color_json,
@@ -4484,4 +4746,6 @@ ON CONFLICT(slug) DO UPDATE SET
   height = excluded.height,
   image_url = excluded.image_url,
   image_key = excluded.image_key,
+  hidden = excluded.hidden,
+  created_at = excluded.created_at,
   updated_at = excluded.updated_at;

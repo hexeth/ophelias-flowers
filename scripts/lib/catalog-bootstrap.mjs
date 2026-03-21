@@ -32,12 +32,7 @@ export const defaultSeedOutputFile = path.join(
   seedOutputDir,
   "0001_seed_varieties.sql",
 );
-export const catalogMigrationFile = path.join(
-  rootDir,
-  "db",
-  "migrations",
-  "0001_create_varieties.sql",
-);
+export const catalogMigrationsDir = path.join(rootDir, "db", "migrations");
 
 function trimSlashes(value) {
   return value.replace(/^\/+|\/+$/g, "");
@@ -245,8 +240,8 @@ export async function createWranglerConfigWithoutD1() {
   const originalConfigPath = path.join(rootDir, "wrangler.toml");
   const originalConfig = await readFile(originalConfigPath, "utf8");
   const sanitizedConfig = originalConfig.replace(
-    /\n\[\[d1_databases\]\][\s\S]*?(?=\n\[\[|\n\[|$)/,
-    "\n",
+    /(\n\[\[d1_databases\]\][\s\S]*?\ndatabase_id\s*=\s*")[^"]+("[\s\S]*?(?=\n\[\[|\n\[|$))/, 
+    `$100000000-0000-4000-8000-000000000000$2`,
   );
 
   const tempDir = await mkdtemp(
