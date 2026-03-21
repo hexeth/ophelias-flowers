@@ -1,5 +1,9 @@
 <script>
   import { categoryLabels, stockLabels } from "../lib/catalog/constants";
+  import {
+    buildCatalogImageUrl,
+    isCatalogImagePath,
+  } from "../lib/catalog/image-urls";
 
   interface VarietySearchSuggestion {
     category: string;
@@ -128,12 +132,21 @@
           link.className = "grid min-h-14 grid-cols-[3.5rem_minmax(0,1fr)] gap-3 px-4 py-3 no-underline transition-colors hover:bg-ink hover:text-cream focus:bg-ink focus:text-cream focus:outline-none bg-cream sm:grid-cols-[3rem_minmax(0,1fr)] sm:px-3";
 
           const image = document.createElement("img");
-          image.src = suggestion.imageUrl;
+          image.src = isCatalogImagePath(suggestion.imageUrl)
+            ? buildCatalogImageUrl(suggestion.imageUrl, {
+                width: 128,
+                quality: 70,
+                fit: "cover",
+                format: "auto",
+              })
+            : suggestion.imageUrl;
           image.alt = "";
           image.className =
             "h-14 w-14 border border-ink object-cover sm:h-12 sm:w-12";
           image.loading = "lazy";
           image.decoding = "async";
+          image.width = 56;
+          image.height = 56;
 
           const textWrap = document.createElement("span");
           textWrap.className = "min-w-0 space-y-1";

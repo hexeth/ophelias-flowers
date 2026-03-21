@@ -1,5 +1,10 @@
 ---
 import { categoryLabels, getDisplayPrice, stockClasses, stockLabels } from "../lib/varieties";
+import {
+  buildCatalogImageSrcSet,
+  buildCatalogImageUrl,
+  isCatalogImagePath,
+} from "../lib/catalog/image-urls";
 import type { Variety } from "../lib/varieties";
 
 interface Props {
@@ -11,6 +16,24 @@ interface Props {
 const { variety, featured = false, imageLoading = "lazy" } = Astro.props;
 const { name, stock, category, imageUrl, slug, price, salePrice } = variety;
 const displayPrice = getDisplayPrice(variety);
+const imageSrc = buildCatalogImageUrl(imageUrl, {
+  format: "auto",
+  quality: featured ? 78 : 74,
+  width: featured ? 960 : 640,
+  fit: "cover",
+});
+const imageSrcSet = buildCatalogImageSrcSet(
+  imageUrl,
+  featured ? [360, 540, 720, 960, 1200] : [320, 480, 640, 800],
+  {
+    fit: "cover",
+    format: "auto",
+    quality: featured ? 78 : 74,
+  },
+);
+const imageSizes = featured
+  ? "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 66vw"
+  : "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw";
 ---
 
 <article class="border border-ink group h-full">
@@ -19,10 +42,14 @@ const displayPrice = getDisplayPrice(variety);
       class={`overflow-hidden ${featured ? "aspect-[3/4] sm:aspect-[4/3] lg:aspect-[3/4]" : "aspect-[3/4]"}`}
     >
       <img
-        src={imageUrl}
+        src={imageSrc}
         alt={`${name} dahlia bloom`}
         loading={imageLoading}
         decoding="async"
+        width="600"
+        height="800"
+        srcset={imageSrcSet}
+        sizes={isCatalogImagePath(imageUrl) ? imageSizes : undefined}
         class="w-full h-full object-cover"
       />
     </div>
