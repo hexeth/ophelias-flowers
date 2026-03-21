@@ -17,6 +17,7 @@ const featured = varieties.slice(0, 3);
 
   <!-- Hero Section -->
   <section class="relative w-full overflow-hidden">
+    <div class="relative w-full" style="height: clamp(28rem, 70vh, 80vh);">
     {
       heroImage && (
         <Image
@@ -27,13 +28,14 @@ const featured = varieties.slice(0, 3);
           decoding="sync"
           fetchpriority="high"
           sizes="100vw"
-          class="w-full h-[70vh] sm:h-[80vh] object-cover"
+          class="absolute inset-0 h-full w-full object-cover"
         />
       )
     }
     <div
       class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-ink/90 via-ink/40 to-transparent"
     >
+    </div>
     </div>
     <div
       class="absolute bottom-0 left-0 right-0 px-4 sm:px-8 lg:px-12 pb-10 sm:pb-14 lg:pb-20"
