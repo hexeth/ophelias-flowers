@@ -18,22 +18,22 @@ const { name, stock, category, imageUrl, slug, price, salePrice } = variety;
 const displayPrice = getDisplayPrice(variety);
 const imageSrc = buildCatalogImageUrl(imageUrl, {
   format: "auto",
-  quality: featured ? 78 : 74,
-  width: featured ? 960 : 640,
+  quality: featured ? 72 : 70,
+  width: featured ? 840 : 560,
   fit: "cover",
 });
 const imageSrcSet = buildCatalogImageSrcSet(
   imageUrl,
-  featured ? [360, 540, 720, 960, 1200] : [320, 480, 640, 800],
+  featured ? [320, 480, 640, 840, 1080] : [256, 384, 512, 640, 768],
   {
     fit: "cover",
     format: "auto",
-    quality: featured ? 78 : 74,
+    quality: featured ? 72 : 70,
   },
 );
 const imageSizes = featured
-  ? "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 66vw"
-  : "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw";
+  ? "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, (max-width: 1279px) 66vw, 768px"
+  : "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, (max-width: 1279px) 33vw, 384px";
 ---
 
 <article class="border border-ink group h-full">
