@@ -13,12 +13,20 @@ const featured = varieties.slice(0, 3);
 <BaseLayout title="Home">
   <Fragment slot="head">
     <style>
-      .hero-media {
+      .hero-shell {
         height: 70vh;
       }
 
+      .hero-media {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
       @media (min-width: 640px) {
-        .hero-media {
+        .hero-shell {
           height: 80vh;
         }
       }
@@ -27,7 +35,7 @@ const featured = varieties.slice(0, 3);
   </Fragment>
 
   <!-- Hero Section -->
-  <section class="relative w-full overflow-hidden">
+  <section class="hero-shell relative w-full overflow-hidden">
     {
       heroImage && (
         <Image
@@ -38,7 +46,7 @@ const featured = varieties.slice(0, 3);
           decoding="sync"
           fetchpriority="high"
           sizes="100vw"
-          class="hero-media w-full object-cover"
+          class="hero-media"
         />
       )
     }
