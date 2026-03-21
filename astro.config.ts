@@ -10,7 +10,7 @@ export default defineConfig({
     inlineStylesheets: "always",
   },
   adapter: cloudflare({
-    imageService: "compile",
+    imageService: "cloudflare",
     platformProxy: {
       configPath: "./wrangler.local.toml",
       remoteBindings: false,
