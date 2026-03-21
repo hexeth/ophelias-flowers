@@ -34,15 +34,6 @@ export const defaultSeedOutputFile = path.join(
 );
 export const catalogMigrationsDir = path.join(rootDir, "db", "migrations");
 
-export async function listCatalogMigrationFiles() {
-  const entries = await readdir(catalogMigrationsDir);
-
-  return entries
-    .filter((entry) => entry.endsWith(".sql"))
-    .sort()
-    .map((entry) => path.join(catalogMigrationsDir, entry));
-}
-
 function trimSlashes(value) {
   return value.replace(/^\/+|\/+$/g, "");
 }
@@ -85,6 +76,14 @@ export async function listLegacyImageFiles() {
   return entries
     .filter((entry) => entry.isFile())
     .map((entry) => entry.name)
+    .sort();
+}
+
+export async function listCatalogMigrationFiles() {
+  const entries = await readdir(catalogMigrationsDir, { withFileTypes: true });
+  return entries
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".sql"))
+    .map((entry) => path.join(catalogMigrationsDir, entry.name))
     .sort();
 }
 

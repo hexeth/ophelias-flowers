@@ -27,6 +27,7 @@ interface EditableCellProps {
   type: EditableCellType;
   isEditing: boolean;
   compact?: boolean;
+  step?: number | string;
   options?: Option[];
   onValueChange?: (nextValue: boolean | string | string[]) => void;
   onImageUpload?: (file: File) => Promise<void>;
@@ -65,6 +66,7 @@ export function EditableCell(props: EditableCellProps) {
     type,
     isEditing,
     compact = false,
+    step,
     options = [],
     onValueChange,
     onImageUpload,
@@ -339,12 +341,12 @@ export function EditableCell(props: EditableCellProps) {
   }
 
   return (
-    <input
-      type={type === "number" ? "number" : "text"}
-      step={type === "number" ? "0.01" : undefined}
-      value={
-        typeof value === "number"
-          ? String(value)
+      <input
+        type={type === "number" ? "number" : "text"}
+        step={type === "number" ? String(step ?? "0.01") : undefined}
+        value={
+          typeof value === "number"
+            ? String(value)
           : typeof value === "string"
             ? value
             : ""

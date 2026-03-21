@@ -292,3 +292,34 @@ export async function upsertVariety(db: D1Database, input: VarietyInput) {
 
   return saved;
 }
+
+export async function softDeleteVariety(db: D1Database, id: string) {
+  const existing = await db
+    .prepare("SELECT name FROM varieties WHERE id = ? AND deleted_at IS NULL LIMIT 1")
+    .bind(id)
+    .first<{ name: string }>();
+
+  if (!existing) {
+    return null;
+  }
+
+  const now = new Date().toISOString();
+
+  await db
+    .prepare(
+      `
+        UPDATE varieties
+        SET deleted_at = ?,
+            updated_at = ?
+        WHERE id = ?
+      `,
+    )
+    .bind(now, now, id)
+    .run();
+
+  return {
+    id,
+    name: existing.name,
+    deletedAt: now,
+  };
+}

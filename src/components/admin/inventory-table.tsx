@@ -153,6 +153,7 @@ export default function InventoryTable({
   const [editingRowIds, setEditingRowIds] = useState<Record<string, boolean>>(
     {},
   );
+  const [deletingRowId, setDeletingRowId] = useState<string | null>(null);
   const [savingRowId, setSavingRowId] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -351,6 +352,49 @@ export default function InventoryTable({
       omitRowSnapshot(current, [row.id, savedRow.id]),
     );
     setNotice(`${savedRow.name} saved.`);
+  }
+
+  async function deleteRow(row: InventoryRow) {
+    const itemName = row.name.trim() || "this variety";
+    const shouldDelete =
+      typeof window === "undefined"
+        ? true
+        : window.confirm(`Delete ${itemName}?`);
+
+    if (!shouldDelete) {
+      return;
+    }
+
+    setDeletingRowId(row.id);
+    setError(null);
+    setNotice(null);
+
+    const response = await fetch(
+      `/api/admin/varieties?id=${encodeURIComponent(row.id)}`,
+      {
+        method: "DELETE",
+      },
+    );
+
+    const result = (await response.json()) as {
+      error?: string;
+      variety?: { id: string; name: string };
+    };
+    setDeletingRowId(null);
+
+    if (!response.ok || !result.variety) {
+      setError(result.error ?? "Unable to delete variety.");
+      return;
+    }
+
+    setRows((current) => current.filter((item) => item.id !== row.id));
+    setEditingRowIds((current) => {
+      const next = { ...current };
+      delete next[row.id];
+      return next;
+    });
+    setOriginalRows((current) => omitRowSnapshot(current, [row.id]));
+    setNotice(`${result.variety.name} deleted.`);
   }
 
   const table = useReactTable({
@@ -589,6 +633,7 @@ export default function InventoryTable({
                         type="number"
                         isEditing={isEditing}
                         compact
+                        step={1}
                         onValueChange={(value) =>
                           setRowValue(row.original.id, "price", Number(value))
                         }
@@ -602,6 +647,7 @@ export default function InventoryTable({
                         type="number"
                         isEditing={isEditing}
                         compact
+                        step={1}
                         onValueChange={(value) => {
                           const nextValue = String(value).trim();
                           setRowValue(
@@ -709,9 +755,11 @@ export default function InventoryTable({
                       <div className="flex justify-end">
                         <RowActions
                           isEditing={isEditing}
+                          isDeleting={deletingRowId === row.original.id}
                           isSaving={savingRowId === row.original.id}
                           onEdit={() => beginEdit(row.original)}
                           onCancel={() => cancelEdit(row.original)}
+                          onDelete={() => deleteRow(row.original)}
                           onSave={() => saveRow(row.original)}
                         />
                       </div>
