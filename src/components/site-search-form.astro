@@ -18,6 +18,7 @@ const {
   panelId,
   submitButtonClassName,
 } = Astro.props;
+const resultsListId = `${panelId}-listbox`;
 ---
 
 <form
@@ -38,8 +39,9 @@ const {
       placeholder="Search varieties"
       class={inputClassName}
       role="combobox"
+      aria-haspopup="listbox"
       aria-autocomplete="list"
-      aria-controls={panelId}
+      aria-controls={resultsListId}
       aria-expanded="false"
       data-site-search-input
     />
@@ -50,13 +52,12 @@ const {
         "max-h-[min(24rem,calc(100vh-9rem))] sm:max-h-[28rem]",
         panelClassName,
       ]}
-      role="listbox"
       data-site-search-panel
     >
-      <div data-site-search-results></div>
+      <div id={resultsListId} role="listbox" data-site-search-results></div>
       <a
         href="/varieties"
-        class="hidden box-border block w-full border-t border-stone-300 px-4 py-4 text-ink no-underline transition-colors hover:bg-ink hover:text-cream"
+        class="hidden box-border block min-h-[44px] w-full border-t border-stone-300 px-4 py-4 text-ink no-underline transition-colors hover:bg-ink hover:text-cream focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
         data-site-search-view-all
       >
         <span class="block text-[11px] uppercase tracking-widest opacity-75">
@@ -70,7 +71,7 @@ const {
         </span>
       </a>
     </div>
-    <p class="sr-only" aria-live="polite" data-site-search-status></p>
+    <p class="sr-only" role="status" aria-live="polite" aria-atomic="true" data-site-search-status></p>
   </div>
   <button
     type="submit"

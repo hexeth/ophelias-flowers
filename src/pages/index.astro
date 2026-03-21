@@ -52,8 +52,8 @@ const featured = varieties.slice(0, 3);
       >
         Ophelia's Flowers
       </h1>
-      <h2 class="font-serif text-2xl sm:text-xl lg:text-3xl tracking tighter text-cream mb-6">Dahlia tubers</h2>
-      <p class="text-cream/90 text-lg sm:text-xl max-w-xl leading-relaxed">
+      <h2 class="mb-6 font-serif text-2xl tracking-tight text-cream sm:text-3xl lg:text-4xl">Dahlia tubers</h2>
+      <p class="max-w-[34ch] text-lg leading-relaxed text-cream/90 sm:text-xl">
         Small-batch dahlias grown with care in the Fraser Valley. Pre-orders open for spring 2026
         planting.
       </p>
@@ -82,38 +82,45 @@ const featured = varieties.slice(0, 3);
 
   <!-- Featured Varieties — Asymmetric Grid -->
   <section class="px-4 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-20">
-    <div class="flex items-baseline justify-between mb-8 lg:mb-12 max-w-6xl">
-      <h2>Featured Varieties</h2>
+    <div class="max-w-6xl">
+      <div class="mb-8 flex flex-col gap-4 border-b border-ink pb-6 sm:flex-row sm:items-end sm:justify-between lg:mb-12">
+        <h2 class="max-w-[20ch]">Featured Varieties</h2>
+        <p class="max-w-[52ch] text-sm leading-relaxed text-stone-500">
+          A small editorial selection for the season, with one standout bloom and two companions.
+        </p>
+      </div>
+
+      <div
+        class="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-3 lg:gap-8"
+      >
+        {
+          featured[0] && (
+            <div class="lg:col-span-2 lg:row-span-2">
+              <VarietyCard variety={featured[0]} featured />
+            </div>
+          )
+        }
+        {
+          featured[1] && (
+            <div>
+              <VarietyCard variety={featured[1]} />
+            </div>
+          )
+        }
+        {
+          featured[2] && (
+            <div>
+              <VarietyCard variety={featured[2]} />
+            </div>
+          )
+        }
+      </div>
+
       <a
         href="/varieties"
-        class="text-xs uppercase tracking-widest text-stone-500 no-underline hover:text-ink transition-colors"
-        >View All</a
+        class="mt-8 inline-flex min-h-[44px] items-center border border-ink px-5 py-3 text-xs uppercase tracking-widest no-underline transition-colors hover:bg-ink hover:text-cream"
+        >View All Varieties</a
       >
-    </div>
-    <div
-      class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-6xl"
-    >
-      {
-        featured[0] && (
-          <div class="lg:col-span-2 lg:row-span-2">
-            <VarietyCard variety={featured[0]} featured />
-          </div>
-        )
-      }
-      {
-        featured[1] && (
-          <div>
-            <VarietyCard variety={featured[1]} />
-          </div>
-        )
-      }
-      {
-        featured[2] && (
-          <div>
-            <VarietyCard variety={featured[2]} />
-          </div>
-        )
-      }
     </div>
   </section>
 </BaseLayout>

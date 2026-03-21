@@ -27,12 +27,12 @@ import BaseLayout from "../layouts/base-layout.astro";
             <dt class="font-semibold text-ink">Items</dt>
             <dd id="item-count"></dd>
             <dt class="font-semibold text-ink">Estimated Total</dt>
-            <dd id="order-total" class="font-bold text-ink"></dd>
+            <dd id="order-total" class="font-bold text-ink tabular-nums"></dd>
           </dl>
         </div>
 
         <h2 class="mt-10">What happens next?</h2>
-        <ol class="list-decimal list-inside space-y-3 text-sm mt-4">
+        <ol class="mt-4 list-inside list-decimal space-y-3 text-sm">
           <li>We'll review your order and confirm availability.</li>
           <li>We'll reach out via email to arrange payment.</li>
           <li>
@@ -43,14 +43,16 @@ import BaseLayout from "../layouts/base-layout.astro";
 
         <p class="mt-8">
           Questions? Reply to the confirmation email or reach out at
-          <a href="mailto:hello@opheliasflowers.com" class="text-ink"
+          <a
+            href="mailto:hello@opheliasflowers.com"
+            class="text-ink no-underline transition-colors hover:text-dahlia-wine focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
             >hello@opheliasflowers.com</a
           >.
         </p>
 
         <a
           href="/varieties"
-          class="inline-block mt-8 border border-ink text-ink px-8 py-4 text-xs uppercase tracking-widest no-underline hover:bg-ink hover:text-cream transition-colors"
+          class="mt-8 inline-flex min-h-[44px] items-center justify-center border border-ink px-8 py-4 text-xs uppercase tracking-widest text-ink no-underline transition-colors hover:bg-ink hover:text-cream focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
         >
           Continue Browsing
         </a>

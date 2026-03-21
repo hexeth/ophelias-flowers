@@ -126,6 +126,7 @@ export function EditableCell(props: EditableCellProps) {
             <input
               type="file"
               accept="image/*"
+              aria-label={`Upload image for ${label}`}
               className="sr-only"
               onChange={async (event) => {
                 const input = event.currentTarget;
@@ -164,6 +165,7 @@ export function EditableCell(props: EditableCellProps) {
   if (type === "textarea") {
     return (
       <textarea
+        aria-label={label}
         value={typeof value === "string" ? value : ""}
         onChange={(event) => onValueChange?.(event.target.value)}
         className={`${fieldClassName} ${compact ? "min-h-20" : "min-h-28"} resize-y`}
@@ -174,6 +176,7 @@ export function EditableCell(props: EditableCellProps) {
   if (type === "select") {
     return (
       <select
+        aria-label={label}
         value={typeof value === "string" ? value : ""}
         onChange={(event) => onValueChange?.(event.target.value)}
         className={fieldClassName}
@@ -246,6 +249,7 @@ export function EditableCell(props: EditableCellProps) {
     return (
       <details className="relative min-w-[10rem]">
         <summary
+          aria-label={label}
           className={`${fieldClassName} flex cursor-pointer list-none items-center justify-between gap-2 select-none`}
         >
           <span className="truncate">{summaryText}</span>
@@ -269,6 +273,7 @@ export function EditableCell(props: EditableCellProps) {
               >
                 <input
                   type="checkbox"
+                  aria-label={`${label}: ${option.label}`}
                   checked={selectedValueSet.has(option.value)}
                   onChange={(event) =>
                     toggleOption(option.value, event.target.checked)
@@ -286,6 +291,7 @@ export function EditableCell(props: EditableCellProps) {
             <input
               name="new-option"
               type="text"
+              aria-label={`Add ${label.toLowerCase()} option`}
               className="min-w-0 flex-1 border border-ink bg-white px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-ink"
               placeholder="Add color"
             />
@@ -305,6 +311,7 @@ export function EditableCell(props: EditableCellProps) {
     return (
       <input
         type="text"
+        aria-label={label}
         value={Array.isArray(value) ? value.join(", ") : ""}
         onChange={(event) =>
           onValueChange?.(
@@ -331,6 +338,7 @@ export function EditableCell(props: EditableCellProps) {
       >
         <input
           type="checkbox"
+          aria-label={label}
           checked={Boolean(value)}
           onChange={(event) => onValueChange?.(event.target.checked)}
           className="h-4 w-4 accent-ink"
@@ -341,12 +349,13 @@ export function EditableCell(props: EditableCellProps) {
   }
 
   return (
-      <input
-        type={type === "number" ? "number" : "text"}
-        step={type === "number" ? String(step ?? "0.01") : undefined}
-        value={
-          typeof value === "number"
-            ? String(value)
+    <input
+      type={type === "number" ? "number" : "text"}
+      aria-label={label}
+      step={type === "number" ? String(step ?? "0.01") : undefined}
+      value={
+        typeof value === "number"
+          ? String(value)
           : typeof value === "string"
             ? value
             : ""

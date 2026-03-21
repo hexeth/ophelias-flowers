@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  inventoryPrimaryButtonClassName,
   inventoryFilterFieldClassName,
   inventoryFilterLabelClassName,
   inventoryFilterLabelTextClassName,
@@ -55,7 +56,7 @@ export function InventoryTableFiltersPanel(props: InventoryTableFiltersProps) {
         <button
           type="button"
           onClick={onAddVariety}
-          className="border border-ink bg-ink px-4 py-3 text-xs uppercase tracking-widest text-white transition-colors hover:bg-white hover:text-ink"
+          className={inventoryPrimaryButtonClassName}
         >
           Add Variety
         </button>
@@ -124,7 +125,12 @@ export function InventoryTableFiltersPanel(props: InventoryTableFiltersProps) {
         </label>
       </div>
 
-      <p className="text-xs uppercase tracking-widest text-stone-500">
+      <p
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        className="text-xs uppercase tracking-widest text-stone-500"
+      >
         {isFiltering || isLoading
           ? `Updating search over ${totalCount} varieties...`
           : totalCount === 0

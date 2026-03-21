@@ -29,7 +29,7 @@ const { categoryOptions, colorOptions, inStockCount } = Astro.props;
         <select
           id="sort-by"
           aria-label="Sort varieties"
-          class="w-full bg-white text-ink text-xs uppercase tracking-widest focus:ring-2 focus:ring-ink focus:outline-none"
+          class="w-full bg-white text-ink text-xs uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
         >
           <option value="name-asc" selected>A–Z</option>
           <option value="name-desc">Z–A</option>
@@ -43,7 +43,7 @@ const { categoryOptions, colorOptions, inStockCount } = Astro.props;
         id="mobile-filters-toggle"
         aria-expanded="false"
         aria-controls="mobile-extra-controls"
-        class="lg:hidden inline-flex items-center justify-center border border-ink px-3 py-3 min-h-[44px] min-w-[44px] text-ink focus:ring-2 focus:ring-ink focus:outline-none"
+        class="lg:hidden inline-flex min-h-[44px] min-w-[44px] items-center justify-center border border-ink px-3 py-3 text-ink transition-colors hover:bg-ink hover:text-cream focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
       >
         <span class="sr-only">Toggle filters</span>
         <svg
@@ -77,12 +77,12 @@ const { categoryOptions, colorOptions, inStockCount } = Astro.props;
       class="hidden border border-ink p-3 sm:p-4 lg:contents lg:border-0 lg:p-0"
     >
       <div class="flex flex-col gap-2 sm:gap-3 lg:flex-row lg:flex-wrap lg:items-start">
-        <label class="flex items-center justify-center gap-2 border border-ink px-3 py-3 cursor-pointer select-none min-h-[44px] w-full lg:w-auto lg:min-w-[11rem]">
+        <label class="flex min-h-[44px] w-full cursor-pointer select-none items-center justify-center gap-2 border border-ink px-3 py-3 transition-colors hover:bg-cream focus-within:bg-cream lg:w-auto lg:min-w-[11rem]">
           <input
             type="checkbox"
             id="in-stock"
             data-filter="in-stock"
-            class="accent-ink w-4 h-4 cursor-pointer"
+            class="h-4 w-4 cursor-pointer accent-ink"
           />
           <span class="text-xs uppercase tracking-widest">In Stock ({inStockCount})</span>
         </label>
@@ -109,7 +109,7 @@ const { categoryOptions, colorOptions, inStockCount } = Astro.props;
           <select
             id="view-size"
             aria-label="Select view size"
-            class="w-full bg-white text-ink text-xs uppercase tracking-widest focus:ring-2 focus:ring-ink focus:outline-none"
+            class="w-full bg-white text-ink text-xs uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
           >
             <option value="comfortable">Comfort</option>
             <option value="compact">Dense</option>
@@ -121,7 +121,7 @@ const { categoryOptions, colorOptions, inStockCount } = Astro.props;
           <select
             id="results-per-page"
             aria-label="Select results per page"
-            class="w-full bg-white text-ink text-xs uppercase tracking-widest focus:ring-2 focus:ring-ink focus:outline-none"
+            class="w-full bg-white text-ink text-xs uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
           >
             <option value="12">12</option>
             <option value="24" selected>24</option>

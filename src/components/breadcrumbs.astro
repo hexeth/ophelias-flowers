@@ -41,7 +41,7 @@ const crumbs = buildCrumbs(path);
   crumbs.length > 0 && (
     <nav
       aria-label="Breadcrumb"
-      class="px-4 sm:px-8 lg:px-12 py-4"
+      class="border-b border-stone-300 px-4 py-3 sm:px-8 lg:px-12"
     >
       <ol class="flex flex-wrap items-center gap-1 text-xs uppercase tracking-widest text-stone-500">
         {crumbs.map((crumb, i) => {
@@ -60,7 +60,7 @@ const crumbs = buildCrumbs(path);
               ) : (
                 <a
                   href={crumb.href}
-                  class="no-underline hover:text-ink transition-colors"
+                  class="inline-flex min-h-[36px] items-center no-underline transition-colors hover:text-ink focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
                 >
                   {crumb.label}
                 </a>

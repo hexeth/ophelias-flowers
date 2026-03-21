@@ -55,6 +55,7 @@
     optionElements.forEach((optionElement, index) => {
       const isActive = index === activeIndex;
       optionElement.dataset.active = String(isActive);
+      optionElement.setAttribute("aria-selected", String(isActive));
       optionElement.classList.toggle("bg-ink", isActive);
       optionElement.classList.toggle("text-cream", isActive);
       optionElement.classList.toggle("bg-cream", !isActive);
@@ -103,10 +104,12 @@
       let activeController: AbortController | null = null;
       let activeIndex = -1;
       let currentSuggestions: VarietySearchSuggestion[] = [];
+      let optionElements: HTMLAnchorElement[] = [];
 
       function resetSuggestions() {
         currentSuggestions = [];
         activeIndex = -1;
+        optionElements = [];
         resultsEl.replaceChildren();
         viewAllLinkEl.classList.add("hidden");
         viewAllLinkEl.removeAttribute("aria-label");
@@ -121,30 +124,39 @@
           link.id = `${inputEl.id}-suggestion-${index}`;
           link.href = getSuggestionHref(suggestion);
           link.role = "option";
+          link.setAttribute("aria-selected", "false");
           link.className = "grid min-h-14 grid-cols-[3.5rem_minmax(0,1fr)] gap-3 px-4 py-3 no-underline transition-colors hover:bg-ink hover:text-cream focus:bg-ink focus:text-cream focus:outline-none bg-cream sm:grid-cols-[3rem_minmax(0,1fr)] sm:px-3";
-          link.innerHTML = `
-            <img
-              src="${suggestion.imageUrl}"
-              alt=""
-              class="h-14 w-14 border border-ink object-cover sm:h-12 sm:w-12"
-              loading="lazy"
-              decoding="async"
-            />
-            <span class="min-w-0 space-y-1">
-              <span class="block truncate font-serif text-[1.05rem] sm:text-base">${suggestion.name}</span>
-              <span class="block text-xs uppercase tracking-[0.18em] opacity-75 sm:text-[11px]">${getCategoryLabel(suggestion.category)} • ${suggestion.sku}</span>
-              <span class="block text-xs uppercase tracking-[0.18em] ${getStockClassName(suggestion.stock)} sm:text-[11px]">${getStockLabel(suggestion.stock)}</span>
-            </span>
-          `;
+
+          const image = document.createElement("img");
+          image.src = suggestion.imageUrl;
+          image.alt = "";
+          image.className =
+            "h-14 w-14 border border-ink object-cover sm:h-12 sm:w-12";
+          image.loading = "lazy";
+          image.decoding = "async";
+
+          const textWrap = document.createElement("span");
+          textWrap.className = "min-w-0 space-y-1";
+
+          const name = document.createElement("span");
+          name.className = "block truncate font-serif text-[1.05rem] sm:text-base";
+          name.textContent = suggestion.name;
+
+          const categorySku = document.createElement("span");
+          categorySku.className =
+            "block text-xs uppercase tracking-[0.18em] opacity-75 sm:text-[11px]";
+          categorySku.textContent = `${getCategoryLabel(suggestion.category)} • ${suggestion.sku}`;
+
+          const stock = document.createElement("span");
+          stock.className = `block text-xs uppercase tracking-[0.18em] ${getStockClassName(suggestion.stock)} sm:text-[11px]`;
+          stock.textContent = getStockLabel(suggestion.stock);
+
+          textWrap.append(name, categorySku, stock);
+          link.append(image, textWrap);
+
           link.addEventListener("mouseenter", () => {
             activeIndex = index;
-            updateActiveSuggestion(
-              inputEl,
-              Array.from(
-                resultsEl.querySelectorAll("a[role='option']"),
-              ) as HTMLAnchorElement[],
-              activeIndex,
-            );
+            updateActiveSuggestion(inputEl, optionElements, activeIndex);
           });
           return link;
         });
@@ -160,6 +172,7 @@
           statusEl.textContent = `${items.length} suggestions available.`;
         }
 
+        optionElements = items;
         viewAllLinkEl.href = `/varieties?q=${encodeURIComponent(query)}`;
         viewAllLinkEl.setAttribute(
           "aria-label",
@@ -169,11 +182,7 @@
         viewAllQueryEl.textContent = `“${query}”`;
         viewAllLinkEl.classList.remove("hidden");
         setPanelOpenState(inputEl, panelEl, true);
-        updateActiveSuggestion(
-          inputEl,
-          Array.from(resultsEl.querySelectorAll("a[role='option']")),
-          activeIndex,
-        );
+        updateActiveSuggestion(inputEl, optionElements, activeIndex);
       }
 
       async function loadSuggestions(query: string) {
@@ -233,10 +242,6 @@
       });
 
       inputEl.addEventListener("keydown", (event) => {
-        const optionElements = Array.from(
-          resultsEl.querySelectorAll("a[role='option']"),
-        ) as HTMLAnchorElement[];
-
         if (event.key === "Escape") {
           resetSuggestions();
           return;

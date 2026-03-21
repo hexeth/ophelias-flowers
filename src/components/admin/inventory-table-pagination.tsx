@@ -1,4 +1,5 @@
 import React from "react";
+import { inventorySecondaryButtonClassName } from "./inventory-table-controls";
 
 interface InventoryTablePaginationProps {
   onNextPage: () => void;
@@ -26,17 +27,17 @@ export function InventoryTablePagination(props: InventoryTablePaginationProps) {
   }
 
   return (
-    <div className="flex items-center justify-between gap-4 border-t border-ink pt-6">
+    <div className="flex flex-wrap items-center justify-between gap-3 border-t border-ink pt-6">
       <button
         type="button"
         onClick={onPreviousPage}
         disabled={page <= 1}
-        className="border border-ink px-4 py-3 text-xs uppercase tracking-widest transition-colors hover:bg-ink hover:text-white disabled:border-stone-300 disabled:text-stone-300"
+        className={inventorySecondaryButtonClassName}
       >
         Previous
       </button>
 
-      <p className="text-xs uppercase tracking-widest text-stone-500">
+      <p className="order-3 w-full text-center text-xs uppercase tracking-widest text-stone-500 sm:order-none sm:w-auto sm:text-left">
         Page {page} of {totalPages} · {rangeStart}-{rangeEnd} of {totalCount}
       </p>
 
@@ -44,7 +45,7 @@ export function InventoryTablePagination(props: InventoryTablePaginationProps) {
         type="button"
         onClick={onNextPage}
         disabled={page >= totalPages}
-        className="border border-ink px-4 py-3 text-xs uppercase tracking-widest transition-colors hover:bg-ink hover:text-white disabled:border-stone-300 disabled:text-stone-300"
+        className={inventorySecondaryButtonClassName}
       >
         Next
       </button>

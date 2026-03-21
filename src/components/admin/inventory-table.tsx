@@ -5,7 +5,6 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { InventoryDeleteDialog } from "./inventory-delete-dialog";
 import { InventoryTableFiltersPanel } from "./inventory-table-filters";
 import { InventoryTablePagination } from "./inventory-table-pagination";
@@ -404,12 +403,6 @@ export default function InventoryTable({
     setNotice(`${result.variety.name} deleted.`);
   }
 
-  const table = useReactTable<InventoryRow>({
-    data: paginatedRows,
-    columns: [],
-    getCoreRowModel: getCoreRowModel(),
-  });
-
   return (
     <section className="space-y-6">
       <InventoryTableFiltersPanel
@@ -437,12 +430,20 @@ export default function InventoryTable({
       />
 
       {error ? (
-        <p className="border border-dahlia-wine px-4 py-3 text-sm text-dahlia-wine">
+        <p
+          role="alert"
+          aria-live="assertive"
+          className="border border-dahlia-wine px-4 py-3 text-sm text-dahlia-wine"
+        >
           {error}
         </p>
       ) : null}
       {notice ? (
-        <p className="border border-botanical px-4 py-3 text-sm text-botanical">
+        <p
+          role="status"
+          aria-live="polite"
+          className="border border-botanical px-4 py-3 text-sm text-botanical"
+        >
           {notice}
         </p>
       ) : null}
@@ -463,7 +464,7 @@ export default function InventoryTable({
                     <button
                       type="button"
                       onClick={() => toggleSort(header.field)}
-                      className="inline-flex items-center gap-2 text-left transition-colors hover:text-ink"
+                      className="inline-flex min-h-[44px] items-center gap-2 text-left transition-colors hover:text-ink focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
                       aria-label={`${header.label}: ${getSortIndicator(header.field)}`}
                       title={getSortIndicator(header.field)}
                     >
@@ -484,13 +485,12 @@ export default function InventoryTable({
               </tr>
             </thead>
             <tbody>
-              {table.getRowModel().rows.map((tableRow) => {
-                const row = tableRow.original;
+              {paginatedRows.map((row) => {
                 const isEditing = Boolean(editingRowIds[row.id]);
 
                 return (
                   <InventoryTableRow
-                    key={tableRow.id}
+                    key={row.id}
                     row={row}
                     colorOptions={colorOptions}
                     isDeleting={deletingRowId === row.id}

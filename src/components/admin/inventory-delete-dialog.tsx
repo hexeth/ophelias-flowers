@@ -1,4 +1,8 @@
 import React from "react";
+import {
+  inventoryDangerButtonClassName,
+  inventorySubtleButtonClassName,
+} from "./inventory-table-controls";
 import type { InventoryRow } from "../../lib/catalog/admin-inventory-table";
 
 interface InventoryDeleteDialogProps {
@@ -32,7 +36,7 @@ export function InventoryDeleteDialog(props: InventoryDeleteDialogProps) {
           </p>
           <h2
             id="delete-variety-title"
-            className="font-display text-3xl tracking-tight text-ink"
+            className="font-serif text-3xl tracking-tight text-ink"
           >
             Delete {confirmDeleteRow?.name.trim() || "this variety"}?
           </h2>
@@ -43,10 +47,7 @@ export function InventoryDeleteDialog(props: InventoryDeleteDialogProps) {
         </div>
 
         <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
-          <button
-            type="submit"
-            className="border border-stone-300 px-4 py-3 text-xs uppercase tracking-widest text-stone-500 transition-colors hover:border-ink hover:text-ink"
-          >
+          <button type="submit" className={inventorySubtleButtonClassName}>
             Cancel
           </button>
           <button
@@ -55,7 +56,7 @@ export function InventoryDeleteDialog(props: InventoryDeleteDialogProps) {
             disabled={
               !confirmDeleteRow || deletingRowId === confirmDeleteRow.id
             }
-            className="border border-dahlia-wine bg-dahlia-wine px-4 py-3 text-xs uppercase tracking-widest text-white transition-colors hover:bg-cream hover:text-dahlia-wine disabled:border-stone-300 disabled:bg-white disabled:text-stone-300"
+            className={inventoryDangerButtonClassName}
           >
             {confirmDeleteRow && deletingRowId === confirmDeleteRow.id
               ? "Deleting"
