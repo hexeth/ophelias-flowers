@@ -12,6 +12,17 @@ const featured = varieties.slice(0, 3);
 
 <BaseLayout title="Home">
   <Fragment slot="head">
+    <style>
+      .hero-media {
+        height: 70vh;
+      }
+
+      @media (min-width: 640px) {
+        .hero-media {
+          height: 80vh;
+        }
+      }
+    </style>
     <link rel="preload" as="image" href={heroImage.src} />
   </Fragment>
 
@@ -27,8 +38,7 @@ const featured = varieties.slice(0, 3);
           decoding="sync"
           fetchpriority="high"
           sizes="100vw"
-          style="height: 70vh;"
-          class="w-full h-[70vh] sm:h-[80vh] object-cover"
+          class="hero-media w-full object-cover"
         />
       )
     }
