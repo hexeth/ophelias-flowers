@@ -39,6 +39,7 @@ export interface VarietyRow {
   image_url: string | null;
   image_key: string | null;
   hidden: number;
+  deleted_at?: string | null;
   created_at: string;
   updated_at: string;
 }

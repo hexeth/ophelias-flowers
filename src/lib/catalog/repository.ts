@@ -154,7 +154,9 @@ async function getVarietyById(db: D1Database, id: string) {
 
 export async function listAdminVarieties(db: D1Database) {
   const result = await db
-    .prepare("SELECT * FROM varieties ORDER BY updated_at DESC, name ASC")
+    .prepare(
+      "SELECT * FROM varieties WHERE deleted_at IS NULL ORDER BY updated_at DESC, name ASC",
+    )
     .all<VarietyRow>();
 
   return (result.results ?? []).map(rowToVariety);
@@ -162,7 +164,9 @@ export async function listAdminVarieties(db: D1Database) {
 
 export async function listPublicVarieties(db: D1Database) {
   const result = await db
-    .prepare("SELECT * FROM varieties WHERE hidden = 0 ORDER BY name ASC")
+    .prepare(
+      "SELECT * FROM varieties WHERE hidden = 0 AND deleted_at IS NULL ORDER BY name ASC",
+    )
     .all<VarietyRow>();
 
   return (result.results ?? []).map(rowToVariety);
@@ -170,7 +174,9 @@ export async function listPublicVarieties(db: D1Database) {
 
 export async function getPublicVarietyBySlug(db: D1Database, slug: string) {
   const result = await db
-    .prepare("SELECT * FROM varieties WHERE slug = ? AND hidden = 0 LIMIT 1")
+    .prepare(
+      "SELECT * FROM varieties WHERE slug = ? AND hidden = 0 AND deleted_at IS NULL LIMIT 1",
+    )
     .bind(slug)
     .first<VarietyRow>();
 

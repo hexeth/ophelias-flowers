@@ -1,11 +1,11 @@
 import { spawn } from "node:child_process";
 import path from "node:path";
 import {
-  catalogMigrationFile,
   createWranglerConfigWithoutD1,
   defaultSeedOutputFile,
   legacyImagesDir,
   listLegacyImageFiles,
+  listCatalogMigrationFiles,
   readWranglerCatalogConfig,
   rootDir,
   syncLegacyImagesToPublic,
@@ -123,6 +123,7 @@ const explicitImageKeyPrefix = getArgValue(args, "--image-key-prefix");
 const explicitDatabase = getArgValue(args, "--database");
 
 const wranglerConfig = await readWranglerCatalogConfig();
+const migrationFiles = await listCatalogMigrationFiles();
 const d1Target = getD1Target({
   remote,
   explicitDatabase,
@@ -203,12 +204,14 @@ if (dryRun) {
 
 try {
   if (!skipMigration) {
-    await runD1Execute(
-      d1Target,
-      catalogMigrationFile,
-      d1ModeArgs,
-      d1ConfigOverride?.configPath,
-    );
+    for (const migrationFile of migrationFiles) {
+      await runD1Execute(
+        d1Target,
+        migrationFile,
+        d1ModeArgs,
+        d1ConfigOverride?.configPath,
+      );
+    }
   }
 
   if (!skipSeed) {
