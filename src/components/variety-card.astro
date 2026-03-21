@@ -18,21 +18,21 @@ const { name, stock, category, imageUrl, slug, price, salePrice } = variety;
 const displayPrice = getDisplayPrice(variety);
 const imageSrc = buildCatalogImageUrl(imageUrl, {
   format: "auto",
-  quality: featured ? 72 : 70,
-  width: featured ? 840 : 560,
+  quality: featured ? 68 : 70,
+  width: featured ? 720 : 560,
   fit: "cover",
 });
 const imageSrcSet = buildCatalogImageSrcSet(
   imageUrl,
-  featured ? [320, 480, 640, 840, 1080] : [256, 384, 512, 640, 768],
+  featured ? [320, 480, 640, 720, 960] : [256, 384, 512, 640, 768],
   {
     fit: "cover",
     format: "auto",
-    quality: featured ? 72 : 70,
+    quality: featured ? 68 : 70,
   },
 );
 const imageSizes = featured
-  ? "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, (max-width: 1279px) 66vw, 768px"
+  ? "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, (max-width: 1279px) 66vw, 640px"
   : "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, (max-width: 1279px) 33vw, 384px";
 ---
 

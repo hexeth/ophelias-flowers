@@ -1,5 +1,5 @@
 ---
-import { getImage } from "astro:assets";
+import { Image, Picture } from "astro:assets";
 import heroImage from "../assets/hero.jpg";
 import logo from "../assets/logo.png";
 import BaseLayout from "../layouts/base-layout.astro";
@@ -8,84 +8,24 @@ import { listPublicVarieties } from "../lib/varieties";
 
 const varieties = await listPublicVarieties(Astro.locals);
 const featured = varieties.slice(0, 3);
-
-const HERO_WIDTHS = [768, 1024, 1280, 1600, 1920] as const;
-const heroAvifVariants = await Promise.all(
-  HERO_WIDTHS.map((width) =>
-    getImage({
-      src: heroImage,
-      width,
-      height: Math.round((width * 9) / 16),
-      format: "avif",
-      quality: 48,
-    }),
-  ),
-);
-const heroWebpVariants = await Promise.all(
-  HERO_WIDTHS.map((width) =>
-    getImage({
-      src: heroImage,
-      width,
-      height: Math.round((width * 9) / 16),
-      format: "webp",
-      quality: 62,
-    }),
-  ),
-);
-const heroAvifSrcSet = heroAvifVariants
-  .map((variant, index) => `${variant.src} ${HERO_WIDTHS[index]}w`)
-  .join(", ");
-const heroWebpSrcSet = heroWebpVariants
-  .map((variant, index) => `${variant.src} ${HERO_WIDTHS[index]}w`)
-  .join(", ");
-const heroFallback = heroWebpVariants[heroWebpVariants.length - 1];
-
-const logo1x = await getImage({
-  src: logo,
-  width: 144,
-  height: 144,
-  format: "webp",
-  quality: 58,
-});
-const logo2x = await getImage({
-  src: logo,
-  width: 288,
-  height: 288,
-  format: "webp",
-  quality: 58,
-});
 ---
 
 <BaseLayout title="Home">
-  <Fragment slot="head">
-    <link
-      rel="preload"
-      as="image"
-      href={heroFallback.src}
-      imagesrcset={heroWebpSrcSet}
-      imagesizes="100vw"
-      fetchpriority="high"
-    />
-  </Fragment>
-
   <!-- Hero Section -->
   <section class="relative w-full overflow-hidden h-[70vh] sm:h-auto sm:aspect-video sm:max-h-[80vh]">
-    <picture>
-      <source type="image/avif" srcset={heroAvifSrcSet} sizes="100vw" />
-      <source type="image/webp" srcset={heroWebpSrcSet} sizes="100vw" />
-      <img
-        src={heroFallback.src}
-        srcset={heroWebpSrcSet}
-        sizes="100vw"
-        width="1920"
-        height="1080"
-        alt=""
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-        class="absolute inset-0 w-full h-full object-cover"
-      />
-    </picture>
+    <Picture
+      src={heroImage}
+      alt=""
+      widths={[768, 1024, 1280, 1600, 1920]}
+      sizes="100vw"
+      formats={["avif", "webp"]}
+      quality={52}
+      width={1920}
+      height={1080}
+      loading="eager"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover"
+    />
     <div
       class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-ink/90 via-ink/40 to-transparent"
     >
@@ -94,14 +34,15 @@ const logo2x = await getImage({
       class="absolute bottom-0 left-0 right-0 px-4 sm:px-8 lg:px-12 pb-10 sm:pb-14 lg:pb-20"
     >
       <div class="inline-block bg-cream/90 p-3 sm:p-4 mb-6">
-        <img
-          src={logo1x.src}
-          srcset={`${logo1x.src} 1x, ${logo2x.src} 2x`}
-          width="144"
-          height="144"
+        <Image
+          src={logo}
           alt="Ophelia's Flowers logo"
+          width={144}
+          height={144}
+          densities={[1, 2]}
+          format="webp"
+          quality={52}
           loading="eager"
-          decoding="async"
           class="w-20 h-20 sm:w-28 sm:h-28 lg:w-36 lg:h-36"
         />
       </div>
