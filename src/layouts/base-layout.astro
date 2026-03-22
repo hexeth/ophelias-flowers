@@ -1,9 +1,12 @@
 ---
+import { ClientRouter, fade } from "astro:transitions";
 import Breadcrumbs from "../components/breadcrumbs.astro";
 import SiteSearchAutocomplete from "../components/site-search-autocomplete.astro";
 import SiteSearchForm from "../components/site-search-form.astro";
 import "@fontsource/playfair-display/400.css";
 import "@fontsource/playfair-display/700.css";
+import playfairLatin400 from "@fontsource/playfair-display/files/playfair-display-latin-400-normal.woff2?url";
+import playfairLatin700 from "@fontsource/playfair-display/files/playfair-display-latin-700-normal.woff2?url";
 
 interface Props {
   title: string;
@@ -22,9 +25,12 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href={playfairLatin400} />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href={playfairLatin700} />
     <slot name="head" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title} | Ophelia's Flowers</title>
+    <ClientRouter />
   </head>
   <body>
     <slot name="header">
@@ -172,7 +178,7 @@ const {
 
     <Breadcrumbs />
 
-    <main class="flex-1">
+    <main class="flex-1" transition:animate={fade({ duration: '0.2s' })}>
       <slot />
     </main>
 
@@ -242,21 +248,23 @@ const {
     <script>
       import { loadCart, getCartItemCount } from "../lib/commerce/cart";
 
-      // Cart count badges
-      const cartCount = document.getElementById("cart-count");
-      const cartCountMobile = document.getElementById("cart-count-mobile");
-      const cart = loadCart();
-      const count = getCartItemCount(cart);
-      if (count > 0) {
+      function updateCartCount() {
+        const cartCount = document.getElementById("cart-count");
+        const cartCountMobile = document.getElementById("cart-count-mobile");
+        const cart = loadCart();
+        const count = getCartItemCount(cart);
         [cartCount, cartCountMobile].forEach((el) => {
           if (el) {
             el.textContent = `(${count})`;
-            el.hidden = false;
+            el.hidden = count === 0;
           }
         });
       }
 
-      // Mobile menu toggle
+      // Update cart count on every page load (initial + after SPA navigation)
+      document.addEventListener("astro:page-load", updateCartCount);
+
+      // Mobile menu toggle — runs once; header persists across navigations
       const toggle = document.getElementById("mobile-menu-toggle");
       const mobileNav = document.getElementById("main-nav");
       const iconOpen = document.getElementById("menu-icon-open");
@@ -290,6 +298,22 @@ const {
           }
         });
       }
+
+      // Close mobile menu and search panel before each SPA navigation
+      document.addEventListener("astro:before-swap", () => {
+        if (toggle && mobileNav && iconOpen && iconClose) {
+          toggle.setAttribute("aria-expanded", "false");
+          toggle.setAttribute("aria-label", "Open menu");
+          mobileNav.classList.add("hidden");
+          iconOpen.classList.remove("hidden");
+          iconClose.classList.add("hidden");
+        }
+        if (searchToggle && mobileSearchPanel) {
+          searchToggle.setAttribute("aria-expanded", "false");
+          searchToggle.setAttribute("aria-label", "Open search");
+          mobileSearchPanel.classList.add("hidden");
+        }
+      });
     </script>
 
     <SiteSearchAutocomplete />

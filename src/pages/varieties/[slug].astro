@@ -76,6 +76,7 @@ const canAddToCart = stock !== "sold-out";
             srcset={detailImageSrcSet}
             sizes={isCatalogImagePath(imageUrl) ? "(max-width: 1023px) 100vw, 50vw" : undefined}
             class="w-full h-full object-cover"
+            transition:name={`variety-image-${slug}`}
           />
         </div>
       </div>
