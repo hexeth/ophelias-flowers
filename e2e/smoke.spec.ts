@@ -29,6 +29,33 @@ test.describe("homepage", () => {
       page.getByRole("heading", { name: "All Varieties" }),
     ).toBeVisible();
   });
+
+  test("mobile menu and search keep working after SPA navigation", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/");
+
+    const menuToggle = page.locator("#mobile-menu-toggle");
+    const searchToggle = page.locator("#mobile-search-toggle");
+    const mobileNav = page.locator("#main-nav");
+    const mobileSearchPanel = page.locator("#mobile-search-panel");
+
+    await menuToggle.click();
+    await expect(menuToggle).toHaveAttribute("aria-expanded", "true");
+    await expect(mobileNav).toBeVisible();
+
+    await page.locator('#main-nav a[href="/varieties"]').click();
+    await expect(page).toHaveURL(/\/varieties/);
+
+    await menuToggle.click();
+    await expect(menuToggle).toHaveAttribute("aria-expanded", "true");
+    await expect(mobileNav).toBeVisible();
+
+    await searchToggle.click();
+    await expect(searchToggle).toHaveAttribute("aria-expanded", "true");
+    await expect(mobileSearchPanel).toBeVisible();
+  });
 });
 
 test.describe("variety detail", () => {
@@ -46,6 +73,101 @@ test.describe("variety detail", () => {
     await expect(page.locator("button#add-to-cart")).toContainText(
       "Add to Cart",
     );
+  });
+
+  test("detail image loads after navigating from the varieties list", async ({
+    page,
+  }) => {
+    await page.goto("/varieties");
+
+    const varietyLink = page.locator('a[href^="/varieties/"]').first();
+    await expect(varietyLink).toBeVisible();
+
+    const destinationHref = await varietyLink.getAttribute("href");
+    if (!destinationHref) {
+      throw new Error(
+        "Expected first visible variety card to link to a detail page.",
+      );
+    }
+
+    await varietyLink.click();
+    await expect(page).toHaveURL(
+      new RegExp(`${destinationHref.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`),
+    );
+
+    const heroImage = page.locator('article img[alt$="dahlia bloom"]').first();
+    await expect(heroImage).toBeVisible();
+    await expect
+      .poll(async () =>
+        heroImage.evaluate((image) => {
+          const img = image as HTMLImageElement;
+          return img.complete && img.naturalWidth > 0;
+        }),
+      )
+      .toBe(true);
+  });
+
+  test("variety card image stays in place until delayed hero image is ready", async ({
+    page,
+  }) => {
+    let delayedHeroRequestSeen = false;
+
+    await page.goto("/varieties");
+    await page.waitForLoadState("networkidle");
+
+    const firstVarietyLink = page.locator('a[href^="/varieties/"]').first();
+    const cardImage = firstVarietyLink.locator("img");
+    const listingImageUrls = new Set(
+      await page.locator('a[href^="/varieties/"] img').evaluateAll((images) =>
+        images
+          .map((image) => {
+            const img = image as HTMLImageElement;
+            return img.currentSrc || img.getAttribute("src") || "";
+          })
+          .filter(Boolean),
+      ),
+    );
+
+    await page.route("**/*", async (route) => {
+      const request = route.request();
+      const requestUrl = request.url();
+
+      if (
+        !delayedHeroRequestSeen &&
+        request.resourceType() === "image" &&
+        requestUrl.includes("/catalog-") &&
+        !listingImageUrls.has(requestUrl)
+      ) {
+        delayedHeroRequestSeen = true;
+        await page.waitForTimeout(1200);
+      }
+
+      await route.continue();
+    });
+
+    await expect(firstVarietyLink).toBeVisible();
+    await expect(cardImage).toBeVisible();
+
+    await firstVarietyLink.click({ noWaitAfter: true });
+
+    await expect
+      .poll(() => delayedHeroRequestSeen, {
+        message: "Expected the destination hero image request to be delayed.",
+      })
+      .toBe(true);
+
+    await expect(cardImage).toBeVisible();
+
+    const heroImage = page.locator("img[data-variety-detail-image]").first();
+    await expect(heroImage).toBeVisible();
+    await expect
+      .poll(async () =>
+        heroImage.evaluate((image) => {
+          const img = image as HTMLImageElement;
+          return img.complete && img.naturalWidth > 0;
+        }),
+      )
+      .toBe(true);
   });
 });
 

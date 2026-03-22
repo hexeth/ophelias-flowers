@@ -64,16 +64,14 @@ const canAddToCart = stock !== "sold-out";
       variety ? (
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl">
       <div class="border border-ink">
-        <div
-          class="aspect-[3/4] overflow-hidden bg-stone-200"
-          transition:name={`variety-image-${slug}`}
-        >
+        <div transition:name={`variety-image-${slug}`} class="aspect-[3/4] overflow-hidden bg-stone-200">
           <img
             src={detailImageSrc}
             alt={`${name} dahlia bloom`}
             loading="eager"
-            decoding="sync"
+            decoding="async"
             fetchpriority="high"
+            data-variety-detail-image
             width="900"
             height="1200"
             srcset={detailImageSrcSet}

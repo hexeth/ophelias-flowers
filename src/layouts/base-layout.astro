@@ -178,7 +178,7 @@ const {
 
     <Breadcrumbs />
 
-    <main class="flex-1" transition:animate={fade({ duration: '0.2s' })}>
+    <main class="flex-1" transition:animate={fade({ duration: "0.2s" })}>
       <slot />
     </main>
 
@@ -248,6 +248,70 @@ const {
     <script>
       import { loadCart, getCartItemCount } from "../lib/commerce/cart";
 
+      interface AstroBeforePreparationEvent extends Event {
+        loader: () => Promise<void>;
+        newDocument: Document;
+      }
+
+      let mobileControlsBound = false;
+
+      function preloadIncomingImage(image: HTMLImageElement) {
+        const src = image.getAttribute("src");
+        const srcset = image.getAttribute("srcset");
+        const sizes = image.getAttribute("sizes");
+
+        if (!src && !srcset) {
+          return Promise.resolve();
+        }
+
+        return new Promise<void>((resolve) => {
+          const pendingImage = new Image();
+          pendingImage.decoding = "async";
+          pendingImage.fetchPriority = "high";
+
+          const finish = () => {
+            resolve();
+          };
+
+          const decodeIfPossible = () => {
+            if (typeof pendingImage.decode === "function") {
+              pendingImage.decode().catch(() => undefined).finally(finish);
+              return;
+            }
+
+            finish();
+          };
+
+          pendingImage.addEventListener("load", decodeIfPossible, { once: true });
+          pendingImage.addEventListener("error", finish, { once: true });
+
+          if (sizes) {
+            pendingImage.sizes = sizes;
+          }
+
+          if (srcset) {
+            pendingImage.srcset = srcset;
+          }
+
+          if (src) {
+            pendingImage.src = src;
+          }
+
+          if (pendingImage.complete) {
+            decodeIfPossible();
+          }
+        });
+      }
+
+      async function waitForIncomingVarietyImage(documentToSwapIn: Document) {
+        const incomingImage = documentToSwapIn.querySelector("[data-variety-detail-image]");
+        if (!(incomingImage instanceof HTMLImageElement)) {
+          return;
+        }
+
+        await preloadIncomingImage(incomingImage);
+      }
+
       function updateCartCount() {
         const cartCount = document.getElementById("cart-count");
         const cartCountMobile = document.getElementById("cart-count-mobile");
@@ -261,46 +325,14 @@ const {
         });
       }
 
-      // Update cart count on every page load (initial + after SPA navigation)
-      document.addEventListener("astro:page-load", updateCartCount);
+      function closeMobilePanels() {
+        const toggle = document.getElementById("mobile-menu-toggle");
+        const mobileNav = document.getElementById("main-nav");
+        const iconOpen = document.getElementById("menu-icon-open");
+        const iconClose = document.getElementById("menu-icon-close");
+        const searchToggle = document.getElementById("mobile-search-toggle");
+        const mobileSearchPanel = document.getElementById("mobile-search-panel");
 
-      // Mobile menu toggle — runs once; header persists across navigations
-      const toggle = document.getElementById("mobile-menu-toggle");
-      const mobileNav = document.getElementById("main-nav");
-      const iconOpen = document.getElementById("menu-icon-open");
-      const iconClose = document.getElementById("menu-icon-close");
-      const searchToggle = document.getElementById("mobile-search-toggle");
-      const mobileSearchPanel = document.getElementById("mobile-search-panel");
-      const mobileSearchInput = document.getElementById(
-        "nav-search-mobile",
-      ) as HTMLInputElement | null;
-
-      if (toggle && mobileNav && iconOpen && iconClose) {
-        toggle.addEventListener("click", () => {
-          const isOpen = toggle.getAttribute("aria-expanded") === "true";
-          toggle.setAttribute("aria-expanded", String(!isOpen));
-          toggle.setAttribute("aria-label", isOpen ? "Open menu" : "Close menu");
-          mobileNav.classList.toggle("hidden");
-          iconOpen.classList.toggle("hidden");
-          iconClose.classList.toggle("hidden");
-        });
-      }
-
-      if (searchToggle && mobileSearchPanel) {
-        searchToggle.addEventListener("click", () => {
-          const isOpen = searchToggle.getAttribute("aria-expanded") === "true";
-          searchToggle.setAttribute("aria-expanded", String(!isOpen));
-          searchToggle.setAttribute("aria-label", isOpen ? "Open search" : "Close search");
-          mobileSearchPanel.classList.toggle("hidden");
-
-          if (!isOpen && mobileSearchInput) {
-            mobileSearchInput.focus();
-          }
-        });
-      }
-
-      // Close mobile menu and search panel before each SPA navigation
-      document.addEventListener("astro:before-swap", () => {
         if (toggle && mobileNav && iconOpen && iconClose) {
           toggle.setAttribute("aria-expanded", "false");
           toggle.setAttribute("aria-label", "Open menu");
@@ -308,12 +340,83 @@ const {
           iconOpen.classList.remove("hidden");
           iconClose.classList.add("hidden");
         }
+
         if (searchToggle && mobileSearchPanel) {
           searchToggle.setAttribute("aria-expanded", "false");
           searchToggle.setAttribute("aria-label", "Open search");
           mobileSearchPanel.classList.add("hidden");
         }
+      }
+
+      function initMobileControls() {
+        if (mobileControlsBound) {
+          return;
+        }
+        mobileControlsBound = true;
+
+        // Delegate clicks so controls keep working after Astro swaps DOM nodes.
+        document.addEventListener("click", (event) => {
+          const target = event.target;
+          if (!(target instanceof Element)) {
+            return;
+          }
+
+          const menuToggle = target.closest("#mobile-menu-toggle");
+          if (menuToggle instanceof HTMLButtonElement) {
+            const mobileNav = document.getElementById("main-nav");
+            const iconOpen = document.getElementById("menu-icon-open");
+            const iconClose = document.getElementById("menu-icon-close");
+            if (mobileNav && iconOpen && iconClose) {
+              const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+              menuToggle.setAttribute("aria-expanded", String(!isOpen));
+              menuToggle.setAttribute("aria-label", isOpen ? "Open menu" : "Close menu");
+              mobileNav.classList.toggle("hidden");
+              iconOpen.classList.toggle("hidden");
+              iconClose.classList.toggle("hidden");
+            }
+            return;
+          }
+
+          const searchToggle = target.closest("#mobile-search-toggle");
+          if (searchToggle instanceof HTMLButtonElement) {
+            const mobileSearchPanel = document.getElementById("mobile-search-panel");
+            const mobileSearchInput = document.getElementById(
+              "nav-search-mobile",
+            ) as HTMLInputElement | null;
+            if (mobileSearchPanel) {
+              const isOpen = searchToggle.getAttribute("aria-expanded") === "true";
+              searchToggle.setAttribute("aria-expanded", String(!isOpen));
+              searchToggle.setAttribute("aria-label", isOpen ? "Open search" : "Close search");
+              mobileSearchPanel.classList.toggle("hidden");
+
+              if (!isOpen && mobileSearchInput) {
+                mobileSearchInput.focus();
+              }
+            }
+          }
+        });
+      }
+
+      function initLayoutBehaviors() {
+        updateCartCount();
+        initMobileControls();
+      }
+
+      document.addEventListener("astro:before-preparation", (event) => {
+        const transitionEvent = event as AstroBeforePreparationEvent;
+        const originalLoader = transitionEvent.loader;
+
+        transitionEvent.loader = async () => {
+          await originalLoader();
+          await waitForIncomingVarietyImage(transitionEvent.newDocument);
+        };
       });
+
+      // Initialize on initial load and every Astro page navigation.
+      document.addEventListener("astro:page-load", initLayoutBehaviors);
+
+      // Close mobile menu and search panel before each SPA navigation.
+      document.addEventListener("astro:before-swap", closeMobilePanels);
     </script>
 
     <SiteSearchAutocomplete />

@@ -22,12 +22,6 @@ const imageSrc = buildCatalogImageUrl(imageUrl, {
   width: featured ? 720 : 560,
   fit: "cover",
 });
-const detailTransitionImageSrc = buildCatalogImageUrl(imageUrl, {
-  format: "auto",
-  quality: 72,
-  width: 1080,
-  fit: "cover",
-});
 const imageSrcSet = buildCatalogImageSrcSet(
   imageUrl,
   featured ? [320, 480, 640, 720, 960] : [256, 384, 512, 640, 768],
@@ -43,15 +37,10 @@ const imageSizes = featured
 ---
 
 <article class="border border-ink group h-full">
-  <a
-    href={`/varieties/${slug}`}
-    class="block no-underline h-full flex flex-col"
-    data-prefetch-variety
-    data-transition-image={detailTransitionImageSrc}
-  >
+  <a href={`/varieties/${slug}`} class="block no-underline h-full flex flex-col">
     <div
-      class={`overflow-hidden bg-stone-200 ${featured ? "aspect-[3/4] sm:aspect-[4/3] lg:aspect-[3/4]" : "aspect-[3/4]"}`}
       transition:name={`variety-image-${slug}`}
+      class={`overflow-hidden bg-stone-200 ${featured ? "aspect-[3/4] sm:aspect-[4/3] lg:aspect-[3/4]" : "aspect-[3/4]"}`}
     >
       <img
         src={imageSrc}
@@ -90,42 +79,3 @@ const imageSizes = featured
     </div>
   </a>
 </article>
-
-<script>
-  const prefetchedVarieties = new Set<string>();
-
-  function prefetchVariety(link: HTMLAnchorElement) {
-    const href = link.href;
-    if (prefetchedVarieties.has(href)) {
-      return;
-    }
-
-    prefetchedVarieties.add(href);
-
-    // Warm page response cache to reduce transition swap latency.
-    fetch(href, { credentials: "same-origin" }).catch(() => {});
-
-    const transitionImage = link.dataset.transitionImage;
-    if (transitionImage) {
-      const img = new Image();
-      img.decoding = "async";
-      img.src = transitionImage;
-    }
-  }
-
-  function handleVarietyPrefetch(event: Event) {
-    const target = event.target;
-    if (!(target instanceof Element)) {
-      return;
-    }
-
-    const link = target.closest("a[data-prefetch-variety]");
-    if (link instanceof HTMLAnchorElement) {
-      prefetchVariety(link);
-    }
-  }
-
-  document.addEventListener("pointerenter", handleVarietyPrefetch, true);
-  document.addEventListener("focusin", handleVarietyPrefetch);
-  document.addEventListener("touchstart", handleVarietyPrefetch, { passive: true });
-</script>
