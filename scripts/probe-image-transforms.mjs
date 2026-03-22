@@ -58,8 +58,11 @@ function parseHomepageCandidates(html, baseUrl) {
     catalog:
       pickFirstMatching(
         unique,
-        (url) => /\/catalog-images\//i.test(url) && /[?&](w|q|format)=/i.test(url),
-      ) ?? pickFirstMatching(unique, (url) => /\/catalog-images\//i.test(url)) ?? null,
+        (url) =>
+          /\/catalog-images\//i.test(url) && /[?&](w|q|format)=/i.test(url),
+      ) ??
+      pickFirstMatching(unique, (url) => /\/catalog-images\//i.test(url)) ??
+      null,
   };
 }
 
