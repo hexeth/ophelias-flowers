@@ -1,31 +1,58 @@
 ---
-import { Image, Picture } from "astro:assets";
-import heroImage from "../assets/hero.jpg";
-import logo from "../assets/logo.png";
 import BaseLayout from "../layouts/base-layout.astro";
 import VarietyCard from "../components/variety-card.astro";
 import { listPublicVarieties } from "../lib/varieties";
 
 const varieties = await listPublicVarieties(Astro.locals);
 const featured = varieties.slice(0, 3);
+
+const heroAvifSrcSet = [
+  "/runtime-images/hero?w=768&q=52&fit=cover&format=avif 768w",
+  "/runtime-images/hero?w=1024&q=52&fit=cover&format=avif 1024w",
+  "/runtime-images/hero?w=1280&q=52&fit=cover&format=avif 1280w",
+  "/runtime-images/hero?w=1600&q=52&fit=cover&format=avif 1600w",
+  "/runtime-images/hero?w=1920&q=52&fit=cover&format=avif 1920w",
+].join(", ");
+
+const heroWebpSrcSet = [
+  "/runtime-images/hero?w=768&q=54&fit=cover&format=webp 768w",
+  "/runtime-images/hero?w=1024&q=54&fit=cover&format=webp 1024w",
+  "/runtime-images/hero?w=1280&q=54&fit=cover&format=webp 1280w",
+  "/runtime-images/hero?w=1600&q=54&fit=cover&format=webp 1600w",
+  "/runtime-images/hero?w=1920&q=54&fit=cover&format=webp 1920w",
+].join(", ");
+
+const heroJpegSrcSet = [
+  "/runtime-images/hero?w=768&q=60&fit=cover&format=jpg 768w",
+  "/runtime-images/hero?w=1024&q=60&fit=cover&format=jpg 1024w",
+  "/runtime-images/hero?w=1280&q=60&fit=cover&format=jpg 1280w",
+  "/runtime-images/hero?w=1600&q=60&fit=cover&format=jpg 1600w",
+  "/runtime-images/hero?w=1920&q=60&fit=cover&format=jpg 1920w",
+].join(", ");
+
+const logoSrcSet =
+  "/runtime-images/logo?w=144&q=52&fit=cover&format=webp 1x, /runtime-images/logo?w=288&q=52&fit=cover&format=webp 2x";
 ---
 
 <BaseLayout title="Home">
   <!-- Hero Section -->
   <section class="relative w-full overflow-hidden h-[70vh] sm:h-auto sm:aspect-video sm:max-h-[80vh]">
-    <Picture
-      src={heroImage}
-      alt=""
-      widths={[768, 1024, 1280, 1600, 1920]}
-      sizes="100vw"
-      formats={["avif", "webp"]}
-      quality={52}
-      width={1920}
-      height={1080}
-      loading="eager"
-      fetchpriority="high"
-      class="absolute inset-0 w-full h-full object-cover"
-    />
+    <picture>
+      <source type="image/avif" srcset={heroAvifSrcSet} sizes="100vw" />
+      <source type="image/webp" srcset={heroWebpSrcSet} sizes="100vw" />
+      <img
+        src="/runtime-images/hero?w=1920&q=60&fit=cover&format=jpg"
+        srcset={heroJpegSrcSet}
+        sizes="100vw"
+        alt=""
+        width="1920"
+        height="1080"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        class="absolute inset-0 w-full h-full object-cover"
+      />
+    </picture>
     <div
       class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-ink/90 via-ink/40 to-transparent"
     >
@@ -34,15 +61,14 @@ const featured = varieties.slice(0, 3);
       class="absolute bottom-0 left-0 right-0 px-4 sm:px-8 lg:px-12 pb-10 sm:pb-14 lg:pb-20"
     >
       <div class="inline-block bg-cream/90 p-3 sm:p-4 mb-6">
-        <Image
-          src={logo}
+        <img
+          src="/runtime-images/logo?w=144&q=52&fit=cover&format=webp"
+          srcset={logoSrcSet}
           alt="Ophelia's Flowers logo"
-          width={144}
-          height={144}
-          densities={[1, 2]}
-          format="webp"
-          quality={52}
+          width="144"
+          height="144"
           loading="eager"
+          decoding="async"
           class="w-20 h-20 sm:w-28 sm:h-28 lg:w-36 lg:h-36"
         />
       </div>

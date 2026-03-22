@@ -16,6 +16,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "images:probe:preview": "node scripts/probe-image-transforms.mjs https://feat-improved-search.ophelias-flowers.pages.dev",
+    "images:probe:prod": "node scripts/probe-image-transforms.mjs https://opheliasflowers.ca",
     "check": "astro check",
     "bootstrap:cloudflare": "node scripts/bootstrap-cloudflare.mjs",
     "catalog:sync-images": "node scripts/sync-variety-images.mjs",
