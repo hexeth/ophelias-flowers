@@ -37,16 +37,16 @@ const { name, price, salePrice, stock, category, color, bloomSize, height, image
   };
 const displayPrice = variety ? getDisplayPrice(variety) : 0;
 const detailImageSrc = buildCatalogImageUrl(imageUrl, {
-  width: 1200,
-  quality: 80,
+  width: 1080,
+  quality: 72,
   fit: "cover",
   format: "auto",
 });
 const detailImageSrcSet = buildCatalogImageSrcSet(
   imageUrl,
-  [480, 720, 960, 1200, 1600],
+  [360, 540, 720, 900, 1080, 1200],
   {
-    quality: 80,
+    quality: 72,
     fit: "cover",
     format: "auto",
   },

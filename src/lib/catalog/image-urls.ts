@@ -6,6 +6,7 @@ export interface CatalogImageVariantOptions {
 }
 
 const CATALOG_IMAGE_PREFIX = "/catalog-images/";
+const CATALOG_SEED_PREFIX = "/catalog-seed/";
 export const MIN_IMAGE_WIDTH = 64;
 export const MAX_IMAGE_WIDTH = 2400;
 export const MIN_IMAGE_QUALITY = 30;
@@ -17,7 +18,21 @@ function clampInteger(value: number, min: number, max: number) {
 }
 
 export function isCatalogImagePath(url: string) {
-  return url.startsWith(CATALOG_IMAGE_PREFIX);
+  return (
+    url.startsWith(CATALOG_IMAGE_PREFIX) || url.startsWith(CATALOG_SEED_PREFIX)
+  );
+}
+
+function getTransformPath(path: string) {
+  if (path.startsWith(CATALOG_IMAGE_PREFIX)) {
+    return path;
+  }
+
+  if (path.startsWith(CATALOG_SEED_PREFIX)) {
+    return `/catalog-seed-images/${path.slice(CATALOG_SEED_PREFIX.length)}`;
+  }
+
+  return null;
 }
 
 export function buildCatalogImageUrl(
@@ -29,6 +44,11 @@ export function buildCatalogImageUrl(
   }
 
   const [path, rawQuery] = url.split("?", 2);
+  const transformPath = getTransformPath(path);
+  if (!transformPath) {
+    return url;
+  }
+
   const searchParams = new URLSearchParams(rawQuery ?? "");
 
   if (typeof options.width === "number") {
@@ -56,7 +76,7 @@ export function buildCatalogImageUrl(
   }
 
   const nextQuery = searchParams.toString();
-  return nextQuery.length > 0 ? `${path}?${nextQuery}` : path;
+  return nextQuery.length > 0 ? `${transformPath}?${nextQuery}` : transformPath;
 }
 
 export function buildCatalogImageSrcSet(

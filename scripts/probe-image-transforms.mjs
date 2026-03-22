@@ -31,7 +31,7 @@ function pickFirstMatching(urls, matcher) {
   return undefined;
 }
 
-function parseHomepageCandidates(html, baseUrl) {
+function parsePageCandidates(html, baseUrl) {
   const srcMatches = Array.from(html.matchAll(/\ssrc="([^"]+)"/g)).map(
     (match) => new URL(decodeHtmlEntities(match[1]), baseUrl).toString(),
   );
@@ -59,9 +59,21 @@ function parseHomepageCandidates(html, baseUrl) {
       pickFirstMatching(
         unique,
         (url) =>
-          /\/catalog-images\//i.test(url) && /[?&](w|q|format)=/i.test(url),
+          /\/(catalog-images|catalog-seed-images)\//i.test(url) &&
+          /[?&](w|q|format)=/i.test(url),
       ) ??
-      pickFirstMatching(unique, (url) => /\/catalog-images\//i.test(url)) ??
+      pickFirstMatching(unique, (url) =>
+        /\/(catalog-images|catalog-seed-images)\//i.test(url),
+      ) ??
+      null,
+    detail:
+      pickFirstMatching(
+        unique,
+        (url) =>
+          /\/(catalog-images|catalog-seed-images)\//i.test(url) &&
+          /[?&](w|q|format)=/i.test(url),
+      ) ??
+      pickFirstMatching(unique, (url) => /\/catalog-seed\//i.test(url)) ??
       null,
   };
 }
@@ -108,7 +120,7 @@ async function main() {
 
   const homepageResponse = await fetch(baseUrl);
   const homepageHtml = await homepageResponse.text();
-  const candidates = parseHomepageCandidates(homepageHtml, baseUrl);
+  const candidates = parsePageCandidates(homepageHtml, baseUrl);
 
   const checks = await Promise.all(
     Object.entries(candidates)
@@ -121,7 +133,7 @@ async function main() {
 
   const report = {
     baseUrl,
-    homepageStatus: homepageResponse.status,
+    pageStatus: homepageResponse.status,
     candidates,
     checks,
   };
@@ -132,7 +144,7 @@ async function main() {
   }
 
   console.log(`Image transform probe for ${baseUrl}`);
-  console.log(`Homepage status: ${homepageResponse.status}`);
+  console.log(`Page status: ${homepageResponse.status}`);
   for (const check of checks) {
     if (check.error) {
       console.log(`- ${check.kind}: ERROR ${check.error}`);
