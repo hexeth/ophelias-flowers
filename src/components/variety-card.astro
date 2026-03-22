@@ -37,15 +37,10 @@ const imageSizes = featured
 ---
 
 <article class="border border-ink group h-full">
-  <a
-    href={`/varieties/${slug}`}
-    class="block no-underline h-full flex flex-col"
-    data-variety-transition-trigger
-    data-variety-slug={slug}
-  >
+  <a href={`/varieties/${slug}`} class="block no-underline h-full flex flex-col">
     <div
+      transition:name={`variety-image-${slug}`}
       class={`overflow-hidden bg-stone-200 ${featured ? "aspect-[3/4] sm:aspect-[4/3] lg:aspect-[3/4]" : "aspect-[3/4]"}`}
-      data-variety-transition-media
     >
       <img
         src={imageSrc}

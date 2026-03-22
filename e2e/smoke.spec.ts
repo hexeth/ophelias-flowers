@@ -106,6 +106,69 @@ test.describe("variety detail", () => {
       )
       .toBe(true);
   });
+
+  test("variety card image stays in place until delayed hero image is ready", async ({
+    page,
+  }) => {
+    let delayedHeroRequestSeen = false;
+
+    await page.goto("/varieties");
+    await page.waitForLoadState("networkidle");
+
+    const firstVarietyLink = page.locator('a[href^="/varieties/"]').first();
+    const cardImage = firstVarietyLink.locator("img");
+    const listingImageUrls = new Set(
+      await page.locator('a[href^="/varieties/"] img').evaluateAll((images) =>
+        images
+          .map((image) => {
+            const img = image as HTMLImageElement;
+            return img.currentSrc || img.getAttribute("src") || "";
+          })
+          .filter(Boolean),
+      ),
+    );
+
+    await page.route("**/*", async (route) => {
+      const request = route.request();
+      const requestUrl = request.url();
+
+      if (
+        !delayedHeroRequestSeen &&
+        request.resourceType() === "image" &&
+        requestUrl.includes("/catalog-") &&
+        !listingImageUrls.has(requestUrl)
+      ) {
+        delayedHeroRequestSeen = true;
+        await page.waitForTimeout(1200);
+      }
+
+      await route.continue();
+    });
+
+    await expect(firstVarietyLink).toBeVisible();
+    await expect(cardImage).toBeVisible();
+
+    await firstVarietyLink.click({ noWaitAfter: true });
+
+    await expect
+      .poll(() => delayedHeroRequestSeen, {
+        message: "Expected the destination hero image request to be delayed.",
+      })
+      .toBe(true);
+
+    await expect(cardImage).toBeVisible();
+
+    const heroImage = page.locator("img[data-variety-detail-image]").first();
+    await expect(heroImage).toBeVisible();
+    await expect
+      .poll(async () =>
+        heroImage.evaluate((image) => {
+          const img = image as HTMLImageElement;
+          return img.complete && img.naturalWidth > 0;
+        }),
+      )
+      .toBe(true);
+  });
 });
 
 test.describe("cart", () => {

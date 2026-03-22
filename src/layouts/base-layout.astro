@@ -17,8 +17,6 @@ const {
   title,
   description = "Ophelia's Flowers — Dahlia tubers for the passionate gardener.",
 } = Astro.props;
-const isVarietiesTransitionRoute =
-  Astro.url.pathname === "/varieties" || Astro.url.pathname.startsWith("/varieties/");
 ---
 
 <!doctype html>
@@ -180,17 +178,9 @@ const isVarietiesTransitionRoute =
 
     <Breadcrumbs />
 
-    {
-      isVarietiesTransitionRoute ? (
-        <main class="flex-1">
-          <slot />
-        </main>
-      ) : (
-        <main class="flex-1" transition:animate={fade({ duration: "0.2s" })}>
-          <slot />
-        </main>
-      )
-    }
+    <main class="flex-1" transition:animate={fade({ duration: "0.2s" })}>
+      <slot />
+    </main>
 
     <footer
       class="border-t border-ink px-4 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-16 mt-auto"
@@ -258,8 +248,69 @@ const isVarietiesTransitionRoute =
     <script>
       import { loadCart, getCartItemCount } from "../lib/commerce/cart";
 
+      interface AstroBeforePreparationEvent extends Event {
+        loader: () => Promise<void>;
+        newDocument: Document;
+      }
+
       let mobileControlsBound = false;
-      let varietyTransitionBound = false;
+
+      function preloadIncomingImage(image: HTMLImageElement) {
+        const src = image.getAttribute("src");
+        const srcset = image.getAttribute("srcset");
+        const sizes = image.getAttribute("sizes");
+
+        if (!src && !srcset) {
+          return Promise.resolve();
+        }
+
+        return new Promise<void>((resolve) => {
+          const pendingImage = new Image();
+          pendingImage.decoding = "async";
+          pendingImage.fetchPriority = "high";
+
+          const finish = () => {
+            resolve();
+          };
+
+          const decodeIfPossible = () => {
+            if (typeof pendingImage.decode === "function") {
+              pendingImage.decode().catch(() => undefined).finally(finish);
+              return;
+            }
+
+            finish();
+          };
+
+          pendingImage.addEventListener("load", decodeIfPossible, { once: true });
+          pendingImage.addEventListener("error", finish, { once: true });
+
+          if (sizes) {
+            pendingImage.sizes = sizes;
+          }
+
+          if (srcset) {
+            pendingImage.srcset = srcset;
+          }
+
+          if (src) {
+            pendingImage.src = src;
+          }
+
+          if (pendingImage.complete) {
+            decodeIfPossible();
+          }
+        });
+      }
+
+      async function waitForIncomingVarietyImage(documentToSwapIn: Document) {
+        const incomingImage = documentToSwapIn.querySelector("[data-variety-detail-image]");
+        if (!(incomingImage instanceof HTMLImageElement)) {
+          return;
+        }
+
+        await preloadIncomingImage(incomingImage);
+      }
 
       function updateCartCount() {
         const cartCount = document.getElementById("cart-count");
@@ -346,54 +397,20 @@ const isVarietiesTransitionRoute =
         });
       }
 
-      function initVarietyTransitionHandling() {
-        if (varietyTransitionBound) {
-          return;
-        }
-        varietyTransitionBound = true;
-
-        document.addEventListener(
-          "click",
-          (event) => {
-            if (!(event instanceof MouseEvent)) {
-              return;
-            }
-
-            if (
-              event.defaultPrevented ||
-              event.button !== 0 ||
-              event.metaKey ||
-              event.ctrlKey ||
-              event.shiftKey ||
-              event.altKey
-            ) {
-              return;
-            }
-
-            const target = event.target;
-            if (!(target instanceof Element)) {
-              return;
-            }
-
-            const link = target.closest("a[data-variety-transition-trigger]");
-            if (!(link instanceof HTMLAnchorElement)) {
-              return;
-            }
-
-            const media = link.querySelector("[data-variety-transition-media]");
-            if (media instanceof HTMLElement) {
-              media.style.viewTransitionName = "variety-image-active";
-            }
-          },
-          true,
-        );
-      }
-
       function initLayoutBehaviors() {
         updateCartCount();
         initMobileControls();
-        initVarietyTransitionHandling();
       }
+
+      document.addEventListener("astro:before-preparation", (event) => {
+        const transitionEvent = event as AstroBeforePreparationEvent;
+        const originalLoader = transitionEvent.loader;
+
+        transitionEvent.loader = async () => {
+          await originalLoader();
+          await waitForIncomingVarietyImage(transitionEvent.newDocument);
+        };
+      });
 
       // Initialize on initial load and every Astro page navigation.
       document.addEventListener("astro:page-load", initLayoutBehaviors);
