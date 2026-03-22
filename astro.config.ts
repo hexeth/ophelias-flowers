@@ -6,6 +6,12 @@ import clerk from "@clerk/astro";
 
 export default defineConfig({
   output: "server",
+  server: {
+    host: true,
+  },
+  build: {
+    inlineStylesheets: "always",
+  },
   adapter: cloudflare({
     imageService: "compile",
     platformProxy: {

@@ -1,5 +1,10 @@
 ---
 import { categoryLabels, getDisplayPrice, stockClasses, stockLabels } from "../lib/varieties";
+import {
+  buildCatalogImageSrcSet,
+  buildCatalogImageUrl,
+  isCatalogImagePath,
+} from "../lib/catalog/image-urls";
 import type { Variety } from "../lib/varieties";
 
 interface Props {
@@ -11,18 +16,52 @@ interface Props {
 const { variety, featured = false, imageLoading = "lazy" } = Astro.props;
 const { name, stock, category, imageUrl, slug, price, salePrice } = variety;
 const displayPrice = getDisplayPrice(variety);
+const imageSrc = buildCatalogImageUrl(imageUrl, {
+  format: "auto",
+  quality: featured ? 68 : 70,
+  width: featured ? 720 : 560,
+  fit: "cover",
+});
+const detailTransitionImageSrc = buildCatalogImageUrl(imageUrl, {
+  format: "auto",
+  quality: 72,
+  width: 1080,
+  fit: "cover",
+});
+const imageSrcSet = buildCatalogImageSrcSet(
+  imageUrl,
+  featured ? [320, 480, 640, 720, 960] : [256, 384, 512, 640, 768],
+  {
+    fit: "cover",
+    format: "auto",
+    quality: featured ? 68 : 70,
+  },
+);
+const imageSizes = featured
+  ? "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, (max-width: 1279px) 66vw, 640px"
+  : "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, (max-width: 1279px) 33vw, 384px";
 ---
 
 <article class="border border-ink group h-full">
-  <a href={`/varieties/${slug}`} class="block no-underline h-full flex flex-col">
+  <a
+    href={`/varieties/${slug}`}
+    class="block no-underline h-full flex flex-col"
+    data-prefetch-variety
+    data-transition-image={detailTransitionImageSrc}
+  >
     <div
-      class={`overflow-hidden ${featured ? "aspect-[3/4] sm:aspect-[4/3] lg:aspect-[3/4]" : "aspect-[3/4]"}`}
+      class={`overflow-hidden bg-stone-200 ${featured ? "aspect-[3/4] sm:aspect-[4/3] lg:aspect-[3/4]" : "aspect-[3/4]"}`}
+      transition:name={`variety-image-${slug}`}
     >
       <img
-        src={imageUrl}
+        src={imageSrc}
         alt={`${name} dahlia bloom`}
         loading={imageLoading}
         decoding="async"
+        width="600"
+        height="800"
+        srcset={imageSrcSet}
+        sizes={isCatalogImagePath(imageUrl) ? imageSizes : undefined}
         class="w-full h-full object-cover"
       />
     </div>
@@ -30,9 +69,9 @@ const displayPrice = getDisplayPrice(variety);
       <p class="text-xs uppercase tracking-widest text-stone-500 mb-1">
         {categoryLabels[category]}
       </p>
-      <h3 class="font-serif text-lg sm:text-xl font-normal">{name}</h3>
+      <h3 class="font-serif text-lg sm:text-xl font-normal leading-tight">{name}</h3>
       <div class="flex items-center justify-between mt-auto pt-3">
-        <span class="text-lg font-semibold">
+        <span class="text-lg font-semibold tabular-nums">
           {
             salePrice !== null ? (
               <>
@@ -51,3 +90,42 @@ const displayPrice = getDisplayPrice(variety);
     </div>
   </a>
 </article>
+
+<script>
+  const prefetchedVarieties = new Set<string>();
+
+  function prefetchVariety(link: HTMLAnchorElement) {
+    const href = link.href;
+    if (prefetchedVarieties.has(href)) {
+      return;
+    }
+
+    prefetchedVarieties.add(href);
+
+    // Warm page response cache to reduce transition swap latency.
+    fetch(href, { credentials: "same-origin" }).catch(() => {});
+
+    const transitionImage = link.dataset.transitionImage;
+    if (transitionImage) {
+      const img = new Image();
+      img.decoding = "async";
+      img.src = transitionImage;
+    }
+  }
+
+  function handleVarietyPrefetch(event: Event) {
+    const target = event.target;
+    if (!(target instanceof Element)) {
+      return;
+    }
+
+    const link = target.closest("a[data-prefetch-variety]");
+    if (link instanceof HTMLAnchorElement) {
+      prefetchVariety(link);
+    }
+  }
+
+  document.addEventListener("pointerenter", handleVarietyPrefetch, true);
+  document.addEventListener("focusin", handleVarietyPrefetch);
+  document.addEventListener("touchstart", handleVarietyPrefetch, { passive: true });
+</script>

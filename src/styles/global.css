@@ -8,11 +8,12 @@
   }
 
   body {
-    @apply min-h-screen flex flex-col font-sans;
+    @apply min-h-screen flex flex-col font-sans text-base leading-relaxed;
+    font-kerning: normal;
   }
 
   h1 {
-    @apply font-serif text-6xl sm:text-7xl lg:text-8xl tracking-tighter leading-none;
+    @apply font-serif text-6xl sm:text-7xl lg:text-8xl tracking-tighter leading-[0.92];
   }
 
   h2 {
@@ -43,5 +44,21 @@
     100% {
       transform: scale(1);
     }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

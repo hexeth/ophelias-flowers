@@ -3,7 +3,7 @@ import BaseLayout from "../../layouts/base-layout.astro";
 import InventoryTable from "../../components/admin/inventory-table";
 import { listAdminVarieties } from "../../lib/varieties";
 
-const varieties = await listAdminVarieties(Astro.locals);
+const initialVarieties = await listAdminVarieties(Astro.locals);
 ---
 
 <BaseLayout
@@ -18,7 +18,13 @@ const varieties = await listAdminVarieties(Astro.locals);
         </div>
       </div>
 
-      <InventoryTable client:load initialVarieties={varieties} />
+      <InventoryTable
+        client:load
+        initialPage={1}
+        initialPageSize={25}
+        initialTotalCount={initialVarieties.length}
+        initialVarieties={initialVarieties}
+      />
     </div>
   </section>
 </BaseLayout>

@@ -1,5 +1,12 @@
 ---
+import { ClientRouter, fade } from "astro:transitions";
 import Breadcrumbs from "../components/breadcrumbs.astro";
+import SiteSearchAutocomplete from "../components/site-search-autocomplete.astro";
+import SiteSearchForm from "../components/site-search-form.astro";
+import "@fontsource/playfair-display/400.css";
+import "@fontsource/playfair-display/700.css";
+import playfairLatin400 from "@fontsource/playfair-display/files/playfair-display-latin-400-normal.woff2?url";
+import playfairLatin700 from "@fontsource/playfair-display/files/playfair-display-latin-700-normal.woff2?url";
 
 interface Props {
   title: string;
@@ -18,15 +25,12 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href={playfairLatin400} />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href={playfairLatin700} />
     <slot name="head" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
     <title>{title} | Ophelia's Flowers</title>
+    <ClientRouter />
   </head>
   <body>
     <slot name="header">
@@ -44,7 +48,7 @@ const {
             <button
               id="mobile-search-toggle"
               type="button"
-              class="border border-ink p-2 hover:bg-ink hover:text-white transition-colors"
+              class="inline-flex min-h-[44px] min-w-[44px] items-center justify-center border border-ink p-2 transition-colors hover:bg-ink hover:text-white focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
               aria-expanded="false"
               aria-controls="mobile-search-panel"
               aria-label="Open search"
@@ -59,7 +63,7 @@ const {
             <button
               id="mobile-menu-toggle"
               type="button"
-              class="border border-ink p-2 hover:bg-ink hover:text-white transition-colors"
+              class="inline-flex min-h-[44px] min-w-[44px] items-center justify-center border border-ink p-2 transition-colors hover:bg-ink hover:text-white focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
               aria-expanded="false"
               aria-controls="main-nav"
               aria-label="Open menu"
@@ -75,49 +79,35 @@ const {
 
           <!-- Desktop nav -->
           <div class="hidden sm:flex items-center gap-6">
-            <form
-              action="/varieties"
-              method="get"
-              role="search"
-              aria-label="Search varieties"
-              class="flex items-center gap-2"
-            >
-              <label for="nav-search-desktop" class="sr-only">Search varieties</label>
-              <input
-                id="nav-search-desktop"
-                name="q"
-                type="search"
-                placeholder="Search varieties"
-                class="border border-ink bg-white px-4 py-2 text-sm w-52 lg:w-64 focus:ring-2 focus:ring-ink focus:outline-none"
-              />
-              <button
-                type="submit"
-                class="border border-ink bg-ink text-white px-3 py-2 text-xs uppercase tracking-widest transition-colors hover:bg-white hover:text-ink focus:ring-2 focus:ring-ink focus:ring-offset-2 focus:outline-none"
-              >
-                Search
-              </button>
-            </form>
+            <SiteSearchForm
+              inputClassName="border border-ink bg-white px-4 py-2 text-sm w-52 lg:w-64 focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
+              inputId="nav-search-desktop"
+              layoutClassName="flex items-center gap-2"
+              inputWrapperClassName="relative"
+              panelId="nav-search-desktop-suggestions"
+              submitButtonClassName="border border-ink bg-ink text-white px-3 py-2 text-xs uppercase tracking-widest transition-colors hover:bg-white hover:text-ink focus:ring-2 focus:ring-ink focus:ring-offset-2 focus:outline-none"
+            />
 
             <nav aria-label="Main navigation">
               <ul class="flex gap-6 text-xs uppercase tracking-widest items-center">
                 <li>
                   <a
                     href="/varieties"
-                    class="no-underline hover:text-stone-500 transition-colors"
+                    class="inline-flex min-h-[44px] items-center no-underline transition-colors hover:text-stone-500 focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
                     >Shop</a
                   >
                 </li>
                 <li>
                   <a
                     href="/about"
-                    class="no-underline hover:text-stone-500 transition-colors"
+                    class="inline-flex min-h-[44px] items-center no-underline transition-colors hover:text-stone-500 focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
                     >About</a
                   >
                 </li>
                 <li>
                   <a
                     href="/cart"
-                    class="inline-flex items-center gap-2 no-underline hover:text-stone-500 transition-colors"
+                    class="inline-flex min-h-[44px] items-center gap-2 no-underline transition-colors hover:text-stone-500 focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
                   >
                     <span>Cart</span>
                     <span
@@ -136,28 +126,15 @@ const {
           id="mobile-search-panel"
           class="hidden sm:hidden border-t border-stone-300 mt-6 pt-6"
         >
-          <form
-            action="/varieties"
-            method="get"
-            role="search"
-            aria-label="Search varieties"
-            class="flex items-center gap-2"
-          >
-            <label for="nav-search-mobile" class="sr-only">Search varieties</label>
-            <input
-              id="nav-search-mobile"
-              name="q"
-              type="search"
-              placeholder="Search varieties"
-              class="flex-1 border border-ink bg-white px-4 py-3 text-sm focus:ring-2 focus:ring-ink focus:outline-none"
-            />
-            <button
-              type="submit"
-              class="border border-ink bg-ink text-white px-3 py-3 text-xs uppercase tracking-widest transition-colors hover:bg-white hover:text-ink focus:ring-2 focus:ring-ink focus:ring-offset-2 focus:outline-none"
-            >
-              Search
-            </button>
-          </form>
+          <SiteSearchForm
+            inputClassName="min-h-12 w-full border border-ink bg-white px-4 py-3 text-base focus:ring-2 focus:ring-ink focus:outline-none"
+            inputId="nav-search-mobile"
+            layoutClassName="flex flex-col items-stretch gap-3"
+            inputWrapperClassName="relative flex-1"
+            panelClassName="max-h-[min(22rem,calc(100vh-12rem))]"
+            panelId="nav-search-mobile-suggestions"
+            submitButtonClassName="min-h-12 w-full border border-ink bg-ink px-4 py-3 text-xs uppercase tracking-widest text-white transition-colors hover:bg-white hover:text-ink focus:ring-2 focus:ring-ink focus:ring-offset-2 focus:outline-none"
+          />
         </div>
 
         <!-- Mobile nav -->
@@ -170,21 +147,21 @@ const {
             <li>
               <a
                 href="/varieties"
-                class="no-underline hover:text-stone-500 transition-colors"
+                class="inline-flex min-h-[44px] items-center no-underline transition-colors hover:text-stone-500 focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
                 >Shop</a
               >
             </li>
             <li>
               <a
                 href="/about"
-                class="no-underline hover:text-stone-500 transition-colors"
+                class="inline-flex min-h-[44px] items-center no-underline transition-colors hover:text-stone-500 focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
                 >About</a
               >
             </li>
             <li>
               <a
                 href="/cart"
-                class="inline-flex items-center gap-2 no-underline hover:text-stone-500 transition-colors"
+                class="inline-flex min-h-[44px] items-center gap-2 no-underline transition-colors hover:text-stone-500 focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
               >
                 <span>Cart</span>
                 <span
@@ -201,7 +178,7 @@ const {
 
     <Breadcrumbs />
 
-    <main class="flex-1">
+    <main class="flex-1" transition:animate={fade({ duration: '0.2s' })}>
       <slot />
     </main>
 
@@ -222,25 +199,25 @@ const {
           <p class="text-xs uppercase tracking-widest font-semibold mb-3">
             Quick Links
           </p>
-          <ul class="space-y-2 text-sm text-stone-500">
+          <ul class="space-y-1 text-sm text-stone-500">
             <li>
               <a
                 href="/varieties"
-                class="no-underline hover:text-ink transition-colors"
+                class="inline-flex min-h-[40px] items-center no-underline transition-colors hover:text-ink focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
                 >Shop All Varieties</a
               >
             </li>
             <li>
               <a
                 href="/about"
-                class="no-underline hover:text-ink transition-colors"
+                class="inline-flex min-h-[40px] items-center no-underline transition-colors hover:text-ink focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
                 >About Us</a
               >
             </li>
             <li>
               <a
                 href="/cart"
-                class="no-underline hover:text-ink transition-colors">Cart</a
+                class="inline-flex min-h-[40px] items-center no-underline transition-colors hover:text-ink focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2">Cart</a
               >
             </li>
           </ul>
@@ -253,7 +230,7 @@ const {
             <li>
               <a
                 href="mailto:hello@opheliasflowers.ca"
-                class="no-underline hover:text-ink transition-colors"
+                class="inline-flex min-h-[40px] items-center no-underline transition-colors hover:text-ink focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
                 >hello@opheliasflowers.ca</a
               >
             </li>
@@ -271,21 +248,23 @@ const {
     <script>
       import { loadCart, getCartItemCount } from "../lib/commerce/cart";
 
-      // Cart count badges
-      const cartCount = document.getElementById("cart-count");
-      const cartCountMobile = document.getElementById("cart-count-mobile");
-      const cart = loadCart();
-      const count = getCartItemCount(cart);
-      if (count > 0) {
+      function updateCartCount() {
+        const cartCount = document.getElementById("cart-count");
+        const cartCountMobile = document.getElementById("cart-count-mobile");
+        const cart = loadCart();
+        const count = getCartItemCount(cart);
         [cartCount, cartCountMobile].forEach((el) => {
           if (el) {
             el.textContent = `(${count})`;
-            el.hidden = false;
+            el.hidden = count === 0;
           }
         });
       }
 
-      // Mobile menu toggle
+      // Update cart count on every page load (initial + after SPA navigation)
+      document.addEventListener("astro:page-load", updateCartCount);
+
+      // Mobile menu toggle — runs once; header persists across navigations
       const toggle = document.getElementById("mobile-menu-toggle");
       const mobileNav = document.getElementById("main-nav");
       const iconOpen = document.getElementById("menu-icon-open");
@@ -319,6 +298,24 @@ const {
           }
         });
       }
+
+      // Close mobile menu and search panel before each SPA navigation
+      document.addEventListener("astro:before-swap", () => {
+        if (toggle && mobileNav && iconOpen && iconClose) {
+          toggle.setAttribute("aria-expanded", "false");
+          toggle.setAttribute("aria-label", "Open menu");
+          mobileNav.classList.add("hidden");
+          iconOpen.classList.remove("hidden");
+          iconClose.classList.add("hidden");
+        }
+        if (searchToggle && mobileSearchPanel) {
+          searchToggle.setAttribute("aria-expanded", "false");
+          searchToggle.setAttribute("aria-label", "Open search");
+          mobileSearchPanel.classList.add("hidden");
+        }
+      });
     </script>
+
+    <SiteSearchAutocomplete />
   </body>
 </html>

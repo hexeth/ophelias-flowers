@@ -1,0 +1,101 @@
+export interface CatalogImageVariantOptions {
+  width?: number;
+  quality?: number;
+  fit?: "cover" | "contain" | "scale-down";
+  format?: "auto" | "avif" | "webp" | "jpeg" | "png";
+}
+
+const CATALOG_IMAGE_PREFIX = "/catalog-images/";
+const CATALOG_SEED_PREFIX = "/catalog-seed/";
+export const MIN_IMAGE_WIDTH = 64;
+export const MAX_IMAGE_WIDTH = 2400;
+export const MIN_IMAGE_QUALITY = 30;
+export const MAX_IMAGE_QUALITY = 95;
+
+function clampInteger(value: number, min: number, max: number) {
+  const rounded = Math.round(value);
+  return Math.min(max, Math.max(min, rounded));
+}
+
+export function isCatalogImagePath(url: string) {
+  return (
+    url.startsWith(CATALOG_IMAGE_PREFIX) || url.startsWith(CATALOG_SEED_PREFIX)
+  );
+}
+
+function getTransformPath(path: string) {
+  if (path.startsWith(CATALOG_IMAGE_PREFIX)) {
+    return path;
+  }
+
+  if (path.startsWith(CATALOG_SEED_PREFIX)) {
+    return `/catalog-seed-images/${path.slice(CATALOG_SEED_PREFIX.length)}`;
+  }
+
+  return null;
+}
+
+export function buildCatalogImageUrl(
+  url: string,
+  options: CatalogImageVariantOptions = {},
+) {
+  if (!isCatalogImagePath(url)) {
+    return url;
+  }
+
+  const [path, rawQuery] = url.split("?", 2);
+  const transformPath = getTransformPath(path);
+  if (!transformPath) {
+    return url;
+  }
+
+  const searchParams = new URLSearchParams(rawQuery ?? "");
+
+  if (typeof options.width === "number") {
+    searchParams.set(
+      "w",
+      String(clampInteger(options.width, MIN_IMAGE_WIDTH, MAX_IMAGE_WIDTH)),
+    );
+  }
+
+  if (typeof options.quality === "number") {
+    searchParams.set(
+      "q",
+      String(
+        clampInteger(options.quality, MIN_IMAGE_QUALITY, MAX_IMAGE_QUALITY),
+      ),
+    );
+  }
+
+  if (options.fit) {
+    searchParams.set("fit", options.fit);
+  }
+
+  if (options.format) {
+    searchParams.set("format", options.format);
+  }
+
+  const nextQuery = searchParams.toString();
+  return nextQuery.length > 0 ? `${transformPath}?${nextQuery}` : transformPath;
+}
+
+export function buildCatalogImageSrcSet(
+  url: string,
+  widths: number[],
+  options: Omit<CatalogImageVariantOptions, "width"> = {},
+) {
+  if (!isCatalogImagePath(url)) {
+    return undefined;
+  }
+
+  const candidates = widths
+    .map((width) => clampInteger(width, MIN_IMAGE_WIDTH, MAX_IMAGE_WIDTH))
+    .filter((width, index, arr) => arr.indexOf(width) === index)
+    .sort((a, b) => a - b)
+    .map(
+      (width) =>
+        `${buildCatalogImageUrl(url, { ...options, width })} ${width}w`,
+    );
+
+  return candidates.length > 0 ? candidates.join(", ") : undefined;
+}

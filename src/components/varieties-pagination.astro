@@ -1,0 +1,53 @@
+---
+interface Props {
+  currentPage: number;
+  end: number;
+  nextHref: string | null;
+  prevHref: string | null;
+  start: number;
+  total: number;
+  totalPages: number;
+}
+
+const { currentPage, end, nextHref, prevHref, start, total, totalPages } =
+  Astro.props;
+---
+
+<div
+  id="pagination"
+  class="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-ink pt-6 lg:mt-10"
+>
+  {
+    prevHref ? (
+      <a
+        href={prevHref}
+        class="inline-flex min-h-[44px] items-center justify-center border border-ink px-4 py-3 text-xs uppercase tracking-widest no-underline transition-colors hover:bg-ink hover:text-cream focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
+      >
+        Previous
+      </a>
+    ) : (
+      <span class="inline-flex min-h-[44px] items-center justify-center border border-stone-300 px-4 py-3 text-xs uppercase tracking-widest text-stone-300">
+        Previous
+      </span>
+    )
+  }
+
+  <p id="pagination-status" class="order-3 w-full text-center text-xs uppercase tracking-widest text-stone-500 sm:order-none sm:w-auto sm:text-left">
+    Page {currentPage} of {totalPages} · {start}-{end} of {total}
+  </p>
+
+  {
+    nextHref ? (
+      <a
+        href={nextHref}
+        class="inline-flex min-h-[44px] items-center justify-center border border-ink px-4 py-3 text-xs uppercase tracking-widest no-underline transition-colors hover:bg-ink hover:text-cream focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
+      >
+        Next
+      </a>
+    ) : (
+      <span class="inline-flex min-h-[44px] items-center justify-center border border-stone-300 px-4 py-3 text-xs uppercase tracking-widest text-stone-300">
+        Next
+      </span>
+    )
+  }
+</div>

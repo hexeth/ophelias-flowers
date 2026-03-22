@@ -1,32 +1,14 @@
 import type { Variety } from "./types";
+import type { InventoryTableFilters, InventoryTableSort } from "./search";
+export type {
+  InventorySortField,
+  InventoryTableFilters,
+  InventoryTableSort,
+} from "./search";
 
 export type InventoryRow = Variety & {
   isNew?: boolean;
 };
-
-export type InventorySortField =
-  | "name"
-  | "category"
-  | "stock"
-  | "price"
-  | "salePrice"
-  | "color"
-  | "bloomSize"
-  | "height"
-  | "hidden"
-  | "updatedAt";
-
-export interface InventoryTableFilters {
-  category: string;
-  stock: string;
-  visibility: "all" | "visible" | "hidden";
-  query: string;
-}
-
-export interface InventoryTableSort {
-  direction: "asc" | "desc";
-  field: InventorySortField;
-}
 
 export type InventoryEditingRowMap = Record<string, boolean>;
 export type InventoryOriginalRowMap = Record<string, InventoryRow>;

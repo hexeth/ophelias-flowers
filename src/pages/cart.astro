@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "../layouts/base-layout.astro";
+
+export const prerender = true;
 ---
 
 <BaseLayout
@@ -14,44 +16,46 @@ import BaseLayout from "../layouts/base-layout.astro";
         <p class="text-stone-500 text-lg mb-6">Your cart is empty.</p>
         <a
           href="/varieties"
-          class="inline-block border border-ink px-8 py-4 text-xs uppercase tracking-widest no-underline hover:bg-ink hover:text-cream transition-colors"
+          class="inline-flex min-h-[44px] items-center justify-center border border-ink px-8 py-4 text-xs uppercase tracking-widest no-underline transition-colors hover:bg-ink hover:text-cream focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
         >
           Browse Varieties
         </a>
       </div>
 
       <div id="cart-contents" hidden>
-        <table class="w-full text-left">
-          <thead>
-            <tr class="border-b-2 border-ink text-xs uppercase tracking-widest">
-              <th class="pb-3">Variety</th>
-              <th class="pb-3 text-center">Qty</th>
-              <th class="pb-3 text-right">Price</th>
-              <th class="pb-3 text-right">Subtotal</th>
-              <th class="pb-3 w-10"><span class="sr-only">Remove</span></th>
-            </tr>
-          </thead>
-          <tbody id="cart-items"></tbody>
-        </table>
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-[38rem] text-left">
+            <thead>
+              <tr class="border-b-2 border-ink text-xs uppercase tracking-widest">
+                <th class="pb-3">Variety</th>
+                <th class="pb-3 text-center">Qty</th>
+                <th class="pb-3 text-right">Price</th>
+                <th class="pb-3 text-right">Subtotal</th>
+                <th class="pb-3 w-10"><span class="sr-only">Remove</span></th>
+              </tr>
+            </thead>
+            <tbody id="cart-items"></tbody>
+          </table>
+        </div>
 
         <div
           class="border-t-2 border-ink mt-6 pt-6 flex items-center justify-between"
         >
           <span class="text-xs uppercase tracking-widest">Total</span>
-          <span id="cart-total" class="font-serif text-2xl"></span>
+          <span id="cart-total" class="font-serif text-2xl tabular-nums"></span>
         </div>
 
         <div class="mt-10 flex flex-col sm:flex-row gap-4">
           <a
             href="/varieties"
-            class="border border-ink px-8 py-4 text-xs uppercase tracking-widest text-center no-underline hover:bg-ink hover:text-cream transition-colors"
+            class="inline-flex min-h-[44px] items-center justify-center border border-ink px-8 py-4 text-xs uppercase tracking-widest text-center no-underline transition-colors hover:bg-ink hover:text-cream focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
           >
             Continue Shopping
           </a>
           <a
             id="checkout-link"
             href="/checkout"
-            class="flex-1 bg-ink text-cream border border-ink px-8 py-4 text-xs uppercase tracking-widest text-center no-underline hover:bg-transparent hover:text-ink transition-colors"
+            class="inline-flex min-h-[44px] flex-1 items-center justify-center bg-ink text-cream border border-ink px-8 py-4 text-xs uppercase tracking-widest text-center no-underline transition-colors hover:bg-transparent hover:text-ink focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
           >
             Proceed to Checkout
           </a>
@@ -103,7 +107,7 @@ import BaseLayout from "../layouts/base-layout.astro";
             <div class="inline-flex items-center border border-ink">
               <button
                 type="button"
-                class="qty-btn px-3 py-1 text-sm hover:bg-ink hover:text-cream transition-colors"
+                class="qty-btn min-h-[36px] min-w-[36px] px-3 py-1 text-sm transition-colors hover:bg-ink hover:text-cream focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
                 data-sku="${item.sku}"
                 data-action="decrement"
                 aria-label="Decrease quantity of ${item.name}"
@@ -111,7 +115,7 @@ import BaseLayout from "../layouts/base-layout.astro";
               <span class="px-3 py-1 text-sm min-w-[2rem] text-center">${item.quantity}</span>
               <button
                 type="button"
-                class="qty-btn px-3 py-1 text-sm hover:bg-ink hover:text-cream transition-colors"
+                class="qty-btn min-h-[36px] min-w-[36px] px-3 py-1 text-sm transition-colors hover:bg-ink hover:text-cream focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
                 data-sku="${item.sku}"
                 data-action="increment"
                 aria-label="Increase quantity of ${item.name}"
@@ -123,7 +127,7 @@ import BaseLayout from "../layouts/base-layout.astro";
           <td class="py-4 text-right">
             <button
               type="button"
-              class="remove-btn text-stone-300 hover:text-ink transition-colors"
+              class="remove-btn inline-flex min-h-[36px] min-w-[36px] items-center justify-center text-stone-300 transition-colors hover:text-ink focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2"
               data-sku="${item.sku}"
               aria-label="Remove ${item.name} from cart"
             >✕</button>

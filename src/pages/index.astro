@@ -1,35 +1,58 @@
 ---
-import { Image } from "astro:assets";
-import heroImage from "../assets/hero.jpg";
-import logo from "../assets/logo.png";
 import BaseLayout from "../layouts/base-layout.astro";
 import VarietyCard from "../components/variety-card.astro";
 import { listPublicVarieties } from "../lib/varieties";
 
 const varieties = await listPublicVarieties(Astro.locals);
 const featured = varieties.slice(0, 3);
+
+const heroAvifSrcSet = [
+  "/runtime-images/hero?w=768&q=52&fit=cover&format=avif 768w",
+  "/runtime-images/hero?w=1024&q=52&fit=cover&format=avif 1024w",
+  "/runtime-images/hero?w=1280&q=52&fit=cover&format=avif 1280w",
+  "/runtime-images/hero?w=1600&q=52&fit=cover&format=avif 1600w",
+  "/runtime-images/hero?w=1920&q=52&fit=cover&format=avif 1920w",
+].join(", ");
+
+const heroWebpSrcSet = [
+  "/runtime-images/hero?w=768&q=54&fit=cover&format=webp 768w",
+  "/runtime-images/hero?w=1024&q=54&fit=cover&format=webp 1024w",
+  "/runtime-images/hero?w=1280&q=54&fit=cover&format=webp 1280w",
+  "/runtime-images/hero?w=1600&q=54&fit=cover&format=webp 1600w",
+  "/runtime-images/hero?w=1920&q=54&fit=cover&format=webp 1920w",
+].join(", ");
+
+const heroJpegSrcSet = [
+  "/runtime-images/hero?w=768&q=60&fit=cover&format=jpg 768w",
+  "/runtime-images/hero?w=1024&q=60&fit=cover&format=jpg 1024w",
+  "/runtime-images/hero?w=1280&q=60&fit=cover&format=jpg 1280w",
+  "/runtime-images/hero?w=1600&q=60&fit=cover&format=jpg 1600w",
+  "/runtime-images/hero?w=1920&q=60&fit=cover&format=jpg 1920w",
+].join(", ");
+
+const logoSrcSet =
+  "/runtime-images/logo?w=144&q=52&fit=cover&format=webp 1x, /runtime-images/logo?w=288&q=52&fit=cover&format=webp 2x";
 ---
 
 <BaseLayout title="Home">
-  <Fragment slot="head">
-    <link rel="preload" as="image" href={heroImage.src} />
-  </Fragment>
-
   <!-- Hero Section -->
-  <section class="relative w-full overflow-hidden">
-    {
-      heroImage && (
-        <Image
-          src={heroImage}
-          alt=""
-          loading="eager"
-          decoding="sync"
-          fetchpriority="high"
-          sizes="100vw"
-          class="w-full h-[70vh] sm:h-[80vh] object-cover"
-        />
-      )
-    }
+  <section class="relative w-full overflow-hidden h-[70vh] sm:h-auto sm:aspect-video sm:max-h-[80vh]">
+    <picture>
+      <source type="image/avif" srcset={heroAvifSrcSet} sizes="100vw" />
+      <source type="image/webp" srcset={heroWebpSrcSet} sizes="100vw" />
+      <img
+        src="/runtime-images/hero?w=1920&q=60&fit=cover&format=jpg"
+        srcset={heroJpegSrcSet}
+        sizes="100vw"
+        alt=""
+        width="1920"
+        height="1080"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        class="absolute inset-0 w-full h-full object-cover"
+      />
+    </picture>
     <div
       class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-ink/90 via-ink/40 to-transparent"
     >
@@ -38,12 +61,14 @@ const featured = varieties.slice(0, 3);
       class="absolute bottom-0 left-0 right-0 px-4 sm:px-8 lg:px-12 pb-10 sm:pb-14 lg:pb-20"
     >
       <div class="inline-block bg-cream/90 p-3 sm:p-4 mb-6">
-        <Image
-          src={logo}
+        <img
+          src="/runtime-images/logo?w=144&q=52&fit=cover&format=webp"
+          srcset={logoSrcSet}
           alt="Ophelia's Flowers logo"
-          width={160}
-          height={160}
+          width="144"
+          height="144"
           loading="eager"
+          decoding="async"
           class="w-20 h-20 sm:w-28 sm:h-28 lg:w-36 lg:h-36"
         />
       </div>
@@ -52,8 +77,8 @@ const featured = varieties.slice(0, 3);
       >
         Ophelia's Flowers
       </h1>
-      <h2 class="font-serif text-2xl sm:text-xl lg:text-3xl tracking tighter text-cream mb-6">Dahlia tubers</h2>
-      <p class="text-cream/90 text-lg sm:text-xl max-w-xl leading-relaxed">
+      <h2 class="mb-6 font-serif text-2xl tracking-tight text-cream sm:text-3xl lg:text-4xl">Dahlia tubers</h2>
+      <p class="max-w-[34ch] text-lg leading-relaxed text-cream/90 sm:text-xl">
         Small-batch dahlias grown with care in the Fraser Valley. Pre-orders open for spring 2026
         planting.
       </p>
@@ -82,38 +107,45 @@ const featured = varieties.slice(0, 3);
 
   <!-- Featured Varieties — Asymmetric Grid -->
   <section class="px-4 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-20">
-    <div class="flex items-baseline justify-between mb-8 lg:mb-12 max-w-6xl">
-      <h2>Featured Varieties</h2>
+    <div class="max-w-6xl">
+      <div class="mb-8 flex flex-col gap-4 border-b border-ink pb-6 sm:flex-row sm:items-end sm:justify-between lg:mb-12">
+        <h2 class="max-w-[20ch]">Featured Varieties</h2>
+        <p class="max-w-[52ch] text-sm leading-relaxed text-stone-500">
+          A small editorial selection for the season, with one standout bloom and two companions.
+        </p>
+      </div>
+
+      <div
+        class="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-3 lg:gap-8"
+      >
+        {
+          featured[0] && (
+            <div class="lg:col-span-2 lg:row-span-2">
+              <VarietyCard variety={featured[0]} featured />
+            </div>
+          )
+        }
+        {
+          featured[1] && (
+            <div>
+              <VarietyCard variety={featured[1]} />
+            </div>
+          )
+        }
+        {
+          featured[2] && (
+            <div>
+              <VarietyCard variety={featured[2]} />
+            </div>
+          )
+        }
+      </div>
+
       <a
         href="/varieties"
-        class="text-xs uppercase tracking-widest text-stone-500 no-underline hover:text-ink transition-colors"
-        >View All</a
+        class="mt-8 inline-flex min-h-[44px] items-center border border-ink px-5 py-3 text-xs uppercase tracking-widest no-underline transition-colors hover:bg-ink hover:text-cream"
+        >View All Varieties</a
       >
-    </div>
-    <div
-      class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-6xl"
-    >
-      {
-        featured[0] && (
-          <div class="lg:col-span-2 lg:row-span-2">
-            <VarietyCard variety={featured[0]} featured />
-          </div>
-        )
-      }
-      {
-        featured[1] && (
-          <div>
-            <VarietyCard variety={featured[1]} />
-          </div>
-        )
-      }
-      {
-        featured[2] && (
-          <div>
-            <VarietyCard variety={featured[2]} />
-          </div>
-        )
-      }
     </div>
   </section>
 </BaseLayout>

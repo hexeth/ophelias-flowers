@@ -3,6 +3,8 @@ import BaseLayout from "../layouts/base-layout.astro";
 import { Image } from "astro:assets";
 import heroImage from "../assets/hero.jpg";
 
+export const prerender = true;
+
 const title = "About";
 ---
 
@@ -13,22 +15,23 @@ const title = "About";
       <div 
         class="px-4 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-20 lg:border-r border-ink flex flex-col justify-center min-h-[70vh]"
       >
+        <p class="mb-5 text-xs uppercase tracking-widest text-stone-500">Our Story</p>
         <h1 
-          class="font-serif text-6xl sm:text-7xl lg:text-8xl tracking-tighter leading-[0.9] text-ink mb-12"
+          class="font-serif text-6xl sm:text-7xl lg:text-8xl tracking-tighter leading-[0.9] text-ink mb-10"
         >
           About <br/> Us.
         </h1>
-        <div class="max-w-md space-y-6 text-stone-500 leading-relaxed text-lg">
+        <div class="max-w-[62ch] border-t border-stone-300 pt-8 text-base leading-relaxed text-stone-500 sm:text-lg sm:leading-relaxed">
           <p>
             Welcome to Ophelia’s Flowers! We’re a small, family-run dahlia farm nestled in the beautiful Fraser Valley. Our “farm” is truly a labor of love—tended entirely by our family and inspired by our 7‑year‑old daughter, Ophelia, for whom it’s named.
           </p>
-          <p>
+          <p class="mt-6">
             Every tuber we grow is planted, cared for, dug, and stored by hand. It’s slow, meaningful work, and we love every part of it. From July through October, our roadside stand is filled with fresh, seasonal bouquets—hand‑tied with care and overflowing with color from our fields.
           </p>
-          <p>
+          <p class="mt-6">
             We take tuber health seriously. We monitor our plants closely, sanitize our snips, and grow every tuber right here on our farm. While we follow strict sanitation procedures, we prioritize transparent information to ensure you receive healthy, robust tubers.
           </p>
-          <p>
+          <p class="mt-6">
             Each hand-selected tuber will have a firm body, intact neck, and a visible eye. We are diligent with labeling, but if your plant doesn’t match our photos, please reach out. We're always happy to help!
           </p>
         </div>
@@ -39,7 +42,14 @@ const title = "About";
         <Image 
           src={heroImage} 
           alt="Close up of a dahlia bloom in the garden" 
-          class="absolute inset-0 w-full h-full object-cover grayscale-[0.1]"
+          format="webp"
+          width={1600}
+          height={1067}
+          quality={58}
+          loading="eager"
+          fetchpriority="high"
+          sizes="(max-width: 1023px) 100vw, 50vw"
+          class="absolute inset-0 w-full h-full object-cover"
         />
       </div>
     </div>

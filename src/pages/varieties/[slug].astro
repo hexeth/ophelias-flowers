@@ -7,6 +7,11 @@ import {
   stockDetailLabels,
 } from "../../lib/varieties";
 import { renderDescriptionHtml } from "../../lib/catalog/render";
+import {
+  buildCatalogImageSrcSet,
+  buildCatalogImageUrl,
+  isCatalogImagePath,
+} from "../../lib/catalog/image-urls";
 import { formatPrice } from "../../lib/commerce/pricing";
 
 export const prerender = false;
@@ -31,6 +36,21 @@ const { name, price, salePrice, stock, category, color, bloomSize, height, image
     imageUrl: "/catalog-seed/placeholder-variety.jpg",
   };
 const displayPrice = variety ? getDisplayPrice(variety) : 0;
+const detailImageSrc = buildCatalogImageUrl(imageUrl, {
+  width: 1080,
+  quality: 72,
+  fit: "cover",
+  format: "auto",
+});
+const detailImageSrcSet = buildCatalogImageSrcSet(
+  imageUrl,
+  [360, 540, 720, 900, 1080, 1200],
+  {
+    quality: 72,
+    fit: "cover",
+    format: "auto",
+  },
+);
 
 const canAddToCart = stock !== "sold-out";
 ---
@@ -44,12 +64,20 @@ const canAddToCart = stock !== "sold-out";
       variety ? (
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl">
       <div class="border border-ink">
-        <div class="aspect-[3/4] overflow-hidden">
+        <div
+          class="aspect-[3/4] overflow-hidden bg-stone-200"
+          transition:name={`variety-image-${slug}`}
+        >
           <img
-            src={imageUrl}
+            src={detailImageSrc}
             alt={`${name} dahlia bloom`}
             loading="eager"
-            decoding="async"
+            decoding="sync"
+            fetchpriority="high"
+            width="900"
+            height="1200"
+            srcset={detailImageSrcSet}
+            sizes={isCatalogImagePath(imageUrl) ? "(max-width: 1023px) 100vw, 50vw" : undefined}
             class="w-full h-full object-cover"
           />
         </div>
