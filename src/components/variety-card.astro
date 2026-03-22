@@ -94,7 +94,29 @@ const imageSizes = featured
 <script>
   const prefetchedVarieties = new Set<string>();
 
+  function shouldPrefetch() {
+    const nav = navigator as Navigator & {
+      connection?: {
+        saveData?: boolean;
+        effectiveType?: string;
+      };
+    };
+    const connection = nav.connection;
+    if (connection?.saveData) {
+      return false;
+    }
+    const effectiveType = connection?.effectiveType ?? "";
+    if (effectiveType.includes("2g")) {
+      return false;
+    }
+    return true;
+  }
+
   function prefetchVariety(link: HTMLAnchorElement) {
+    if (!shouldPrefetch()) {
+      return;
+    }
+
     const href = link.href;
     if (prefetchedVarieties.has(href)) {
       return;
@@ -102,15 +124,26 @@ const imageSizes = featured
 
     prefetchedVarieties.add(href);
 
-    // Warm page response cache to reduce transition swap latency.
-    fetch(href, { credentials: "same-origin" }).catch(() => {});
+    const runPrefetch = () => {
+      // Warm page response cache to reduce transition swap latency.
+      fetch(href, { credentials: "same-origin" }).catch(() => {});
 
-    const transitionImage = link.dataset.transitionImage;
-    if (transitionImage) {
-      const img = new Image();
-      img.decoding = "async";
-      img.src = transitionImage;
+      const transitionImage = link.dataset.transitionImage;
+      if (transitionImage) {
+        const img = new Image();
+        img.decoding = "async";
+        img.src = transitionImage;
+      }
+    };
+
+    const runtime = globalThis as typeof globalThis & {
+      requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => void;
+    };
+    if (typeof runtime.requestIdleCallback === "function") {
+      runtime.requestIdleCallback(runPrefetch, { timeout: 1200 });
+      return;
     }
+    globalThis.setTimeout(runPrefetch, 0);
   }
 
   function handleVarietyPrefetch(event: Event) {
@@ -127,5 +160,4 @@ const imageSizes = featured
 
   document.addEventListener("pointerenter", handleVarietyPrefetch, true);
   document.addEventListener("focusin", handleVarietyPrefetch);
-  document.addEventListener("touchstart", handleVarietyPrefetch, { passive: true });
 </script>

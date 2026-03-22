@@ -29,6 +29,28 @@ test.describe("homepage", () => {
       page.getByRole("heading", { name: "All Varieties" }),
     ).toBeVisible();
   });
+
+  test("mobile menu and search keep working after SPA navigation", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/");
+
+    const menuToggle = page.locator("#mobile-menu-toggle");
+    const searchToggle = page.locator("#mobile-search-toggle");
+
+    await menuToggle.click();
+    await expect(menuToggle).toHaveAttribute("aria-expanded", "true");
+
+    await page.locator('#main-nav a[href="/varieties"]').click();
+    await expect(page).toHaveURL(/\/varieties/);
+
+    await menuToggle.click();
+    await expect(menuToggle).toHaveAttribute("aria-expanded", "true");
+
+    await searchToggle.click();
+    await expect(searchToggle).toHaveAttribute("aria-expanded", "true");
+  });
 });
 
 test.describe("variety detail", () => {

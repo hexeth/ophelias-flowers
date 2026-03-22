@@ -17,6 +17,8 @@ const {
   title,
   description = "Ophelia's Flowers — Dahlia tubers for the passionate gardener.",
 } = Astro.props;
+const isVarietiesTransitionRoute =
+  Astro.url.pathname === "/varieties" || Astro.url.pathname.startsWith("/varieties/");
 ---
 
 <!doctype html>
@@ -178,9 +180,17 @@ const {
 
     <Breadcrumbs />
 
-    <main class="flex-1" transition:animate={fade({ duration: '0.2s' })}>
-      <slot />
-    </main>
+    {
+      isVarietiesTransitionRoute ? (
+        <main class="flex-1">
+          <slot />
+        </main>
+      ) : (
+        <main class="flex-1" transition:animate={fade({ duration: "0.2s" })}>
+          <slot />
+        </main>
+      )
+    }
 
     <footer
       class="border-t border-ink px-4 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-16 mt-auto"
@@ -248,6 +258,8 @@ const {
     <script>
       import { loadCart, getCartItemCount } from "../lib/commerce/cart";
 
+      let mobileControlsBound = false;
+
       function updateCartCount() {
         const cartCount = document.getElementById("cart-count");
         const cartCountMobile = document.getElementById("cart-count-mobile");
@@ -261,46 +273,14 @@ const {
         });
       }
 
-      // Update cart count on every page load (initial + after SPA navigation)
-      document.addEventListener("astro:page-load", updateCartCount);
+      function closeMobilePanels() {
+        const toggle = document.getElementById("mobile-menu-toggle");
+        const mobileNav = document.getElementById("main-nav");
+        const iconOpen = document.getElementById("menu-icon-open");
+        const iconClose = document.getElementById("menu-icon-close");
+        const searchToggle = document.getElementById("mobile-search-toggle");
+        const mobileSearchPanel = document.getElementById("mobile-search-panel");
 
-      // Mobile menu toggle — runs once; header persists across navigations
-      const toggle = document.getElementById("mobile-menu-toggle");
-      const mobileNav = document.getElementById("main-nav");
-      const iconOpen = document.getElementById("menu-icon-open");
-      const iconClose = document.getElementById("menu-icon-close");
-      const searchToggle = document.getElementById("mobile-search-toggle");
-      const mobileSearchPanel = document.getElementById("mobile-search-panel");
-      const mobileSearchInput = document.getElementById(
-        "nav-search-mobile",
-      ) as HTMLInputElement | null;
-
-      if (toggle && mobileNav && iconOpen && iconClose) {
-        toggle.addEventListener("click", () => {
-          const isOpen = toggle.getAttribute("aria-expanded") === "true";
-          toggle.setAttribute("aria-expanded", String(!isOpen));
-          toggle.setAttribute("aria-label", isOpen ? "Open menu" : "Close menu");
-          mobileNav.classList.toggle("hidden");
-          iconOpen.classList.toggle("hidden");
-          iconClose.classList.toggle("hidden");
-        });
-      }
-
-      if (searchToggle && mobileSearchPanel) {
-        searchToggle.addEventListener("click", () => {
-          const isOpen = searchToggle.getAttribute("aria-expanded") === "true";
-          searchToggle.setAttribute("aria-expanded", String(!isOpen));
-          searchToggle.setAttribute("aria-label", isOpen ? "Open search" : "Close search");
-          mobileSearchPanel.classList.toggle("hidden");
-
-          if (!isOpen && mobileSearchInput) {
-            mobileSearchInput.focus();
-          }
-        });
-      }
-
-      // Close mobile menu and search panel before each SPA navigation
-      document.addEventListener("astro:before-swap", () => {
         if (toggle && mobileNav && iconOpen && iconClose) {
           toggle.setAttribute("aria-expanded", "false");
           toggle.setAttribute("aria-label", "Open menu");
@@ -308,12 +288,73 @@ const {
           iconOpen.classList.remove("hidden");
           iconClose.classList.add("hidden");
         }
+
         if (searchToggle && mobileSearchPanel) {
           searchToggle.setAttribute("aria-expanded", "false");
           searchToggle.setAttribute("aria-label", "Open search");
           mobileSearchPanel.classList.add("hidden");
         }
-      });
+      }
+
+      function initMobileControls() {
+        if (mobileControlsBound) {
+          return;
+        }
+        mobileControlsBound = true;
+
+        // Delegate clicks so controls keep working after Astro swaps DOM nodes.
+        document.addEventListener("click", (event) => {
+          const target = event.target;
+          if (!(target instanceof Element)) {
+            return;
+          }
+
+          const menuToggle = target.closest("#mobile-menu-toggle");
+          if (menuToggle instanceof HTMLButtonElement) {
+            const mobileNav = document.getElementById("main-nav");
+            const iconOpen = document.getElementById("menu-icon-open");
+            const iconClose = document.getElementById("menu-icon-close");
+            if (mobileNav && iconOpen && iconClose) {
+              const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+              menuToggle.setAttribute("aria-expanded", String(!isOpen));
+              menuToggle.setAttribute("aria-label", isOpen ? "Open menu" : "Close menu");
+              mobileNav.classList.toggle("hidden");
+              iconOpen.classList.toggle("hidden");
+              iconClose.classList.toggle("hidden");
+            }
+            return;
+          }
+
+          const searchToggle = target.closest("#mobile-search-toggle");
+          if (searchToggle instanceof HTMLButtonElement) {
+            const mobileSearchPanel = document.getElementById("mobile-search-panel");
+            const mobileSearchInput = document.getElementById(
+              "nav-search-mobile",
+            ) as HTMLInputElement | null;
+            if (mobileSearchPanel) {
+              const isOpen = searchToggle.getAttribute("aria-expanded") === "true";
+              searchToggle.setAttribute("aria-expanded", String(!isOpen));
+              searchToggle.setAttribute("aria-label", isOpen ? "Open search" : "Close search");
+              mobileSearchPanel.classList.toggle("hidden");
+
+              if (!isOpen && mobileSearchInput) {
+                mobileSearchInput.focus();
+              }
+            }
+          }
+        });
+      }
+
+      function initLayoutBehaviors() {
+        updateCartCount();
+        initMobileControls();
+      }
+
+      // Initialize on initial load and every Astro page navigation.
+      document.addEventListener("astro:page-load", initLayoutBehaviors);
+
+      // Close mobile menu and search panel before each SPA navigation.
+      document.addEventListener("astro:before-swap", closeMobilePanels);
     </script>
 
     <SiteSearchAutocomplete />
