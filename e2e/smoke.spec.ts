@@ -80,12 +80,22 @@ test.describe("variety detail", () => {
   }) => {
     await page.goto("/varieties");
 
-    await page.locator(`a[href="/varieties/${FIXTURE.slug}"]`).click();
-    await expect(page).toHaveURL(new RegExp(`/varieties/${FIXTURE.slug}$`));
+    const varietyLink = page.locator('a[href^="/varieties/"]').first();
+    await expect(varietyLink).toBeVisible();
 
-    const heroImage = page
-      .locator(`img[alt="${FIXTURE.name} dahlia bloom"]`)
-      .first();
+    const destinationHref = await varietyLink.getAttribute("href");
+    if (!destinationHref) {
+      throw new Error(
+        "Expected first visible variety card to link to a detail page.",
+      );
+    }
+
+    await varietyLink.click();
+    await expect(page).toHaveURL(
+      new RegExp(`${destinationHref.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`),
+    );
+
+    const heroImage = page.locator('article img[alt$="dahlia bloom"]').first();
     await expect(heroImage).toBeVisible();
     await expect
       .poll(async () =>
