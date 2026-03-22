@@ -259,6 +259,7 @@ const isVarietiesTransitionRoute =
       import { loadCart, getCartItemCount } from "../lib/commerce/cart";
 
       let mobileControlsBound = false;
+      let varietyTransitionBound = false;
 
       function updateCartCount() {
         const cartCount = document.getElementById("cart-count");
@@ -345,9 +346,53 @@ const isVarietiesTransitionRoute =
         });
       }
 
+      function initVarietyTransitionHandling() {
+        if (varietyTransitionBound) {
+          return;
+        }
+        varietyTransitionBound = true;
+
+        document.addEventListener(
+          "click",
+          (event) => {
+            if (!(event instanceof MouseEvent)) {
+              return;
+            }
+
+            if (
+              event.defaultPrevented ||
+              event.button !== 0 ||
+              event.metaKey ||
+              event.ctrlKey ||
+              event.shiftKey ||
+              event.altKey
+            ) {
+              return;
+            }
+
+            const target = event.target;
+            if (!(target instanceof Element)) {
+              return;
+            }
+
+            const link = target.closest("a[data-variety-transition-trigger]");
+            if (!(link instanceof HTMLAnchorElement)) {
+              return;
+            }
+
+            const media = link.querySelector("[data-variety-transition-media]");
+            if (media instanceof HTMLElement) {
+              media.style.viewTransitionName = "variety-image-active";
+            }
+          },
+          true,
+        );
+      }
+
       function initLayoutBehaviors() {
         updateCartCount();
         initMobileControls();
+        initVarietyTransitionHandling();
       }
 
       // Initialize on initial load and every Astro page navigation.

@@ -23,7 +23,7 @@ export default defineConfig({
     command: "npx astro dev --port 4321",
     url: "http://localhost:4321",
     reuseExistingServer: !process.env.CI,
-    timeout: 30_000,
+    timeout: 60_000,
   },
   globalSetup: "./e2e/global-setup.ts",
   globalTeardown: "./e2e/global-teardown.ts",

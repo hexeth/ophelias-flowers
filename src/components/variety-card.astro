@@ -22,12 +22,6 @@ const imageSrc = buildCatalogImageUrl(imageUrl, {
   width: featured ? 720 : 560,
   fit: "cover",
 });
-const detailTransitionImageSrc = buildCatalogImageUrl(imageUrl, {
-  format: "auto",
-  quality: 72,
-  width: 1080,
-  fit: "cover",
-});
 const imageSrcSet = buildCatalogImageSrcSet(
   imageUrl,
   featured ? [320, 480, 640, 720, 960] : [256, 384, 512, 640, 768],
@@ -46,12 +40,12 @@ const imageSizes = featured
   <a
     href={`/varieties/${slug}`}
     class="block no-underline h-full flex flex-col"
-    data-prefetch-variety
-    data-transition-image={detailTransitionImageSrc}
+    data-variety-transition-trigger
+    data-variety-slug={slug}
   >
     <div
       class={`overflow-hidden bg-stone-200 ${featured ? "aspect-[3/4] sm:aspect-[4/3] lg:aspect-[3/4]" : "aspect-[3/4]"}`}
-      transition:name={`variety-image-${slug}`}
+      data-variety-transition-media
     >
       <img
         src={imageSrc}
@@ -90,117 +84,3 @@ const imageSizes = featured
     </div>
   </a>
 </article>
-
-<script>
-  const prefetchedVarieties = new Set<string>();
-  const prefetchInFlight = new Map<string, Promise<void>>();
-
-  function shouldPrefetch() {
-    const nav = navigator as Navigator & {
-      connection?: {
-        saveData?: boolean;
-        effectiveType?: string;
-      };
-    };
-    const connection = nav.connection;
-    if (connection?.saveData) {
-      return false;
-    }
-    const effectiveType = connection?.effectiveType ?? "";
-    if (effectiveType.includes("2g")) {
-      return false;
-    }
-    return true;
-  }
-
-  function prefetchVariety(link: HTMLAnchorElement, mode: "idle" | "urgent" = "idle") {
-    if (!shouldPrefetch()) {
-      return Promise.resolve();
-    }
-
-    const href = link.href;
-    const inFlight = prefetchInFlight.get(href);
-    if (inFlight) {
-      return inFlight;
-    }
-
-    if (prefetchedVarieties.has(href)) {
-      return Promise.resolve();
-    }
-
-    prefetchedVarieties.add(href);
-
-    const runPrefetch = async () => {
-      const transitionImage = link.dataset.transitionImage;
-      const tasks: Promise<unknown>[] = [
-        // Warm page response cache to reduce transition swap latency.
-        fetch(href, { credentials: "same-origin" }).catch(() => undefined),
-      ];
-
-      if (transitionImage) {
-        const img = new Image();
-        img.decoding = "async";
-        img.src = transitionImage;
-        tasks.push(img.decode().catch(() => undefined));
-      }
-
-      await Promise.all(tasks);
-    };
-
-    const startPrefetch = () => {
-      const promise = runPrefetch().finally(() => {
-        prefetchInFlight.delete(href);
-      });
-      prefetchInFlight.set(href, promise);
-      return promise;
-    };
-
-    if (mode === "urgent") {
-      return startPrefetch();
-    }
-
-    const runtime = globalThis as typeof globalThis & {
-      requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
-      cancelIdleCallback?: (id: number) => void;
-    };
-    if (typeof runtime.requestIdleCallback === "function") {
-      const idleId = runtime.requestIdleCallback(() => {
-        startPrefetch();
-      }, { timeout: 1200 });
-      return new Promise<void>((resolve) => {
-        globalThis.setTimeout(() => {
-          if (typeof runtime.cancelIdleCallback === "function") {
-            runtime.cancelIdleCallback(idleId);
-          }
-          startPrefetch().finally(() => resolve());
-        }, 160);
-      });
-    }
-    return new Promise<void>((resolve) => {
-      globalThis.setTimeout(() => {
-        startPrefetch().finally(() => resolve());
-      }, 0);
-    });
-  }
-
-  function handleVarietyPrefetch(event: Event) {
-    if (event instanceof PointerEvent && event.button !== 0) {
-      return;
-    }
-
-    const target = event.target;
-    if (!(target instanceof Element)) {
-      return;
-    }
-
-    const link = target.closest("a[data-prefetch-variety]");
-    if (link instanceof HTMLAnchorElement) {
-      const mode = event.type === "pointerdown" ? "urgent" : "idle";
-      prefetchVariety(link, mode).catch(() => {});
-    }
-  }
-
-  document.addEventListener("pointerenter", handleVarietyPrefetch, true);
-  document.addEventListener("pointerdown", handleVarietyPrefetch, true);
-  document.addEventListener("focusin", handleVarietyPrefetch);
-</script>

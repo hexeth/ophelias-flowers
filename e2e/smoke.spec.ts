@@ -38,18 +38,23 @@ test.describe("homepage", () => {
 
     const menuToggle = page.locator("#mobile-menu-toggle");
     const searchToggle = page.locator("#mobile-search-toggle");
+    const mobileNav = page.locator("#main-nav");
+    const mobileSearchPanel = page.locator("#mobile-search-panel");
 
     await menuToggle.click();
     await expect(menuToggle).toHaveAttribute("aria-expanded", "true");
+    await expect(mobileNav).toBeVisible();
 
     await page.locator('#main-nav a[href="/varieties"]').click();
     await expect(page).toHaveURL(/\/varieties/);
 
     await menuToggle.click();
     await expect(menuToggle).toHaveAttribute("aria-expanded", "true");
+    await expect(mobileNav).toBeVisible();
 
     await searchToggle.click();
     await expect(searchToggle).toHaveAttribute("aria-expanded", "true");
+    await expect(mobileSearchPanel).toBeVisible();
   });
 });
 
@@ -68,6 +73,28 @@ test.describe("variety detail", () => {
     await expect(page.locator("button#add-to-cart")).toContainText(
       "Add to Cart",
     );
+  });
+
+  test("detail image loads after navigating from the varieties list", async ({
+    page,
+  }) => {
+    await page.goto("/varieties");
+
+    await page.locator(`a[href="/varieties/${FIXTURE.slug}"]`).click();
+    await expect(page).toHaveURL(new RegExp(`/varieties/${FIXTURE.slug}$`));
+
+    const heroImage = page
+      .locator(`img[alt="${FIXTURE.name} dahlia bloom"]`)
+      .first();
+    await expect(heroImage).toBeVisible();
+    await expect
+      .poll(async () =>
+        heroImage.evaluate((image) => {
+          const img = image as HTMLImageElement;
+          return img.complete && img.naturalWidth > 0;
+        }),
+      )
+      .toBe(true);
   });
 });
 
