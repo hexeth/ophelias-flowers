@@ -93,6 +93,7 @@ const imageSizes = featured
 
 <script>
   const prefetchedVarieties = new Set<string>();
+  const prefetchInFlight = new Map<string, Promise<void>>();
 
   function shouldPrefetch() {
     const nav = navigator as Navigator & {
@@ -112,41 +113,81 @@ const imageSizes = featured
     return true;
   }
 
-  function prefetchVariety(link: HTMLAnchorElement) {
+  function prefetchVariety(link: HTMLAnchorElement, mode: "idle" | "urgent" = "idle") {
     if (!shouldPrefetch()) {
-      return;
+      return Promise.resolve();
     }
 
     const href = link.href;
+    const inFlight = prefetchInFlight.get(href);
+    if (inFlight) {
+      return inFlight;
+    }
+
     if (prefetchedVarieties.has(href)) {
-      return;
+      return Promise.resolve();
     }
 
     prefetchedVarieties.add(href);
 
-    const runPrefetch = () => {
-      // Warm page response cache to reduce transition swap latency.
-      fetch(href, { credentials: "same-origin" }).catch(() => {});
-
+    const runPrefetch = async () => {
       const transitionImage = link.dataset.transitionImage;
+      const tasks: Promise<unknown>[] = [
+        // Warm page response cache to reduce transition swap latency.
+        fetch(href, { credentials: "same-origin" }).catch(() => undefined),
+      ];
+
       if (transitionImage) {
         const img = new Image();
         img.decoding = "async";
         img.src = transitionImage;
+        tasks.push(img.decode().catch(() => undefined));
       }
+
+      await Promise.all(tasks);
     };
 
+    const startPrefetch = () => {
+      const promise = runPrefetch().finally(() => {
+        prefetchInFlight.delete(href);
+      });
+      prefetchInFlight.set(href, promise);
+      return promise;
+    };
+
+    if (mode === "urgent") {
+      return startPrefetch();
+    }
+
     const runtime = globalThis as typeof globalThis & {
-      requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => void;
+      requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
     };
     if (typeof runtime.requestIdleCallback === "function") {
-      runtime.requestIdleCallback(runPrefetch, { timeout: 1200 });
-      return;
+      const idleId = runtime.requestIdleCallback(() => {
+        startPrefetch();
+      }, { timeout: 1200 });
+      return new Promise<void>((resolve) => {
+        globalThis.setTimeout(() => {
+          if (typeof runtime.cancelIdleCallback === "function") {
+            runtime.cancelIdleCallback(idleId);
+          }
+          startPrefetch().finally(() => resolve());
+        }, 160);
+      });
     }
-    globalThis.setTimeout(runPrefetch, 0);
+    return new Promise<void>((resolve) => {
+      globalThis.setTimeout(() => {
+        startPrefetch().finally(() => resolve());
+      }, 0);
+    });
   }
 
   function handleVarietyPrefetch(event: Event) {
+    if (event instanceof PointerEvent && event.button !== 0) {
+      return;
+    }
+
     const target = event.target;
     if (!(target instanceof Element)) {
       return;
@@ -154,10 +195,12 @@ const imageSizes = featured
 
     const link = target.closest("a[data-prefetch-variety]");
     if (link instanceof HTMLAnchorElement) {
-      prefetchVariety(link);
+      const mode = event.type === "pointerdown" ? "urgent" : "idle";
+      prefetchVariety(link, mode).catch(() => {});
     }
   }
 
   document.addEventListener("pointerenter", handleVarietyPrefetch, true);
+  document.addEventListener("pointerdown", handleVarietyPrefetch, true);
   document.addEventListener("focusin", handleVarietyPrefetch);
 </script>
